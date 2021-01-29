@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,333 +9,609 @@ import {
 	Image,
 	Text,
 	View,
-	ScrollView
+	ScrollView,
+	TouchableOpacity,
 } from 'react-native';
-// IMPORT created components
-import {
-	ButtonTouchableHighlight,
-	ImageAtLeftTextsAtRight,
-	Gap
-} from './components';
-// IMPORT screens
-import {
-	CreateAccountScreen,
-	LoginScreen,
-	ListViewProductCategoryScreen,
-	ShopScreen,
-	ShopCategoryViewScreen,
-	MenStylingProductsScreen,
-	ProductDetailsScreen,
-} from "./screens";
 
+// IMPORT created components
+// import {
+//	ButtonTouchableHighlight,
+//	ImageAtLeftTextsAtRight,
+//	Gap
+// } from './components/ready_made_components';
+
+// import NetInfo from "@react-native-community/netinfo";
+
+// import {
+// 	request_multiple_permissions,
+// } from "./handy_functions/permissions_functions"
+
+
+
+// IMPORT connected screens
+import {
+	ConnectedSignUpScreen,
+	ConnectedSocialPostScreen,
+	ConnectedIndividualSocialPost,
+	ConnectedAdvertisementScreen,
+	ConnectedIndividualAdvertisement,
+	ConnectedPageScreen,
+	ConnectedIndividualPage,
+	ConnectedBookScreen,
+	ConnectedIndividualBook,
+	ConnectedSportScreen,
+	ConnectedIndividualSport,
+} from "../redux_stuff/connected_components";
 
 
 const Stack = createStackNavigator();
 
-function SignInStack() {
+function SignInStack({navigation}) {
 	return (
 		<Stack.Navigator
-			// headerMode='none'
+			headerMode='none'
 		>
-			<Stack.Screen name="Buy Item" component={
-				ProductDetailsScreen
-			} 
+			<Stack.Screen name="Login" component={ ConnectedLoginScreen }
 				options={{ 
-				 headerShown:true,
-				 title: 'Men',
-				 headerTitleAlign: 'center',
-				 headerBackTitleVisible: false,
-				 headerLeft: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-
-					),
-				 headerRight: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-					)
+					headerShown:true,
+					title: 'Login',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
 				}}
 			/>
 
-
-
-
-			<Stack.Screen name="Men" component={
-				MenStylingProductsScreen
-			} 
+			<Stack.Screen name="SignUp" component={ ConnectedSignUpScreen }
 				options={{ 
-				 headerShown:true,
-				 title: 'Men',
-				 headerTitleAlign: 'center',
-				 headerBackTitleVisible: false,
-				 headerLeft: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-
-					),
-				 headerRight: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-					)
+					headerShown:true,
+					title: 'Login',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
 				}}
 			/>
 
-			<Stack.Screen name="Shop Category" component={
-				ShopCategoryViewScreen
-			} 
-				options={{ 
-				 headerShown:true,
-				 title: 'Shop',
-				 headerTitleAlign: 'center',
-				 headerBackTitleVisible: false,
-				 headerLeft: () => (
-						<Text
-							style={{
-								fontSize: 20,
-								paddingLeft:10,
-								color:'#e2e4e8'
-
-							}} 
-						>
-							Category
-						</Text>             
-					),
-				 headerRight: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-					)
-				}}
-			/>
-
-
-			<Stack.Screen name="Shop" component={
-				ShopScreen
-			} 
-				options={{ 
-				 headerShown:true,
-				 title: 'Shop',
-				 headerTitleAlign: 'center',
-				 headerBackTitleVisible: false,
-				 headerLeft: () => (
-						<Text
-							style={{
-								fontSize: 20,
-								paddingLeft:10,
-								color:'#e2e4e8'
-
-							}} 
-						>
-							Category
-						</Text>             
-					),
-				 headerRight: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-					)
-				}}
-			/>
-
-
-			<Stack.Screen name="List View" component={ListViewProductCategoryScreen} 
-				options={{ 
-				 headerShown:true,
-				 title: 'Login',
-				 headerTitleAlign: 'center',
-				 headerBackTitleVisible: false,
-				 headerRight: () => (
-						<Text
-							style={{
-								fontSize: 20,
-								paddingRight:10
-							}} 
-						>
-							Edit
-						</Text>             
-					),
-				 headerLeft: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-					)
-				}}
-			/>
-
-			<Stack.Screen name="CreateAccount" component={CreateAccountScreen} 
-				options={{ 
-					headerShown:false
-				}}
-			/>
-
-			<Stack.Screen name="Login" component={LoginScreen} 
-				options={{ 
-				 headerShown:true,
-				 title: 'Login',
-				 headerShown: true,
-				 headerTitleAlign: 'center',
-				 headerBackTitleVisible: false,
-				 headerLeft: () => (
-					<Image
-						source={require('./images/samosa.jpg')}
-						style={{
-							resizeMode: "center",
-							height: 40,
-							width: 40,
-							paddingLeft: 50,
-						}}
-					/>
-				 ) ,// function
-				 // headerBackTitle: ,
-				 
-				 // headerStyle: ,// style object for header e.g background or color
-				 // headerLeftContainerStyle: ,// style object
-				 // headerRightContainerStyle: ,// style object
-				 // headerTitleContainerStyle: ,// style object
-				 // headerTitleStyle: ,// style object
-				 // headerBackTitleStyle: ,// style object
-			 
-				 // header: , //function returning component to use as header
-				 // headerBackground: ,// function returning element that becomes bg
-				 // headerBackImage: ,// function returning component for header back image
-				 // headerRight: ,// function returning headers right component
-			 
-				 // headerStatusBarHeight: ,
-				 // headerTransparent: true / false,
-				 // headerTintColor: ,
-				}}
-			/>
 		</Stack.Navigator>
 	);
 }
 
 
+function InnerStack({navigation}) {
+	return (
+		<Stack.Navigator
+			// headerMode='none'
+		>
 
+			<Stack.Screen name="BlogPost" component={ ConnectedSocialPostScreen }
+				options={{ 
+					headerShown:true,
+					title: 'BlogPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+		
+			<Stack.Screen name="Video" component={ ConnectedPageScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Video',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+		
+			<Stack.Screen name="Image" component={ ConnectedBookScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Sport" component={ ConnectedSportScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Ad" component={ ConnectedAdvertisementScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="ConnectedIndividualSocialPost" component={ConnectedIndividualSocialPost}
+				options={{ 
+					headerShown:true,
+					title: 'Individual BlogPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+		
+			<Stack.Screen name="Individual_Video" component={ConnectedIndividualAdvertisement}
+				options={{ 
+					headerShown:true,
+					title: 'Individual Video',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="ConnectedIndividualBook" component={ConnectedIndividualBook}
+				options={{ 
+					headerShown:true,
+					title: 'Individual Video',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="ConnectedIndividualSport" component={ConnectedIndividualSport}
+				options={{ 
+					headerShown:true,
+					title: 'Individual Video',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+	
+			<Stack.Screen name="Individual_Image" component={ConnectedIndividualPage}
+				options={{ 
+					headerShown:true,
+					title: 'Individual Image',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+		
+			<Stack.Screen name="Fashion_Blogs" component={ConnectedSocialPostScreen}
+				payload_for_filter = {{category: 'Fashion'}}
+				options={{ 
+					headerShown:true,
+					title: 'Fashion Blogs',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Food_Blogs" component={ConnectedSocialPostScreen}
+				payload_for_filter = {{category: 'Food'}}
+				options={{ 
+					headerShown:true,
+					title: 'Food Blogs',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Travel_Blogs" component={ConnectedSocialPostScreen}
+				payload_for_filter = {{category: 'Travel'}}
+				options={{ 
+					headerShown:true,
+					title: 'Travel Blogs',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Lifestyle_Blogs" component={ConnectedSocialPostScreen}
+				payload_for_filter = {{category: 'Lifestyle'}}
+				options={{ 
+					headerShown:true,
+					title: 'Lifestyle Blogs',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Fitness_Blogs" component={ConnectedSocialPostScreen}
+				payload_for_filter = {{category: 'Fitness'}}
+				options={{ 
+					headerShown:true,
+					title: 'Fitness Blogs',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="DIY_Blogs" component={ConnectedSocialPostScreen}
+				payload_for_filter = {{category: 'DIY'}}
+				options={{ 
+					headerShown:true,
+					title: 'DIY Blogs',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Film_&_Animation_Videos" component={ConnectedPageScreen}
+				payload_for_filter = {{category: 'Film & Animation'}}
+				options={{ 
+					headerShown:true,
+					title: 'Film & Animation Videos',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Autos_&_Vehicles_Videos" component={ConnectedPageScreen}
+				payload_for_filter = {{category: 'Autos & Vehicles'}}
+				options={{ 
+					headerShown:true,
+					title: 'Autos & Vehicles Videos',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Pets_&_Animals_Videos" component={ConnectedPageScreen}
+				payload_for_filter = {{category: 'Pets & Animals'}}
+				options={{ 
+					headerShown:true,
+					title: 'Pets & Animals Videos',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Sports_Videos" component={ConnectedPageScreen}
+				payload_for_filter = {{category: 'Sports'}}
+				options={{ 
+					headerShown:true,
+					title: 'Sports Videos',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Travel_&_Events_Videos" component={ConnectedPageScreen}
+				payload_for_filter = {{category: 'Travel & Events'}}
+				options={{ 
+					headerShown:true,
+					title: 'Travel & Events Videos',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+			<Stack.Screen name="Entertainment_Videos" component={ConnectedPageScreen}
+				payload_for_filter = {{category: 'Entertainment'}}
+				options={{ 
+					headerShown:true,
+					title: 'Entertainment Videos',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Animals_Images" component={ConnectedBookScreen}
+				payload_for_filter = {{category: 'Animals'}}
+				options={{ 
+					headerShown:true,
+					title: 'Animals Images',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Architecture_Images" component={ConnectedBookScreen}
+				payload_for_filter = {{category: 'Architecture'}}
+				options={{ 
+					headerShown:true,
+					title: 'Architecture Images',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Food_Images" component={ConnectedBookScreen}
+				payload_for_filter = {{category: 'Food'}}
+				options={{ 
+					headerShown:true,
+					title: 'Food Images',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Sports_Images" component={ConnectedBookScreen}
+				payload_for_filter = {{category: 'Sports'}}
+				options={{ 
+					headerShown:true,
+					title: 'Sports Images',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Travel_Images" component={ConnectedBookScreen}
+				payload_for_filter = {{category: 'Travel'}}
+				options={{ 
+					headerShown:true,
+					title: 'Travel Images',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Nature_Images" component={ConnectedBookScreen}
+				payload_for_filter = {{category: 'Nature'}}
+				options={{ 
+					headerShown:true,
+					title: 'Nature Images',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+		</Stack.Navigator>
+	);
+}
 
 const Tabs = createBottomTabNavigator();
-
 function BottomTabs() {
 	return (
 		<Tabs.Navigator
-			tabBar={ () => 
-				<View 
-					style={{
-						display: 'flex',
-						flexDirection: 'row', 
-						alignItems: 'center',
-						justifyContent: 'center',
-						// alignSelf: 'center',
-						height:60
-					}} 
-				>
-					<View style={{flex: 1}}>
-						<ButtonTouchableHighlight
-							gapFlexValue={1}
-							showText={'none'}
-							// showGap={'none'}
-							// gapOpacity={0}
-							// label={''}
-							imageWidth={60}
-							imageSource={require('./images/samosa.jpg')}
-						/>
-					</View>
-						<View style={{flex: 1}}>
-							<ButtonTouchableHighlight
-								// label={''}
-								showText={'none'}
-								// showGap={'none'}
-								// gapOpacity={0}
-								gapFlexValue={1}
-								imageWidth={60}
-								imageSource={require('./images/samosa.jpg')}
-							/>
-						</View>
-						<View style={{flex: 1}}>
-							<ButtonTouchableHighlight
-								// label={''}
-								showText={'none'}
-								// showGap={'none'}
-								// gapOpacity={0}
-								gapFlexValue={1}
-								imageWidth={60}
-								imageSource={require('./images/samosa.jpg')}
-							/>
-						</View>
-						<View style={{flex: 1,
-// BELOW right property is hack
-							right:20}}>
-							<ButtonTouchableHighlight
-								// label={''}
-								showText={'none'}
-								// showGap={'none'}
-								// gapOpacity={0}
-								gapFlexValue={1}
-								imageWidth={60}
-								imageSource={require('./images/samosa.jpg')}
-							/>
-						</View>
+			tabBar={() => 
+				<View>
 				</View>
 			} // tabBar closed
 			// backBehavior= 'initialRoute / order / history / none'
@@ -379,6 +656,7 @@ function BottomTabs() {
 
 
 
+
 const Drawer = createDrawerNavigator();
 
 // component returning drawer with screens
@@ -398,305 +676,6 @@ function TheDrawer() {
 			drawerContent={()=>
 				<ScrollView>
 					<View>
-						<Gap
-							height={10} 
-						/>
-						<ImageAtLeftTextsAtRight
-							imageSource={require('./images/samosa.jpg')}
-							containerWidth='80%'
-							imageResizeMode={'contain'}
-							backgroundColor={null}
-							headingTextColor={'white'}
-							descriptionTextColor={'white'}
-							imageFlexGrow={0}
-							centralGap={80}
-							headingName={'Simons Aberta'}
-							headingFontSize={20}
-							description={'San Francisco, CA'}
-						/>
-						<Gap
-							height={10} 
-						/>
-
-						<View style={{
-								width:'80%',
-								alignSelf:'center'
-							}} >
-							<Text style={{
-								color:'white',
-								textAlign: 'left',
-								marginTop:10
-							}} >
-								Cycling
-							</Text>
-							<Text style={{
-								color:'white',
-								textAlign: 'right'
-							}} >
-								59%
-							</Text>
-
-							<Text style={{
-								color:'white',
-								textAlign: 'left',
-								marginTop:10
-							}} >
-								Tone Up
-							</Text>
-							<Text style={{
-								color:'white',
-								textAlign: 'right'
-							}} >
-								38%
-							</Text>
-
-							<Text style={{
-								color:'white',
-								textAlign: 'left',
-								marginTop:10
-							}} >
-								Running
-							</Text>
-							<Text style={{
-								color:'white',
-								textAlign: 'right'
-							}} >
-								74%
-							</Text>
-						</View>
-
-						<Gap
-							height={25} 
-						/>
-
-						<View style={{borderBottomWidth:1, borderColor: 'white', width:'80%', alignSelf: 'center' }} ></View>
-
-						<Gap
-							height={25} 
-						/>
-
-						<Text style={{
-								color:'white',
-								textAlign: 'left',
-								width:'80%',
-								alignSelf:'center',
-								fontWeight:'bold'
-							}}
-						>
-							FITNESS LEVEL
-						</Text>
-
-						<Gap
-							height={15} 
-						/>
-
-						<View style={{
-							display:'flex',
-							flexDirection:'row'
-						}} 
-						>
-							<View style={{flex:4}} >
-								<Text style={{
-									paddingLeft: 20,
-									color:'white',
-									textAlign: 'left',
-									width:'80%',
-									alignSelf:'center',
-								}} >
-									Beginner Level
-								</Text>
-							</View>
-							<View style={{
-								// flex:1,
-								marginRight:30,
-								alignSelf:'center',
-								width:10,
-								height:10,
-								borderRadius:10/2,
-								borderWidth:1,
-								borderColor:'blue'
-							}} 
-							>
-							</View>
-						</View>
-
-						<Gap
-							height={20} 
-						/>
-
-						<View style={{
-							display:'flex',
-							flexDirection:'row'
-						}} 
-						>
-							<View style={{flex:4}} >
-								<Text style={{
-									paddingLeft: 20,
-									color:'white',
-									textAlign: 'left',
-									width:'80%',
-									alignSelf:'center',
-								}} >
-									Moderate Level
-								</Text>
-							</View>
-							<View style={{
-								// flex:1,
-								marginRight:30,
-								alignSelf:'center',
-								width:10,
-								height:10,
-								borderRadius:10/2,
-								borderWidth:1,
-								borderColor:'blue'
-							}} 
-							>
-							</View>
-						</View>
-
-						<Gap
-							height={20} 
-						/>
-
-						<View style={{
-							display:'flex',
-							flexDirection:'row'
-						}} 
-						>
-							<View style={{flex:4}} >
-								<Text style={{
-									paddingLeft: 20,
-									color:'white',
-									textAlign: 'left',
-									width:'80%',
-									alignSelf:'center',
-								}} >
-									Advance Level
-								</Text>
-							</View>
-							<View style={{
-								// flex:1,
-								marginRight:30,
-								alignSelf:'center',
-								width:10,
-								height:10,
-								borderRadius:10/2,
-								borderWidth:1,
-								borderColor:'blue'
-							}} 
-							>
-							</View>
-						</View>
-
-						<Gap
-							height={25} 
-						/>
-
-						<View style={{borderBottomWidth:1, borderColor: 'white', width:'80%', alignSelf: 'center' }} ></View>
-
-						<Gap
-							height={25} 
-						/>
-
-						<Text style={{
-								color:'white',
-								textAlign: 'left',
-								width:'80%',
-								alignSelf:'center',
-								fontWeight:'bold'
-							}}
-						>
-							WORKOUT GOALS
-						</Text>
-
-						<Gap
-							height={7} 
-						/>
-
-						<Text style={{
-								color:'white',
-								textAlign: 'left',
-								width:'80%',
-								alignSelf:'center'
-							}}
-						>
-							Lost Weight     Tone Up
-						</Text>
-
-						<Gap
-							height={25} 
-						/>
-
-						<View style={{borderBottomWidth:1, borderColor: 'white', width:'80%', alignSelf: 'center' }} ></View>
-
-						<Gap
-							height={25} 
-						/>
-
-						<Text style={{
-								color:'white',
-								textAlign: 'left',
-								width:'80%',
-								alignSelf:'center',
-								fontWeight:'bold'
-							}}
-						>
-							EQUIPMENT
-						</Text>
-
-						<Gap
-							height={7} 
-						/>
-
-						<Text style={{
-								color:'white',
-								textAlign: 'left',
-								width:'80%',
-								alignSelf:'center'
-							}}
-						>
-							Full Gym
-						</Text>
-
-						<Gap
-							height={25} 
-						/>
-						<View style={{borderBottomWidth:1, borderColor: 'white', width:'80%', alignSelf: 'center' }} ></View>
-						<Gap
-							height={25} 
-						/>
-
-						<Text style={{
-								color:'white',
-								textAlign: 'left',
-								width:'80%',
-								alignSelf:'center',
-								fontWeight:'bold'
-							}}
-						>
-							WORKOUT DETAILS
-						</Text>
-
-						<Gap
-							height={7} 
-						/>
-
-						<Text 
-							style={{
-								color:'white',
-								textAlign: 'left',
-								width:'80%',
-								alignSelf:'center'
-							}}
-						>
-							2 Workouts per Week
-						</Text>
-
-						<Gap
-							height={25} 
-						/>
-
-
 					</View>
 				</ScrollView>
 			} // function returning element			
@@ -707,39 +686,87 @@ function TheDrawer() {
 }
 
 
-
-
 const RootStack = createStackNavigator();
 
+
 class AppNavigation extends Component {
-		constructor(props) {
-				super(props);
-		}
-		render() {
-			return (
-				<NavigationContainer>
-					<RootStack.Navigator
-						headerMode='none'
-					>
+	constructor(props) {
+			super(props);
+	}
 
-						{this.props.userToken !== null ? (
-							<RootStack.Screen 
-								name="SignIn" 
-								component={BottomTabs} 
-							/>
+	componentDidUpdate(prevProps, prevState, snapshot){
+		// // Typical usage (don't forget to compare states) BUT STATE IS THROUGH props IN REDUX
+		// if (this.props.contacts !== prevProps.contacts) {
+		// 	show_all_contacts_and_set_in_state()
+		// 	console.log("--------LOG--------")
+		// 	console.log( this.props.contacts )
+		// }
 
-							) : (
+		// if ( this.props.is_internet_connected === false &&  prevProps.is_internet_connected === true){
+			// console.log('FROM this.props.is_internet_connected === false &&  prevProps.is_internet_connected === true')
+			// console.log("Connection type", state.type);
+			// console.log("Is connected?", this.props.is_internet_connected);
+		// }
 
-							<RootStack.Screen 
-								name="Drawer" 
-								component={TheDrawer} 
-							/>
-						)}
-							
-					</RootStack.Navigator>
-				</NavigationContainer>
-			);
-		}
+		// if ( this.props.is_internet_connected === true &&  prevProps.is_internet_connected === false){
+			// console.log('FROM this.props.is_internet_connected === true &&  prevProps.is_internet_connected === false')
+			// console.log("Connection type", state.type);
+			// console.log("Is connected?", this.props.is_internet_connected);
+		// }
+	}
+
+	componentDidMount(){
+
+		// this.unsubscribe = NetInfo.addEventListener(state => {
+			// this.props.set_internet_connection( state.isConnected )
+			// this.setState(prev => ({...prev, is_internet_connected: state.isConnected }));
+			// console.log(state.isConnected)
+			// console.log('FROM componentDidMOunt')
+			// console.log("Is connected?", this.props.is_internet_connected);			
+		// });
+
+	}
+
+	componentWillUnmount(){
+		// this.unsubscribe()
+	}
+
+
+	render() {
+		return (
+			<NavigationContainer>
+				<RootStack.Navigator headerMode='none'>
+					{this.props.userToken === null && this.props.isSignedIn === false 
+						? 
+							( <RootStack.Screen name="SignInStack" component={SignInStack}/> )
+						: 
+							( <RootStack.Screen name="InnerStack" component={InnerStack} /> )
+					}		
+				</RootStack.Navigator>
+			</NavigationContainer>
+		);
+	}
 }
 
 export default AppNavigation;
+
+
+// class AppNavigation extends Component {
+// 	constructor(props) {
+// 			super(props);
+// 	}
+// 	render() {
+// 		return (
+// 			<NavigationContainer>
+// 				<RootStack.Navigator headerMode='none'>
+// 					{this.props.userToken !== null 
+// 						? 
+// 							( <RootStack.Screen name="SignIn" component={BottomTabs}/> )
+// 						: 
+// 							( <RootStack.Screen name="Drawer" component={TheDrawer} /> )
+// 					}		
+// 				</RootStack.Navigator>
+// 			</NavigationContainer>
+// 		);
+// 	}
+// }

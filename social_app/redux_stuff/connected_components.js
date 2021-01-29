@@ -4,75 +4,245 @@ import {mapStateToProps, mapDispatchToProps} from "./store_configuration";
 
 import {
 
-	RootRouterContainer,
+	SocialPostScreen,
+	IndividualSocialPost,
+	AdvertisementScreen,
+	IndividualAdvertisement,
+	PageScreen,
+	IndividualPage,
+	BookScreen,
+	IndividualBook,
+	SportScreen,
+	IndividualSport,	
+	LoginScreen,
+	SignUpScreen,
 
-	BlogPostContainer,
-	VideoItemContainer,	RelatedVideoCommentContainer,
-	ImageItemContainer,
-} from "../containers";
+} from "../screens";
 
+import AppNavigation from '../the_navigation'
 
 import {
+	CreateSocialPost,
+	ComponentForShowingSocialPost,
+	SocialPostCard,
+} from "../components/socialposts"
 
+import {
+	CreateAdvertisement,
+	ComponentForShowingAdvertisement,
+	AdvertisementCard,
+} from "../components/advertisements"
 
-	IndividualBlogPost,
-	IndividualVideoItem,	IndividualRelatedVideoComment,
-	IndividualImageItem,
+import {
+	CreatePage,
+	ComponentForShowingPage,
+	PageCard,
+} from "../components/pages"
 
-} from "../components";
+import {
+	CreateBook,
+	ComponentForShowingBook,
+	BookCard,
+} from "../components/books"
 
-export const ConnectedRootRouterContainer = connect(
+import {
+	CreateSport,
+	ComponentForShowingSport,
+	SportCard,
+} from "../components/sports"
+
+import {
+	CreateCommentForSocialpost,
+} from "../components/comments"
+
+import {
+	CreateLikeForSocialpost,
+	CreateLikeForSport,
+	CreateLikeForBook,
+	CreateLikeForPage,	
+} from "../components/likes"
+
+import {
+	CreateShareForSocialpost,
+} from "../components/shares"
+
+export const ConnectedAppNavigation = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(RootRouterContainer);
+)(AppNavigation);
 
-
-
-export const ConnectedIndividualBlogPost = connect(
+export const ConnectedLoginScreen = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(IndividualBlogPost);
+)(LoginScreen);
 
-export const ConnectedBlogPostContainer = connect(
+export const ConnectedSignUpScreen = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(BlogPostContainer);
+)(SignUpScreen);
 
-
-
-export const ConnectedIndividualVideoItem = connect(
+export const ConnectedCreateSocialPost = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(IndividualVideoItem);
+)(CreateSocialPost);
 
-export const ConnectedVideoItemContainer = connect(
+export const ConnectedSocialPostCard = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(VideoItemContainer);
+)(SocialPostCard);
 
-
-
-export const ConnectedIndividualImageItem = connect(
+export const ConnectedComponentForShowingSocialPost = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(IndividualImageItem);
+)(ComponentForShowingSocialPost);
 
-export const ConnectedImageItemContainer = connect(
+export const ConnectedCreateCommentForSocialpost = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ImageItemContainer);
+)(CreateCommentForSocialpost);
 
-
-
-export const ConnectedIndividualRelatedVideoComment = connect(
+export const ConnectedCreateLikeForSocialpost = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(IndividualRelatedVideoComment);
+)(CreateLikeForSocialpost);
 
-
-
-export const ConnectedRelatedVideoCommentContainer = connect(
+export const ConnectedCreateLikeForSport = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(RelatedVideoCommentContainer);
+)(CreateLikeForSport);
+
+export const ConnectedCreateLikeForBook = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateLikeForBook);
+
+export const ConnectedCreateLikeForPage = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateLikeForPage);
+
+
+export const ConnectedCreateShareForSocialpost = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateShareForSocialpost);
+
+export const ConnectedCreateAdvertisement = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateAdvertisement);
+
+export const ConnectedAdvertisementCard = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(AdvertisementCard);
+
+export const ConnectedComponentForShowingAdvertisement = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ComponentForShowingAdvertisement);
+
+export const ConnectedCreatePage = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreatePage);
+
+export const ConnectedPageCard = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(PageCard);
+
+export const ConnectedComponentForShowingPage = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ComponentForShowingPage);
+
+export const ConnectedCreateBook = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateBook);
+
+export const ConnectedBookCard = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(BookCard);
+
+export const ConnectedComponentForShowingBook = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ComponentForShowingBook);
+
+export const ConnectedCreateSport = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateSport);
+
+export const ConnectedSportCard = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SportCard);
+
+export const ConnectedComponentForShowingSport = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ComponentForShowingSport);
+
+
+export const ConnectedIndividualSocialPost = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(IndividualSocialPost);
+
+export const ConnectedSocialPostScreen = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SocialPostScreen);
+
+
+
+export const ConnectedIndividualAdvertisement = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(IndividualAdvertisement);
+
+export const ConnectedAdvertisementScreen = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(AdvertisementScreen);
+
+
+
+export const ConnectedIndividualPage = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(IndividualPage);
+
+export const ConnectedPageScreen = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(PageScreen);
+
+
+
+export const ConnectedIndividualBook = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(IndividualBook);
+
+export const ConnectedBookScreen = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(BookScreen);
+
+
+
+export const ConnectedIndividualSport = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(IndividualSport);
+
+export const ConnectedSportScreen = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SportScreen);
 
