@@ -14,15 +14,7 @@ const windowHeight = Dimensions.get('window').height;
 
 import axios from 'axios';
 
-import { Consumer } from "../../screens/social_post"
-
 import utils from "../../utilities";
-
-// CHECK THIS OUT
-import { 
-	withRouter,
-	Link,
-} from "react-router-dom";
 
 import {
 	ComponentForShowingSocialPost

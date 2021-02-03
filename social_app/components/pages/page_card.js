@@ -14,8 +14,6 @@ const windowHeight = Dimensions.get('window').height;
 
 import axios from 'axios';
 
-import { Consumer } from "../../screens/page"
-
 import {
 	ComponentForShowingPage
 } from "."
@@ -30,12 +28,6 @@ import {
 } from "../../redux_stuff/connected_components"
 
 import utils from "../../utilities";
-
-// CHECK THIS OUT
-import { 
-	withRouter,
-	Link,
-} from "react-router-dom";
 
 
 class PageCard extends Component {

@@ -166,7 +166,7 @@ export const mapDispatchToProps = dispatch => {
 
 };
 
-const sagaMiddleWare = createSagaMiddleware();
+// const sagaMiddleWare = createSagaMiddleware();
 
 const persistConfig = {
 	key: 'root',

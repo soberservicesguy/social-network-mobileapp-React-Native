@@ -14,8 +14,6 @@ import axios from 'axios';
 
 import utils from "../../utilities";
 
-import { Consumer } from "../../screens/advertisement"
-
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

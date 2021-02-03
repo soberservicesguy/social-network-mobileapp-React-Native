@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">social_app</string>
+
+	<string name="facebook_app_id">Facebook App ID</string>
+
 </resources>

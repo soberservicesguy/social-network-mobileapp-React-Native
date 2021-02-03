@@ -14,8 +14,6 @@ const windowHeight = Dimensions.get('window').height;
 
 import axios from 'axios';
 
-import { Consumer } from "../../screens/sport"
-
 import utils from "../../utilities";
 
 import {

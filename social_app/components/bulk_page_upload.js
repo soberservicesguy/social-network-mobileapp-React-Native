@@ -15,9 +15,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-import utils from "../../utilities";
-
-import { Consumer } from "../../screens/blog_post"
+import utils from "../utilities";
 
 import DocumentPicker from 'react-native-document-picker';
 

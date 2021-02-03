@@ -1826,8 +1826,8 @@ function add_functionalities() {
 # 	echo "LOG --------------- RUNNING  add_axios function ---------------"
 # 	add_axios
 		
-	echo "LOG --------------- RUNNING  add_navigations function ---------------"
-	add_navigations
+	# echo "LOG --------------- RUNNING  add_navigations function ---------------"
+	# add_navigations
 	
 # # # # # 	echo "LOG --------------- RUNNING  add_svg function ---------------"
 # # # # # 	add_svg
@@ -1907,8 +1907,8 @@ function add_functionalities() {
 # 	echo "LOG ---------------  RUNNING  add_paypal function ---------------"
 # 	add_paypal
 
-	# echo "LOG ---------------  RUNNING  add_facebook_sign_in_and_share function ---------------"
-	# add_facebook_sign_in_and_share
+	echo "LOG ---------------  RUNNING  add_facebook_sign_in_and_share function ---------------"
+	add_facebook_sign_in_and_share
 
 # # # ALWAYS INCLUDE FIREBASE WITH STRIPE
 # 	echo "LOG ---------------  RUNNING  add_stripe function ---------------"

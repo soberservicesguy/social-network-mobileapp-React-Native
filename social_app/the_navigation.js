@@ -30,6 +30,7 @@ import {
 
 // IMPORT connected screens
 import {
+	ConnectedLoginScreen,
 	ConnectedSignUpScreen,
 	ConnectedSocialPostScreen,
 	ConnectedIndividualSocialPost,

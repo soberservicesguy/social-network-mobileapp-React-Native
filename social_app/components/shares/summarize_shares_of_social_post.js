@@ -12,8 +12,6 @@ import axios from 'axios';
 
 import utils from "../../utilities";
 
-import { Consumer } from "../../screens/social_post"
-
 import {
 	ComponentForShowingShare
 } from "."

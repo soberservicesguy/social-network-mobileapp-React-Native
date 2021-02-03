@@ -5,7 +5,6 @@ import {
 	View, 
 	Text,
 	TouchableHighlight,
-	Modal,
 	TouchableOpacity,
 } from "react-native";
 import PropTypes from 'prop-types';
@@ -13,8 +12,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import utils from "../../utilities";
-
-import { Consumer } from "../../screens/book"
 
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
