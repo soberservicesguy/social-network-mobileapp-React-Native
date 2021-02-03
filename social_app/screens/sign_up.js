@@ -30,7 +30,7 @@ import utils from "../utilities";
 
 import DocumentPicker from 'react-native-document-picker';
 
-class SignUpContainer extends Component {
+class SignUpScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -384,4 +384,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default SignUpContainer
+export default SignUpScreen

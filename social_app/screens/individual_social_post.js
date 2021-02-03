@@ -9,7 +9,6 @@ import {
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
-import firebase from 'firebase';
 
 import utils from "../utilities"
 
@@ -30,7 +29,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-class IndividualIndividualSocialPost extends Component {
+class IndividualSocialPost extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
@@ -57,7 +56,7 @@ class IndividualIndividualSocialPost extends Component {
 	}
 }
 	
-IndividualIndividualSocialPost.defaultProps = {
+IndividualSocialPost.defaultProps = {
 	//:,
 };
 
@@ -95,4 +94,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default IndividualIndividualSocialPost
+export default IndividualSocialPost

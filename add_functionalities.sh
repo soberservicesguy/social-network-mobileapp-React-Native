@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # app_name='webrtc'
-maps_key='AIzaSyDLLtxHdeGU7pQ8ZAqtdYVoK8uugk1t12s' # ${1} # maps key is used while configuring maps
+maps_key="AIzaSyDLLtxHdeGU7pQ8ZAqtdYVoK8uugk1t12s" # ${1} # maps key is used while configuring maps
+facebookAppID="741842329794282"
 
 app_name="${PWD##*/}"
 echo $app_name
@@ -162,15 +163,46 @@ function add_firebase() {
 	# npm install firebase --save
 	echo " "
 	echo "LOG: --------------- attempting to install firebase"
-	if 	npm install firebase --save ; then
+	if 	npm install --save @react-native-firebase/app ; then
 	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ firebase installation SUCCEEDED"
 	    succeededFunctionalities+=('firebase')
 	else
 	    echo "LOG: xxxxxxxxxxxxxxx firebase installation, add_firebase() FAILED" >> errors_from_last_log.txt
 	    failedFunctionalities+=('firebase')
-	    npm install firebase --save 2>> errors_from_last_log.txt 
-	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install firebase --save"
+	    npm install --save @react-native-firebase/app 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install --save @react-native-firebase/app"
 	fi
+
+
+	echo " "
+	echo "LOG: --------------- attempting to edit ./android/build.gradle AFTER line     dependencies {"
+	echo "LOG: ---------------	attempting to write"
+	echo "LOG: ---------------	classpath 'com.google.gms:google-services:4.3.3'"
+	if 	node ~/resources/add_react_native_funcitionalities/firebase_conf_1 ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ File ./android/build.gradle AFTER line     ext { SUCCEEDED"
+	    succeededFileConfigurationEdits+=('firebase_conf_1')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx File ./android/build.gradle AFTER line     dependencies {, node ~/resources/add_react_native_funcitionalities/firebase_conf_1 FAILED" >> errors_from_last_log.txt
+	    failedFileConfigurationEdits+=('firebase_conf_1')
+	    node ~/resources/add_react_native_funcitionalities/firebase_conf_1 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx CHECK FILE ~/resources/add_react_native_funcitionalities/firebase_conf_1"
+	fi
+
+	echo " "
+	echo "LOG: --------------- attempting to edit ./android/app/build.gradle AFTER line apply plugin: 'com.android.application'"
+	echo "LOG: ---------------	attempting to write"
+	echo "LOG: ---------------	apply plugin: 'com.google.gms.google-services'"
+	if 	node ~/resources/add_react_native_funcitionalities/firebase_conf_2 ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ File ./android/build.gradle AFTER line     ext { SUCCEEDED"
+	    succeededFileConfigurationEdits+=('firebase_conf_2')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx File ./android/app/build.gradle AFTER line apply plugin: 'com.android.application', node ~/resources/add_react_native_funcitionalities/firebase_conf_2 FAILED" >> errors_from_last_log.txt
+	    failedFileConfigurationEdits+=('firebase_conf_2')
+	    node ~/resources/add_react_native_funcitionalities/firebase_conf_2 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx CHECK FILE ~/resources/add_react_native_funcitionalities/firebase_conf_2"
+	fi
+
+
 
 }
 
@@ -189,32 +221,31 @@ function add_navigations() {
 	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install --save react-native-reanimated react-native-screens"
 	fi
 
-	# npm i @react-native-community/masked-view --save
-	# echo " "
-	# echo "LOG: --------------- attempting to install @react-native-community/masked-view"
-	# if 	npm i @react-native-community/masked-view --save ; then
-	#     echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ @react-native-community/masked-view installation SUCCEEDED"
-	#     succeededFunctionalities+=('@react-native-community/masked-view')
-	# else
-	#     echo "LOG: xxxxxxxxxxxxxxx @react-native-community/masked-view installation, add_navigations() FAILED" >> errors_from_last_log.txt
-	#     failedFunctionalities+=('@react-native-community/masked-view')
-	#     npm i @react-native-community/masked-view --save 2>> errors_from_last_log.txt 
-	#     echo "LOG: XxXxXxXxXxXxXx RE-RUN npm i @react-native-community/masked-view --save"
-	# fi
+	npm i @react-native-community/masked-view --save
+	echo " "
+	echo "LOG: --------------- attempting to install @react-native-community/masked-view"
+	if 	npm i @react-native-community/masked-view --save ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ @react-native-community/masked-view installation SUCCEEDED"
+	    succeededFunctionalities+=('@react-native-community/masked-view')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx @react-native-community/masked-view installation, add_navigations() FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('@react-native-community/masked-view')
+	    npm i @react-native-community/masked-view --save 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm i @react-native-community/masked-view --save"
+	fi
 
-	# # npm i react-native-safe-area-context --save
-	# echo " "
-	# echo "LOG: --------------- attempting to install react-native-safe-area-context"
-	# if 	npm i react-native-safe-area-context --save ; then
-	#     echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ react-native-safe-area-context installation SUCCEEDED"
-	#     succeededFunctionalities+=('react-native-safe-area-context')
-	# else
-	#     echo "LOG: xxxxxxxxxxxxxxx react-native-safe-area-context installation, add_navigations() FAILED" >> errors_from_last_log.txt
-	#     failedFunctionalities+=('react-native-safe-area-context')
-	#     npm i react-native-safe-area-context --save 2>> errors_from_last_log.txt 
-	#     echo "LOG: XxXxXxXxXxXxXx RE-RUN npm i react-native-safe-area-context --save"
-	# fi
-
+	# npm i react-native-safe-area-context --save
+	echo " "
+	echo "LOG: --------------- attempting to install react-native-safe-area-context"
+	if 	npm i react-native-safe-area-context --save ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ react-native-safe-area-context installation SUCCEEDED"
+	    succeededFunctionalities+=('react-native-safe-area-context')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx react-native-safe-area-context installation, add_navigations() FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('react-native-safe-area-context')
+	    npm i react-native-safe-area-context --save 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm i react-native-safe-area-context --save"
+	fi
 
 				# npm i react-native-gesture-handler --save
 	echo " "
@@ -286,32 +317,32 @@ function add_navigations() {
 	fi
 
 
-	# # npm install @react-navigation/material-bottom-tabs react-native-paper --save
-	# echo " "
-	# echo "LOG: --------------- attempting to install @react-navigation/material-bottom-tabs and react-native-paper"
-	# if 	npm install @react-navigation/material-bottom-tabs react-native-paper --save ; then
-	#     echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ @react-navigation/material-bottom-tabs and react-native-paper installation SUCCEEDED"
-	#     succeededFunctionalities+=('@react-navigation/material-bottom-tabs' 'react-native-paper')
-	# else
-	#     echo "LOG: xxxxxxxxxxxxxxx @react-navigation/material-bottom-tabs and react-native-paper installation, add_navigations() FAILED" >> errors_from_last_log.txt
-	#     failedFunctionalities+=('@react-navigation/material-bottom-tabs' 'react-native-paper')
-	#     npm install @react-navigation/material-bottom-tabs react-native-paper --save 2>> errors_from_last_log.txt 
-	#     echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install @react-navigation/material-bottom-tabs react-native-paper --save"
-	# fi
+	# npm install @react-navigation/material-bottom-tabs react-native-paper --save
+	echo " "
+	echo "LOG: --------------- attempting to install @react-navigation/material-bottom-tabs and react-native-paper"
+	if 	npm install @react-navigation/material-bottom-tabs react-native-paper --save ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ @react-navigation/material-bottom-tabs and react-native-paper installation SUCCEEDED"
+	    succeededFunctionalities+=('@react-navigation/material-bottom-tabs' 'react-native-paper')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx @react-navigation/material-bottom-tabs and react-native-paper installation, add_navigations() FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('@react-navigation/material-bottom-tabs' 'react-native-paper')
+	    npm install @react-navigation/material-bottom-tabs react-native-paper --save 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install @react-navigation/material-bottom-tabs react-native-paper --save"
+	fi
 
 
-	# # npm install @react-navigation/material-top-tabs react-native-tab-view --save
-	# echo " "
-	# echo "LOG: --------------- attempting to install @react-navigation/material-top-tabs and react-native-tab-view"
-	# if 	npm install @react-navigation/material-top-tabs react-native-tab-view --save ; then
-	#     echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ @react-navigation/material-top-tabs and react-native-tab-view installation SUCCEEDED"
-	#     succeededFunctionalities+=('@react-navigation/material-top-tabs' 'react-native-tab-view')
-	# else
-	#     echo "LOG: xxxxxxxxxxxxxxx @react-navigation/material-top-tabs and react-native-tab-view installation, add_navigations() FAILED" >> errors_from_last_log.txt
-	#     failedFunctionalities+=('@react-navigation/material-top-tabs' 'react-native-tab-view')
-	#     npm install @react-navigation/material-top-tabs react-native-tab-view --save 2>> errors_from_last_log.txt 
-	#     echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install @react-navigation/material-top-tabs react-native-tab-view --save"
-	# fi
+	# npm install @react-navigation/material-top-tabs react-native-tab-view --save
+	echo " "
+	echo "LOG: --------------- attempting to install @react-navigation/material-top-tabs and react-native-tab-view"
+	if 	npm install @react-navigation/material-top-tabs react-native-tab-view --save ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ @react-navigation/material-top-tabs and react-native-tab-view installation SUCCEEDED"
+	    succeededFunctionalities+=('@react-navigation/material-top-tabs' 'react-native-tab-view')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx @react-navigation/material-top-tabs and react-native-tab-view installation, add_navigations() FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('@react-navigation/material-top-tabs' 'react-native-tab-view')
+	    npm install @react-navigation/material-top-tabs react-native-tab-view --save 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install @react-navigation/material-top-tabs react-native-tab-view --save"
+	fi
 
 
 }
@@ -1435,17 +1466,78 @@ function add_facebook_sign_in_and_share() {
 	    echo "LOG: XxXxXxXxXxXxXx RE-RUN npm install --save react-native-fbsdk"
 	fi
 
+# COMMENTING OUT SINCE WE NEED TO WRITE MANUALLY
+	# echo " "
+	# echo "LOG: --------------- attempting to link react-native-fbsdk"
+	# if 	npx react-native link react-native-fbsdk ; then
+	#     echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ react-native-fs linking SUCCEEDED"
+	#     succeededFunctionalities+=('react-native-fs linking')
+	# else
+	#     echo "LOG: xxxxxxxxxxxxxxx react-native-fs linking FAILED" >> errors_from_last_log.txt
+	#     failedFunctionalities+=('react-native-fs linking')
+	#     npx react-native link react-native-fbsdk 2>> errors_from_last_log.txt 
+	#     echo "LOG: XxXxXxXxXxXxXx RE-RUN react-native link react-native-fbsdk"
+	# fi
+
 
 	echo " "
-	echo "LOG: --------------- attempting to link react-native-fbsdk"
-	if 	npx react-native link react-native-fbsdk ; then
-	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ react-native-fs linking SUCCEEDED"
-	    succeededFunctionalities+=('react-native-fs linking')
+	echo "LOG: --------------- attempting to edit ./android/build.gradle "
+	if 	node ~/resources/add_react_native_funcitionalities/facebookSDK_conf1 $app_name ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ editing ./android/build.gradle SUCCEEDED"
+	    succeededFunctionalities+=('facebookSDK_conf1')
 	else
-	    echo "LOG: xxxxxxxxxxxxxxx react-native-fs linking FAILED" >> errors_from_last_log.txt
-	    failedFunctionalities+=('react-native-fs linking')
-	    npx react-native link react-native-fbsdk 2>> errors_from_last_log.txt 
-	    echo "LOG: XxXxXxXxXxXxXx RE-RUN react-native link react-native-fbsdk"
+	    echo "LOG: xxxxxxxxxxxxxxx editing ./android/build.gradle FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('facebookSDK_conf1')
+	    node ~/resources/add_react_native_funcitionalities/facebookSDK_conf1 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx CHECK FILE ~/resources/add_react_native_funcitionalities/facebookSDK_conf1"
+	fi
+
+	echo " "
+	echo "LOG: --------------- attempting to edit ./android/app/build.gradle "
+	if 	node ~/resources/add_react_native_funcitionalities/facebookSDK_conf2 ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ editing ./android/app/build.gradle SUCCEEDED"
+	    succeededFunctionalities+=('facebookSDK_conf2')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx editing ./android/app/build.gradle FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('facebookSDK_conf2')
+	    node ~/resources/add_react_native_funcitionalities/facebookSDK_conf2 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx CHECK FILE ~/resources/add_react_native_funcitionalities/facebookSDK_conf2"
+	fi
+
+	echo "LOG: --------------- attempting to edit  "
+	if 	node ~/resources/add_react_native_funcitionalities/facebookSDK_conf3 $facebookAppID ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ editing ./android/app/src/main/res/values/strings.xml SUCCEEDED"
+	    succeededFunctionalities+=('facebookSDK_conf3')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx editing ./android/app/src/main/res/values/strings.xml FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('facebookSDK_conf3')
+	    node ~/resources/add_react_native_funcitionalities/facebookSDK_conf3 $facebookAppID  2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx CHECK FILE ~/resources/add_react_native_funcitionalities/facebookSDK_conf3"
+	fi
+
+
+	echo " "
+	echo "LOG: --------------- attempting to edit ./android/app/src/main/AndroidManifest.xml "
+	if 	node ~/resources/add_react_native_funcitionalities/facebookSDK_conf4 $facebookAppID ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ editing ./android/app/src/main/AndroidManifest.xml SUCCEEDED"
+	    succeededFunctionalities+=('facebookSDK_conf4')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx editing ./android/app/src/main/AndroidManifest.xml FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('facebookSDK_conf4')
+	    node ~/resources/add_react_native_funcitionalities/facebookSDK_conf4 $facebookAppID  2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx CHECK FILE ~/resources/add_react_native_funcitionalities/facebookSDK_conf4"
+	fi
+
+	echo " "
+	echo "LOG: --------------- attempting to edit ./android/app/src/main/java/com/${app_name}/MainApplication.java "
+	if 	node ~/resources/add_react_native_funcitionalities/facebookSDK_conf5 $app_name ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ editing ./android/app/src/main/java/com/${app_name}/MainApplication.java SUCCEEDED"
+	    succeededFunctionalities+=('facebookSDK_conf5')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx editing ./android/app/src/main/java/com/${app_name}/MainApplication.java FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('facebookSDK_conf5')
+	    node ~/resources/add_react_native_funcitionalities/facebookSDK_conf5 $app_name  2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx CHECK FILE ~/resources/add_react_native_funcitionalities/facebookSDK_conf5"
 	fi
 
 }
@@ -1665,6 +1757,21 @@ function add_keyboard_aware_scrollview() {
 
 } 
 
+function set_minsdkversion() {
+	
+	echo " "
+	echo "LOG: --------------- attempting to Set minSdkVersion to 21"
+	if 	node ~/resources/add_react_native_funcitionalities/set_minsdkversion ; then
+	    echo "LOG: ✔✔✔✔✔✔✔✔✔✔✔✔ Set minSdkVersion to 21 SUCCEEDED"
+	    succeededFunctionalities+=('Set minSdkVersion to 21')
+	else
+	    echo "LOG: xxxxxxxxxxxxxxx attempting to Set minSdkVersion to 21 FAILED" >> errors_from_last_log.txt
+	    failedFunctionalities+=('Set minSdkVersion to 21')
+	    set_minsdkversion 2>> errors_from_last_log.txt 
+	    echo "LOG: XxXxXxXxXxXxXx try again Set minSdkVersion to 21"
+	fi
+
+}
 
 function add_contacts_dealing() {
 	# CONTACTS / PHONEBOOK
@@ -1704,123 +1811,123 @@ function install_events() {
 
 function add_functionalities() {
 
-	echo "--------------- RUNNING  add_dropdown function ---------------"
-	add_dropdown
+# 	echo "--------------- RUNNING  add_dropdown function ---------------"
+# 	add_dropdown
 
-	echo "--------------- RUNNING  add_proptypes function ---------------"
-	add_proptypes
+# 	echo "--------------- RUNNING  add_proptypes function ---------------"
+# 	add_proptypes
 
-# 	# echo "LOG --------------- RUNNING  add_firebase function ---------------"
-# 	# add_firebase
+# # 	echo "LOG --------------- RUNNING  add_firebase function ---------------"
+# # 	add_firebase
 		
-	echo "LOG --------------- RUNNING  add_redux function ---------------"
-	add_redux
+# 	echo "LOG --------------- RUNNING  add_redux function ---------------"
+# 	add_redux
 	
-	echo "LOG --------------- RUNNING  add_axios function ---------------"
-	add_axios
+# 	echo "LOG --------------- RUNNING  add_axios function ---------------"
+# 	add_axios
 		
 	echo "LOG --------------- RUNNING  add_navigations function ---------------"
 	add_navigations
 	
-# # # # 	echo "LOG --------------- RUNNING  add_svg function ---------------"
-# # # # 	add_svg
+# # # # # 	echo "LOG --------------- RUNNING  add_svg function ---------------"
+# # # # # 	add_svg
 
  
-	echo "LOG ---------------  RUNNING  add_native_elements_like_icons function ---------------"
-	add_native_elements_like_icons
+	# echo "LOG ---------------  RUNNING  add_native_elements_like_icons function ---------------"
+	# add_native_elements_like_icons
 
-# # # 	# echo "LOG ---------------  RUNNING  install_events function ---------------"	
-# # # 	# install_events
+# # # # 	# echo "LOG ---------------  RUNNING  install_events function ---------------"	
+# # # # 	# install_events
 
-# # # AVOID
-# # 	# echo "LOG ---------------  RUNNING  add_netinfo function ---------------"
-# # 	# add_netinfo
+# # # # AVOID
+# # # 	# echo "LOG ---------------  RUNNING  add_netinfo function ---------------"
+# # # 	# add_netinfo
 
-	echo "LOG ---------------  RUNNING  add_keyboard_aware_scrollview function ---------------"
-	add_keyboard_aware_scrollview
+# 	echo "LOG ---------------  RUNNING  add_keyboard_aware_scrollview function ---------------"
+# 	add_keyboard_aware_scrollview
 
-# # # AVOID
-	echo "LOG ---------------  RUNNING  add_swipes_usage function ---------------"	
-	add_swipes_usage
+# # # # AVOID
+# 	echo "LOG ---------------  RUNNING  add_swipes_usage function ---------------"	
+# 	add_swipes_usage
 
-# # # # 	# echo "LOG --------------- RUNNING  add_chart function ---------------"
-# # # # 	# add_chart
+# # # # # 	# echo "LOG --------------- RUNNING  add_chart function ---------------"
+# # # # # 	# add_chart
 	
-# # # # 	# echo "LOG --------------- RUNNING  add_progressbar_android function ---------------"
-# # # # 	# add_progressbar_android	
+# # # # # 	# echo "LOG --------------- RUNNING  add_progressbar_android function ---------------"
+# # # # # 	# add_progressbar_android	
+	
+# # # # # 	# echo "LOG ---------------  RUNNING  add_progress_bars function ---------------"
+# # # # # 	# add_progress_bars
+
+# # # # # # FILE SYSTEM
+# # # # # # file system [file create, upload, delete, read content]
+# # # # # 	# echo "LOG ---------------  RUNNING  add_fs_file_system function ---------------"	
+# # # # # 	# add_fs_file_system
+# # # # # # file system viewer
+# 	echo "LOG ---------------  RUNNING  add_asyncstorage function ---------------"
+# 	add_asyncstorage
+
+# 	echo "LOG ---------------  RUNNING  add_fs_file_system function ---------------"	
+# 	add_react_native_document_picker
+
+	
+# # # # 	# echo "LOG ---------------  RUNNING  add_react_native_maps function ---------------"
+# # # # 	# add_react_native_maps
+
+# # # # 	# echo "LOG ---------------  RUNNING  add_push_notification function ---------------"
+# # # # 	# add_push_notification
+
+# # # # # camera
+# # # # # use camera
+# # # 	# echo "LOG ---------------  RUNNING  add_camera function ---------------"
+# # # 	# add_camera
+# # # # # deal with photos [save, getAlbums, getPhotos, deletePhotos]
+# # # # 	# echo "LOG ---------------  RUNNING  add_camera_roll function ---------------"
+# # # # 	# add_camera_roll
+
+
+# # # # 	# echo "LOG ---------------  RUNNING  add_webRTC function ---------------"
+# # # # 	# add_webRTC
+	
+# # # # 	# echo "LOG ---------------  RUNNING  add_socketIO function ---------------"
+# # # # 	# add_socketIO
 	
 # # # # 	# echo "LOG ---------------  RUNNING  add_progress_bars function ---------------"
 # # # # 	# add_progress_bars
-
-# # # # # FILE SYSTEM
-# # # # # file system [file create, upload, delete, read content]
-# # # # 	# echo "LOG ---------------  RUNNING  add_fs_file_system function ---------------"	
-# # # # 	# add_fs_file_system
-# # # # # file system viewer
-	echo "LOG ---------------  RUNNING  add_asyncstorage function ---------------"
-	add_asyncstorage
-
-	echo "LOG ---------------  RUNNING  add_fs_file_system function ---------------"	
-	add_react_native_document_picker
-
-	
-# # # 	# echo "LOG ---------------  RUNNING  add_react_native_maps function ---------------"
-# # # 	# add_react_native_maps
-
-# # # 	# echo "LOG ---------------  RUNNING  add_push_notification function ---------------"
-# # # 	# add_push_notification
-
-# # # # camera
-# # # # use camera
-# # 	# echo "LOG ---------------  RUNNING  add_camera function ---------------"
-# # 	# add_camera
-# # # # deal with photos [save, getAlbums, getPhotos, deletePhotos]
-# # # 	# echo "LOG ---------------  RUNNING  add_camera_roll function ---------------"
-# # # 	# add_camera_roll
-
-
-# # # 	# echo "LOG ---------------  RUNNING  add_webRTC function ---------------"
-# # # 	# add_webRTC
-	
-# # # 	# echo "LOG ---------------  RUNNING  add_socketIO function ---------------"
-# # # 	# add_socketIO
-	
-# # # 	# echo "LOG ---------------  RUNNING  add_progress_bars function ---------------"
-# # # 	# add_progress_bars
 		
-# # # 	# echo "LOG ---------------  RUNNING  add_background_task function ---------------"
-# # # 	# add_background_task
+# # # # 	# echo "LOG ---------------  RUNNING  add_background_task function ---------------"
+# # # # 	# add_background_task
 
-# # # 	# echo "LOG ---------------  RUNNING  add_contacts_dealing function ---------------"
-# # # 	# add_contacts_dealing
+# # # # 	# echo "LOG ---------------  RUNNING  add_contacts_dealing function ---------------"
+# # # # 	# add_contacts_dealing
 
-	echo "LOG ---------------  RUNNING  add_google_sign_in function ---------------"
-	add_google_sign_in
+# 	echo "LOG ---------------  RUNNING  add_google_sign_in function ---------------"
+# 	add_google_sign_in
 
-	# echo "LOG ---------------  RUNNING  add_paypal function ---------------"
-	# add_paypal
+# 	echo "LOG ---------------  RUNNING  add_paypal function ---------------"
+# 	add_paypal
 
-	echo "LOG ---------------  RUNNING  add_facebook_sign_in_and_share function ---------------"
-	add_facebook_sign_in_and_share
+	# echo "LOG ---------------  RUNNING  add_facebook_sign_in_and_share function ---------------"
+	# add_facebook_sign_in_and_share
 
-# # ALWAYS INCLUDE FIREBASE WITH STRIPE
-# 	# echo "LOG ---------------  RUNNING  add_stripe function ---------------"
-# 	# add_stripe
-# 	# echo "LOG --------------- RUNNING  add_firebase function ---------------"
-# 	# add_firebase
-
-
+# # # ALWAYS INCLUDE FIREBASE WITH STRIPE
+# 	echo "LOG ---------------  RUNNING  add_stripe function ---------------"
+# 	add_stripe
+# 	echo "LOG --------------- RUNNING  add_firebase function ---------------"
+# 	add_firebase
 
 
 
+# 	echo "LOG ---------------  RUNNING  set_multidex function ---------------"
+# 	set_multidex
+
+# # 	# echo "LOG ---------------  RUNNING  fix_insufficient_memory function ---------------"
+# # 	# fix_insufficient_memory
 
 
-	echo "LOG ---------------  RUNNING  set_multidex function ---------------"
-	set_multidex
-
-	# echo "LOG ---------------  RUNNING  fix_insufficient_memory function ---------------"
-	# fix_insufficient_memory
-
+# # ALWAYS ENABLE IT
+	echo "LOG ------------- running set_minsdkversion -------------"
+	set_minsdkversion
 
 
 	

@@ -13,7 +13,6 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 import axios from 'axios';
-import firebase from 'firebase';
 
 import { Consumer } from "../../screens/sport"
 

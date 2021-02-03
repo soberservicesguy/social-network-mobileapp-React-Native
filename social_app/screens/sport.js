@@ -9,7 +9,6 @@ import {
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
-import firebase from 'firebase';
 
 import utils from "../utilities"
 
@@ -30,7 +29,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-class SportContainer extends Component {
+class SportScreen extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
@@ -98,7 +97,7 @@ class SportContainer extends Component {
 	}
 }
 
-SportContainer.defaultProps = {
+SportScreen.defaultProps = {
 	// : ,
 };
 
@@ -136,4 +135,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default SportContainer
+export default SportScreen

@@ -1,15 +1,16 @@
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { persistStore, persistReducer } from 'redux-persist' 
-import storage from 'redux-persist/lib/storage'
+// import storage from 'redux-persist/lib/storage'
 
 import {createStore, applyMiddleware} from "redux";
-import createSagaMiddleware from "redux-saga";
+// import createSagaMiddleware from "redux-saga";
 import { connect } from "react-redux";
 import { combineReducers } from 'redux'; 
 
 
 // IMPORT rootSaga
-import {rootSaga} from "../saga_stuff/saga_combined";
+// import {rootSaga} from "../saga_stuff/saga_combined";
 
 import {
 	reducerForPrivileges,
@@ -169,7 +170,7 @@ const sagaMiddleWare = createSagaMiddleware();
 
 const persistConfig = {
 	key: 'root',
-	storage,
+	storage:AsyncStorage,
 	blacklist: [
 		'total_socialposts',
 		'current_socialpost',
@@ -186,7 +187,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export const store = createStore(persistedReducer, applyMiddleware(sagaMiddleWare));
+export const store = createStore(persistedReducer
+	// , applyMiddleware(sagaMiddleWare)
+);
+
 export const persistor = persistStore(store)
 
-sagaMiddleWare.run(rootSaga);
+// sagaMiddleWare.run(rootSaga);

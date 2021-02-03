@@ -9,7 +9,6 @@ import {
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
-import firebase from 'firebase';
 
 import utils from "../utilities"
 
@@ -30,7 +29,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-class PageContainer extends Component {
+class PageScreen extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
@@ -99,7 +98,7 @@ class PageContainer extends Component {
 	}
 }
 
-PageContainer.defaultProps = {
+PageScreen.defaultProps = {
 	// : ,
 };
 
@@ -137,4 +136,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default PageContainer
+export default PageScreen

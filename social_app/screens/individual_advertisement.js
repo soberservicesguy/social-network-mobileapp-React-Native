@@ -9,7 +9,6 @@ import {
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
-import firebase from 'firebase';
 
 import utils from "../utilities"
 
@@ -29,7 +28,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-class IndividualIndividualAdvertisement extends Component {
+class IndividualAdvertisement extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
@@ -56,7 +55,7 @@ class IndividualIndividualAdvertisement extends Component {
 	}
 }
 	
-IndividualIndividualAdvertisement.defaultProps = {
+IndividualAdvertisement.defaultProps = {
 	//:,
 };
 
@@ -94,4 +93,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default IndividualIndividualAdvertisement
+export default IndividualAdvertisement

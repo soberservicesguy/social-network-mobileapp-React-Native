@@ -10,7 +10,6 @@ import {
 import PropTypes from 'prop-types';
 					
 import axios from 'axios';
-import firebase from 'firebase';
 
 import utils from "../../utilities";
 

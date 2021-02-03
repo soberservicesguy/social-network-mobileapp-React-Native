@@ -30,7 +30,7 @@ import utils from "../utilities";
 import { verify_privilege } from "../handy_functions/"
 
 
-class LoginContainer extends Component {
+class LoginScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -301,4 +301,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default LoginContainer
+export default LoginScreen
