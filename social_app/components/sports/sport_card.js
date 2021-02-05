@@ -23,7 +23,6 @@ import {
 } from "."
 
 import {
-	SummarizeLikesOfSport,
 	ShowLikesOfSport,
 } from "../likes/"
 
@@ -70,20 +69,12 @@ class SportCard extends Component {
 
 	render() {
 
-		let componentToUse = (this.props.isCategoryInstead) ?
-			<ComponentForShowingSportCategory
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			/> :
-	  		<ComponentForShowingSport
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-	  		/>
-
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-					{componentToUse}
+					<ComponentForShowingSport/>
 		  		</View>
 
 				<View style={styles.socialButtonsAndStatsContainer}>

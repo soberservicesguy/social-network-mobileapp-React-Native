@@ -57,20 +57,18 @@ class ShowCommentsOfSocialPost extends Component {
 
 
 	{/* showing Comment as expanded list is below */}
-				<View style={{backgroundColor: '#eee'}}>
-		  	  		<FlatList
-		  				style={{flexDirection: 'column', flexWrap : "wrap"}}
-		  				numColumns={1}
-		  	  			data={this.props.dataPayloadFromParent}
-		  				renderItem={
-		  					({ item }) => (
-								<ComponentForShowingComment
-									componentData = { item }
-								/>
-		  					)}
-		  				keyExtractor={(item, index) => String(index)}
-		  			/>
-				</View>
+		  		<FlatList
+					style={{flexDirection: 'column', flexWrap : "wrap"}}
+					numColumns={1}
+	  	  			data={this.props.dataPayloadFromParent}
+	  				renderItem={
+	  					({ item }) => (
+							<ComponentForShowingComment
+								componentData = { item }
+							/>
+	  					)}
+	  				keyExtractor={(item, index) => String(index)}
+	  			/>
 
 {/* showing Comment as modal is below */}
 				

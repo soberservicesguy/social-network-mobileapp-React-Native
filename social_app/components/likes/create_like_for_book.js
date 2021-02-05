@@ -18,6 +18,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+import { Icon } from 'react-native-elements';
 
 class CreateLikeForBook extends Component {
 	constructor(props) {
@@ -56,9 +57,9 @@ class CreateLikeForBook extends Component {
 
 				<View style={styles.outerContainer}>
 
-					<Button 
-						title={'Press To Show Interest'}
-						style={styles.buttonWithoutBG}
+				  	<TouchableOpacity 
+				  		activeOpacity={0.2} 
+				  		style={styles.buttonWithoutBG}
 						onPress={ () => {
 
 							let setResponseInCurrentBook = (arg) => this.props.set_current_book(arg)
@@ -83,8 +84,18 @@ class CreateLikeForBook extends Component {
 							});						
 
 						}}
-					/>
+					>
+						<Icon
+						  // raised
+						  name={utils.likeIcon}
+						  type='font-awesome'
+						  color='#f50'
+						  size={30}
+						  // reverse={true}
+						/>
+					</TouchableOpacity>
 				</View>
+
 			);
 		}
 	}
@@ -95,35 +106,13 @@ CreateLikeForBook.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
-	},
-	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
-	},
-	textinput:{
-		marginTop:20,
-		textAlign:'left',
-		borderWidth:1,
-		borderColor:(utils.lightGrey),
-		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
-		fontSize:18,
-	},
 	outerContainer: {
-	},
-	bigBlue: {
+		width:windowWidth * 0.15,
+		height: windowHeight * 0.05,
+		// backgroundColor: 'grey',
+		position:'absolute',
+		bottom:windowHeight * 0.08,
+		left:windowWidth * 0.82,
 	},
 });
 

@@ -21,7 +21,6 @@ import {
 
 import {
 	ComponentForShowingBook,
-	ComponentForShowingBookCategory,
 } from "."
 
 import {
@@ -72,20 +71,12 @@ class BookCard extends Component {
 
 	render() {
 
-		let componentToUse = (this.props.isCategoryInstead) ?
-			<ComponentForShowingBookCategory
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			/> :
-	  		<ComponentForShowingBook
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-	  		/>
-
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-			  		{componentToUse}
+			  		<ComponentForShowingBook/>
 		  		</View>
 
 				<View style={styles.socialButtonsAndStatsContainer}>
@@ -95,11 +86,11 @@ class BookCard extends Component {
 						activeOpacity={0.2} 
 						onPress={ () => { 
 							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_likes_for_blogpost()
+							this.props.toggle_show_likes_for_book()
 						}}
 					>						
 						<ConnectedSummarizeLikesOfBook
-							showOnlyQuantity = { this.props.show_advertisement_likes }
+							showOnlyQuantity = { this.props.show_book_likes }
 							child_quantity = { this.props.likes_quantity }
 							dataPayloadFromParent = { this.props.likes }
 						/>
@@ -120,7 +111,6 @@ class BookCard extends Component {
 }
 	
 BookCard.defaultProps = {
-	isCategoryInstead:true,
 };
 
 const styles = StyleSheet.create({

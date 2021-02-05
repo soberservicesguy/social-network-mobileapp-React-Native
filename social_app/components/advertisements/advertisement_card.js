@@ -16,7 +16,6 @@ import axios from 'axios';
 
 import {
 	ComponentForShowingAdvertisement,
-	ComponentForShowingAdvertisementCategory,
 } from "."
 
 import utils from "../../utilities";
@@ -40,20 +39,12 @@ class AdvertisementCard extends Component {
 
 	render() {
 
-		let componentToUse = (this.props.isCategoryInstead) ?
-			<ComponentForShowingAdvertisementCategory
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			/> :
-	  		<ComponentForShowingAdvertisement
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-	  		/>
 
 		return (
 		  	<View>
 
 		  		<View>
-					{/* first the parent / card component */}
-					{componentToUse}
+					<ComponentForShowingAdvertisement/>
 		  		</View>
 
 		  	</View>
@@ -62,7 +53,6 @@ class AdvertisementCard extends Component {
 }
 	
 AdvertisementCard.defaultProps = {
-	isCategoryInstead:true,
 };
 
 

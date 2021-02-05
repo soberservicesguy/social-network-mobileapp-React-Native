@@ -137,20 +137,12 @@ class SocialPostCard extends Component {
 
 	render() {
 
-		let componentToUse = (this.props.isCategoryInstead) ?
-			<ComponentForShowingSocialPostCategory
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			/> :
-	  		<ComponentForShowingSocialPost
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-	  		/>
-
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-					{componentToUse}
+					<ComponentForShowingSocialPost/>
 		  		</View>
 
 				<View style={styles.socialButtonsAndStatsContainer}>
@@ -160,7 +152,7 @@ class SocialPostCard extends Component {
 						activeOpacity={0.2} 
 						onPress={ () => {
 							this.fetchAllComment( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_comments_for_blogpost()
+							this.props.toggle_show_comments_for_socialpost()
 						}}
 					>
 						<ConnectedSummarizeCommentsOfSocialPost
@@ -176,7 +168,7 @@ class SocialPostCard extends Component {
 						activeOpacity={0.2} 
 						onPress={ () => { 
 							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_likes_for_blogpost()
+							this.props.toggle_show_likes_for_socialpost()
 						}}
 					>						
 						<ConnectedSummarizeLikesOfSocialPost
@@ -221,7 +213,6 @@ class SocialPostCard extends Component {
 }
 	
 SocialPostCard.defaultProps = {
-	isCategoryInstead:true,
 };
 
 const styles = StyleSheet.create({
