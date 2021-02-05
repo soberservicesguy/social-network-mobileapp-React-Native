@@ -15,7 +15,8 @@ const windowHeight = Dimensions.get('window').height;
 import axios from 'axios';
 
 import {
-	ComponentForShowingAdvertisement
+	ComponentForShowingAdvertisement,
+	ComponentForShowingAdvertisementCategory,
 } from "."
 
 import utils from "../../utilities";
@@ -39,27 +40,21 @@ class AdvertisementCard extends Component {
 
 	render() {
 
+		let componentToUse = (this.props.isCategoryInstead) ?
+			<ComponentForShowingAdvertisementCategory
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+			/> :
+	  		<ComponentForShowingAdvertisement
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+	  		/>
+
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-			  		<ComponentForShowingAdvertisement
-						dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			  		/>
+					{componentToUse}
 		  		</View>
-
-				<View>
-					{/* 2nd show individual summary of childs */}
-				</View>
-
-				<View>
-					{/* 3rd show individual button for showing childs */}
-				</View>
-
-				<View>
-					{/* 4th create individual child options like comment / like */}
-				</View>
 
 		  	</View>
 		);
@@ -67,23 +62,11 @@ class AdvertisementCard extends Component {
 }
 	
 AdvertisementCard.defaultProps = {
-
+	isCategoryInstead:true,
 };
 
 
 const styles = StyleSheet.create({
-  container: {
-  },
-  bigBlue: {
-  },          
-  buttonWithoutBG:{
-    marginTop:50,
-    marginBottom:50,
-  },
-  innerText:{
-
-  },
-
 });
 
 

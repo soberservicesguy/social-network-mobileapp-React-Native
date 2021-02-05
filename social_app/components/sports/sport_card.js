@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -17,7 +18,8 @@ import axios from 'axios';
 import utils from "../../utilities";
 
 import {
-	ComponentForShowingSport
+	ComponentForShowingSport,
+	ComponentForShowingSportCategory,
 } from "."
 
 import {
@@ -68,40 +70,41 @@ class SportCard extends Component {
 
 	render() {
 
+		let componentToUse = (this.props.isCategoryInstead) ?
+			<ComponentForShowingSportCategory
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+			/> :
+	  		<ComponentForShowingSport
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+	  		/>
+
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-			  		<ComponentForShowingSport
-						dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			  		/>
+					{componentToUse}
 		  		</View>
 
-				<View>
-					{/* 2nd show individual summary of childs */}
-					<SummarizeLikesOfSport
-						showOnlyQuantity= { false }
-						child_quantity = { this.props.likes_quantity }
-						dataPayloadFromParent = { this.props.likes }
-					/>
+				<View style={styles.socialButtonsAndStatsContainer}>
+					<TouchableOpacity 
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => { 
+							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
+							this.props.toggle_show_likes_for_sport()
+						}}
+					>						
+						<ConnectedSummarizeLikesOfSport
+							showOnlyQuantity = { this.props.show_sport_likes }
+							child_quantity = { this.props.likes_quantity }
+							dataPayloadFromParent = { this.props.likes }
+						/>
+					</TouchableOpacity>
 				</View>
 
-				<View>
-					{/* 3rd show individual button for showing childs */}
-					<Button
-						title={'Show All Like'} 
-						style={styles.buttonWithoutBG}
-						onPress={ () => this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) }
-					/>
-					
-					<ShowLikesOfSport
-						dataPayloadFromParent = { this.state.likes }
-					/>
-				</View>
-
-				<View>
-					{/* 4th create individual child options like comment / like */}
+				<View style={styles.createCommentAndLikeContainer}>
+					{/* 4th create individual child options like comment / like */}					
 					<ConnectedCreateLikeForSport
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
 					/>
@@ -113,22 +116,27 @@ class SportCard extends Component {
 }
 	
 SportCard.defaultProps = {
-
+	isCategoryInstead:true,
 };
 
 const styles = StyleSheet.create({
-	container: {
-	},
-	bigBlue: {
-	},					
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
+	outerContainer:{
 	},
 
+// comments and likes counts
+	socialButtonsAndStatsContainer:{
+		flexDirection:'row', 
+		// justifyContent:'space-between',
+		justifyContent:'flex-start',
+	},
+	socialButtonAndStats:{
+		height:windowHeight * 0.05
+	},
+
+// create comment and like
+	createCommentAndLikeContainer:{
+		marginTop: windowHeight * 0.001,
+	},
 });
 
 export default SportCard

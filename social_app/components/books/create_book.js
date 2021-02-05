@@ -6,6 +6,7 @@ import {
 	TouchableHighlight,
 	TextInput,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -42,7 +43,6 @@ class CreateBook extends Component {
 	render() {
 
 		// parameters being passed from previous route
-		const endpoint_params_passed = this.props.match.params
 
 		if ( this.state.redirectToRoute !== false ){
 
@@ -60,70 +60,76 @@ class CreateBook extends Component {
 			return (
 			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
 				<View style={styles.outerContainer}>
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your book_name"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, book_name: value})) }
-						/>
-				  	</View>
-
-					<View style={styles.textinputContainer}>
-						<Button 
-							title={'Select IMAGE MAIN From Phone'}
-							style={styles.buttonWithoutBG}
-							onPress={async () => {
-								try {
-									let res = await DocumentPicker.pick({
-										type: [
-											DocumentPicker.types.images,
-										],
-									});
-									console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
-									// setState method with response as argument
-									this.setState(prev => ({...prev, book_image: res}))
-
-								} catch (err) {
-									if (DocumentPicker.isCancel(err)) {
-										// User cancelled the picker, exit any dialogs or menus and move on
-									} else {
-										console.log(err)
-										// throw err;
-									}
-								}
-							}}
-						/>
-					</View>
-
-
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your book_description"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, book_description: value})) }
-						/>
-				  	</View>
-
 
 					<Button 
-						title={'Press To Create Book'}
+						title={'Select IMAGE MAIN From Phone'}
 						style={styles.buttonWithoutBG}
+						onPress={async () => {
+							try {
+								let res = await DocumentPicker.pick({
+									type: [
+										DocumentPicker.types.images,
+									],
+								});
+								console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
+								// setState method with response as argument
+								this.setState(prev => ({...prev, book_image: res}))
+
+							} catch (err) {
+								if (DocumentPicker.isCancel(err)) {
+									// User cancelled the picker, exit any dialogs or menus and move on
+								} else {
+									console.log(err)
+									// throw err;
+								}
+							}
+						}}
+					/>
+
+					<View style={{
+						display: 'flex',
+						flexDirection: 'row',
+					}}>
+
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your book_name"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, book_name: value})) }
+							/>
+					  	</View>
+
+
+
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your book_description"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, book_description: value})) }
+							/>
+					  	</View>
+				  	</View>
+
+
+					<TouchableOpacity
+						activeOpacity={0.2}
+						style={styles.bottomButton}
 						onPress={ () => {
 							let setResponseInCurrentBook = (arg) => this.props.set_current_book(arg)
 							let redirectToNewBook = () => this.setState(prev => ({...prev, redirectToRoute: (prev.redirectToRoute === false) ? true : false }))	
@@ -149,7 +155,11 @@ class CreateBook extends Component {
 							});						
 
 						}}
-					/>
+					>
+						<Text style={styles.buttonText}>
+							Press To Create Book
+						</Text>
+					</TouchableOpacity>
 				</View>
 			);
 		}			

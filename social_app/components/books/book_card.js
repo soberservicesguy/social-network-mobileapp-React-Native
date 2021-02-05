@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -19,7 +20,8 @@ import {
 } from "../../redux_stuff/connected_components"
 
 import {
-	ComponentForShowingBook
+	ComponentForShowingBook,
+	ComponentForShowingBookCategory,
 } from "."
 
 import {
@@ -70,39 +72,42 @@ class BookCard extends Component {
 
 	render() {
 
+		let componentToUse = (this.props.isCategoryInstead) ?
+			<ComponentForShowingBookCategory
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+			/> :
+	  		<ComponentForShowingBook
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+	  		/>
+
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-			  		<ComponentForShowingBook
-						dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			  		/>
+			  		{componentToUse}
 		  		</View>
 
-				<View>
+				<View style={styles.socialButtonsAndStatsContainer}>
 					{/* 2nd show individual summary of childs */}
-					<SummarizeLikesOfBook
-						showOnlyQuantity= { false }
-						child_quantity = { this.props.likes_quantity }
-						dataPayloadFromParent = { this.props.likes }
-					/>
+					<TouchableOpacity 
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => { 
+							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
+							this.props.toggle_show_likes_for_blogpost()
+						}}
+					>						
+						<ConnectedSummarizeLikesOfBook
+							showOnlyQuantity = { this.props.show_advertisement_likes }
+							child_quantity = { this.props.likes_quantity }
+							dataPayloadFromParent = { this.props.likes }
+						/>
+					</TouchableOpacity>
 				</View>
 
-				<View>
-					{/* 3rd show individual button for showing childs */}
-					<Button
-						title={'Show All Like'} 
-						style={styles.buttonWithoutBG}
-						onPress={ () => this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) }
-					/>
-					
-					<ShowLikesOfBook
-						dataPayloadFromParent = { this.state.likes }
-					/>
-				</View>
 
-				<View>
+				<View style={styles.createCommentAndLikeContainer}>
 					{/* 4th create individual child options like comment / like */}
 					<ConnectedCreateLikeForBook
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
@@ -115,22 +120,27 @@ class BookCard extends Component {
 }
 	
 BookCard.defaultProps = {
-
+	isCategoryInstead:true,
 };
 
 const styles = StyleSheet.create({
-	container: {
-	},
-	bigBlue: {
-	},					
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
+	outerContainer:{
 	},
 
+// comments and likes counts
+	socialButtonsAndStatsContainer:{
+		flexDirection:'row', 
+		// justifyContent:'space-between',
+		justifyContent:'flex-start',
+	},
+	socialButtonAndStats:{
+		height:windowHeight * 0.05
+	},
+
+// create comment and like
+	createCommentAndLikeContainer:{
+		marginTop: windowHeight * 0.001,
+	},
 });
 
 export default BookCard

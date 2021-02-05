@@ -6,6 +6,7 @@ import {
 	TouchableHighlight,
 	TextInput,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -42,7 +43,6 @@ class CreatePage extends Component {
 	render() {
 
 		// parameters being passed from previous route
-		const endpoint_params_passed = this.props.match.params
 
 		if ( this.state.switchScreen !== false ){
 
@@ -60,22 +60,6 @@ class CreatePage extends Component {
 			return (
 			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
 				<View style={styles.outerContainer}>
-
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your page_name"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, page_name: value})) }
-						/>
-				  	</View>
 
 					<Button 
 						title={'Select Image From Phone'}
@@ -102,26 +86,50 @@ class CreatePage extends Component {
 						}}
 					/>
 
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your page_description"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, page_description: value})) }
-						/>
+
+					<View style={{
+						display: 'flex',
+						flexDirection: 'row',
+					}}>
+
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your page_name"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, page_name: value})) }
+							/>
+					  	</View>
+
+
+					  	<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Type your page_description"
+								placeholderTextColor = {utils.lightGrey}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) => this.setState( prev => ({...prev, page_description: value})) }
+							/>
+					  	</View>
 				  	</View>
 
 
-					<Button 
-						title={'Press To Create Page'}
-						style={styles.buttonWithoutBG}
+					<TouchableOpacity
+						activeOpacity={0.2}
+						style={styles.bottomButton}
 						onPress={ () => {
 
 							let setResponseInCurrentPage = (arg) => this.props.set_current_page(arg)
@@ -148,7 +156,11 @@ class CreatePage extends Component {
 							});						
 
 						}}
-					/>
+					>
+						<Text style={styles.buttonText}>
+							Press To Create Page
+						</Text>
+					</TouchableOpacity>
 				</View>
 			);
 		}			

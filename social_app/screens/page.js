@@ -22,8 +22,6 @@ import {
 	ConnectedCreatePage,
 } from '../redux_stuff/connected_components';
 
-const { Provider, Consumer } = React.createContext();
-
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -66,9 +64,6 @@ class PageScreen extends Component {
 	render() {
 			
 		const total_pages = this.props.total_pages
-
-		const { classes } = this.props;
-	  	const {_xs, _sm, _md, _lg, _xl} = this.props
 
 		return (
 

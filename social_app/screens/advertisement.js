@@ -22,8 +22,6 @@ import {
 	ConnectedCreateAdvertisement,
 } from '../redux_stuff/connected_components';
 
-const { Provider, Consumer } = React.createContext();
-
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -40,13 +38,13 @@ class AdvertisementScreen extends Component {
 	componentDidMount() {
 
 // FETCHING DATA FOR COMPONENT
-			axios.get(utils.baseUrl + '/advertisements/advertisements-list-with-children',)
-			.then((response) => {
-				this.props.set_fetched_advertisements(response.data)
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+		axios.get(utils.baseUrl + '/advertisements/advertisements-list-with-children',)
+		.then((response) => {
+			this.props.set_fetched_advertisements(response.data)
+		})
+		.catch((error) => {
+			console.log(error);
+		})
 
 
 	}
@@ -64,9 +62,6 @@ class AdvertisementScreen extends Component {
 	render() {
 			
 		const total_advertisements = this.props.total_advertisements
-
-		const { classes } = this.props;
-	  	const {_xs, _sm, _md, _lg, _xl} = this.props
 
 		return (
 

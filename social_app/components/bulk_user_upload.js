@@ -6,6 +6,7 @@ import {
 	TouchableHighlight,
 	TextInput,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -16,8 +17,6 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 import utils from "../utilities";
-
-import { Consumer } from "../../screens/blog_post"
 
 import DocumentPicker from 'react-native-document-picker';
 
@@ -43,7 +42,6 @@ class BulkUserUpload extends Component {
 	render() {
 
 		// parameters being passed from previous route
-		const endpoint_params_passed = this.props.match.params
 
 		if ( this.state.switchScreen !== false ){
 

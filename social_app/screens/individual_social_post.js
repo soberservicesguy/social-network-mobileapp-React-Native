@@ -22,8 +22,6 @@ import {
 	ConnectedCreateBook,
 } from '../redux_stuff/connected_components';
 
-const { Provider, Consumer } = React.createContext();
-
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -45,8 +43,6 @@ class IndividualSocialPost extends Component {
 
 // RENDER METHOD
 	render() {
-		const { classes } = this.props;
-	  	const {_xs, _sm, _md, _lg, _xl} = this.props
 
 	  	return (
 	  		<View container direction="row" spacing={4} style={{backgroundColor: '#eee'}} >

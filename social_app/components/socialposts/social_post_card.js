@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -17,7 +18,8 @@ import axios from 'axios';
 import utils from "../../utilities";
 
 import {
-	ComponentForShowingSocialPost
+	ComponentForShowingSocialPost,
+	ComponentForShowingSocialPostCategory,
 } from "."
 
 import {
@@ -135,70 +137,72 @@ class SocialPostCard extends Component {
 
 	render() {
 
+		let componentToUse = (this.props.isCategoryInstead) ?
+			<ComponentForShowingSocialPostCategory
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+			/> :
+	  		<ComponentForShowingSocialPost
+				dataPayloadFromParent = { this.props.dataPayloadFromParent }
+	  		/>
+
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-			  		<ComponentForShowingSocialPost
-						dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			  		/>
+					{componentToUse}
 		  		</View>
 
-				<View>
+				<View style={styles.socialButtonsAndStatsContainer}>
 					{/* 2nd show individual summary of childs */}
-					<SummarizeCommentsOfSocialPost
-						showOnlyQuantity= { false }
-						child_quantity = { this.props.comments_quantity }
-						dataPayloadFromParent = { this.props.comments }
-					/>
-					<SummarizeLikesOfSocialPost
-						showOnlyQuantity= { false }
-						child_quantity = { this.props.likes_quantity }
-						dataPayloadFromParent = { this.props.likes }
-					/>
-					<SummarizeSharesOfSocialPost
-						showOnlyQuantity= { false }
-						child_quantity = { this.props.shares_quantity }
-						dataPayloadFromParent = { this.props.shares }
-					/>
+					<TouchableOpacity
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => {
+							this.fetchAllComment( this.props.dataPayloadFromParent.endpoint ) 
+							this.props.toggle_show_comments_for_blogpost()
+						}}
+					>
+						<ConnectedSummarizeCommentsOfSocialPost
+							showOnlyQuantity = { this.props.show_socialpost_comments }
+							child_quantity = { this.props.comments_quantity }
+							dataPayloadFromParent = { this.props.comments }
+						/>
+					</TouchableOpacity>
+
+
+					<TouchableOpacity 
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => { 
+							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
+							this.props.toggle_show_likes_for_blogpost()
+						}}
+					>						
+						<ConnectedSummarizeLikesOfSocialPost
+							showOnlyQuantity = { this.props.show_socialpost_likes }
+							child_quantity = { this.props.likes_quantity }
+							dataPayloadFromParent = { this.props.likes }
+						/>
+					</TouchableOpacity>
+
+					<TouchableOpacity 
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => { 
+							this.fetchAllShare( this.props.dataPayloadFromParent.endpoint ) 
+							this.props.toggle_show_shares_for_socialpost()
+						}}
+					>						
+						<ConnectedSummarizeSharesOfSocialPost
+							showOnlyQuantity = { this.props.show_socialpost_shares }
+							child_quantity = { this.props.shares_quantity }
+							dataPayloadFromParent = { this.props.shares }
+						/>
+					</TouchableOpacity>
 				</View>
 
-				<View>
-					{/* 3rd show individual button for showing childs */}
-
-					<Button 
-						title={'Show All Comment'}
-						style={styles.buttonWithoutBG}
-						onPress={ () => this.fetchAllComment( this.props.dataPayloadFromParent.endpoint ) }
-					/>
-					
-					<ShowCommentsOfSocialPost
-						dataPayloadFromParent = { this.state.comments }
-					/>
-
-					<Button
-						title={'Show All Like'}
-						style={styles.buttonWithoutBG}
-						onPress={ () => this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) }
-					/>
-					
-					<ShowLikesOfSocialPost
-						dataPayloadFromParent = { this.state.likes }
-					/>
-
-					<Button 
-						title={'Show All Share'}
-						style={styles.buttonWithoutBG}
-						onPress={ () => this.fetchAllShare( this.props.dataPayloadFromParent.endpoint ) }
-					/>
-					
-					<ShowSharesOfSocialPost
-						dataPayloadFromParent = { this.state.shares }
-					/>
-				</View>
-
-				<View>
+				<View style={styles.createCommentAndLikeContainer}>
 					{/* 4th create individual child options like comment / like */}					
 					<ConnectedCreateCommentForSocialpost
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
@@ -217,22 +221,27 @@ class SocialPostCard extends Component {
 }
 	
 SocialPostCard.defaultProps = {
-
+	isCategoryInstead:true,
 };
 
 const styles = StyleSheet.create({
-	container: {
-	},
-	bigBlue: {
-	},					
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
+	outerContainer:{
 	},
 
+// comments and likes counts
+	socialButtonsAndStatsContainer:{
+		flexDirection:'row', 
+		// justifyContent:'space-between',
+		justifyContent:'flex-start',
+	},
+	socialButtonAndStats:{
+		height:windowHeight * 0.05
+	},
+
+// create comment and like
+	createCommentAndLikeContainer:{
+		marginTop: windowHeight * 0.001,
+	},
 });
 
 export default SocialPostCard

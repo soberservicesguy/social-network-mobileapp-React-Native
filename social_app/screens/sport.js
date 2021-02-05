@@ -22,8 +22,6 @@ import {
 	ConnectedCreateSport,
 } from '../redux_stuff/connected_components';
 
-const { Provider, Consumer } = React.createContext();
-
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -65,9 +63,6 @@ class SportScreen extends Component {
 	render() {
 			
 		const total_sports = this.props.total_sports
-
-		const { classes } = this.props;
-	  	const {_xs, _sm, _md, _lg, _xl} = this.props
 
 		return (
 

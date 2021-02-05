@@ -6,6 +6,7 @@ import {
 	TouchableHighlight,
 	TextInput,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -43,7 +44,6 @@ class BulkSportUpload extends Component {
 	render() {
 
 		// parameters being passed from previous route
-		const endpoint_params_passed = this.props.match.params
 
 		if ( this.state.switchScreen !== false ){
 

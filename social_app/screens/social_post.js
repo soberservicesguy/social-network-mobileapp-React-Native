@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	FlatList,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -21,8 +22,6 @@ import {
 	ConnectedSocialPostCard,
 	ConnectedCreateSocialPost,
 } from '../redux_stuff/connected_components';
-
-const { Provider, Consumer } = React.createContext();
 
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
@@ -41,13 +40,13 @@ class SocialPostScreen extends Component {
 	componentDidMount() {
 
 // FETCHING DATA FOR COMPONENT
-			axios.get(utils.baseUrl + '/socialposts/socialposts-list-with-children',)
-			.then((response) => {
-				this.props.set_fetched_socialposts(response.data)
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+		axios.get(utils.baseUrl + '/socialposts/socialposts-list-with-children',)
+		.then((response) => {
+			this.props.set_fetched_socialposts(response.data)
+		})
+		.catch((error) => {
+			console.log(error);
+		})
 
 
 	}
@@ -65,9 +64,6 @@ class SocialPostScreen extends Component {
 	render() {
 			
 		const total_socialposts = this.props.total_socialposts
-
-		const { classes } = this.props;
-	  	const {_xs, _sm, _md, _lg, _xl} = this.props
 
 		return (
 

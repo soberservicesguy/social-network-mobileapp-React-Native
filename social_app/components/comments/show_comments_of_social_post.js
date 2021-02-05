@@ -7,6 +7,7 @@ import {
 	TouchableHighlight,
 	Modal,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					

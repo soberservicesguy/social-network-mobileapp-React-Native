@@ -6,6 +6,7 @@ import {
 	TouchableHighlight,
 	TextInput,
 	TouchableOpacity,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -43,7 +44,6 @@ class CreateSocialPost extends Component {
 	render() {
 
 		// parameters being passed from previous route
-		const endpoint_params_passed = this.props.match.params
 
 		if ( this.state.switchScreen !== false ){
 
@@ -62,23 +62,11 @@ class CreateSocialPost extends Component {
 			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
 				<View style={styles.outerContainer}>
 
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your post_text"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) => this.setState( prev => ({...prev, post_text: value})) }
-						/>
-				  	</View>
+					<View style={{
+						display: 'flex',
+						flexDirection: 'row',
+					}}>
 
-					<View style={styles.textinputContainer}>
 						<Button 
 							title={'Select Post Image From Phone'}
 							style={styles.buttonWithoutBG}
@@ -103,10 +91,6 @@ class CreateSocialPost extends Component {
 								}
 							}}
 						/>
-					</View>
-
-
-					<View style={styles.textinputContainer}>
 						<Button 
 							title={'Select Post Video From Phone'}
 							style={styles.buttonWithoutBG}
@@ -133,12 +117,33 @@ class CreateSocialPost extends Component {
 								}
 							}}
 						/>
-					</View>
+
+				  	</View>
 
 
-					<Button 
-						title={'Press To Create SocialPost'}
-						style={styles.buttonWithoutBG}
+					<View style={{
+						display: 'flex',
+						flexDirection: 'row',
+					}}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your post_text"
+							placeholderTextColor = {utils.lightGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) => this.setState( prev => ({...prev, post_text: value})) }
+						/>
+				  	</View>
+
+
+					<TouchableOpacity
+						activeOpacity={0.2}
+						style={styles.bottomButton}
 						onPress={ () => {
 
 							let setResponseInCurrentSocialPost = (arg) => this.props.set_current_socialpost(arg)
@@ -166,7 +171,11 @@ class CreateSocialPost extends Component {
 							});						
 
 						}}
-					/>
+					>
+						<Text style={styles.buttonText}>
+							Press To Create SocialPost
+						</Text>
+					</TouchableOpacity>
 				</View>
 			);
 		}			
