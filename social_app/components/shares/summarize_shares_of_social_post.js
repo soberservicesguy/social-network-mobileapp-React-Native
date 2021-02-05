@@ -5,6 +5,8 @@ import {
 	View, 
 	Text,
 	TouchableHighlight,
+	Modal,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -47,14 +49,13 @@ class SummarizeSharesOfSocialPost extends Component {
 						// raised
 						name={utils.shareIcon}
 						type='font-awesome'
-						iconStyle='Outlined'
 						color='#f50'
 						size={30}
 						// onPress={() => console.log('hello')} 
 						// reverse={true}
 					/>
 					<Text style={styles.commentQuantityText}>
-						Total shares{this.props.child_quantity}
+						Shares{this.props.child_quantity}
 					</Text>
 				</View>
 

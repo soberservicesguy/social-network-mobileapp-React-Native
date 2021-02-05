@@ -49,7 +49,6 @@ class SummarizeLikesOfPage extends Component {
 						// raised
 						name={utils.likeIcon}
 						type='font-awesome'
-						iconStyle='Outlined'
 						color='#f50'
 						size={30}
 						// onPress={() => console.log('hello')} 

@@ -86,7 +86,7 @@ class CreateLikeForSocialpost extends Component {
 						}}
 					>
 						<Icon
-						  // raised
+						  raised
 						  name={utils.likeIcon}
 						  type='font-awesome'
 						  color='#f50'
@@ -110,9 +110,9 @@ const styles = StyleSheet.create({
 		width:windowWidth * 0.15,
 		height: windowHeight * 0.05,
 		// backgroundColor: 'grey',
-		position:'absolute',
-		bottom:windowHeight * 0.08,
-		left:windowWidth * 0.82,
+		// position:'absolute',
+		// bottom:windowHeight * 0.08,
+		// left:windowWidth * 0.82,
 	},
 });
 

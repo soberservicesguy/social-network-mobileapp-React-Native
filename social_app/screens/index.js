@@ -11,3 +11,6 @@ export {default as SocialPostScreen } from "./social_post.js";
 export {default as SportScreen } from "./sport.js";
 
 export {default as SignUpScreen } from "./sign_up.js";
+
+export {default as NotificationsScreen} from "./notification"
+export {default as FriendsScreen} from "./friend"

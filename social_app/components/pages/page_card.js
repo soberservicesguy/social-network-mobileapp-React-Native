@@ -21,11 +21,11 @@ import {
 } from "."
 
 import {
-	SummarizeLikesOfPage,
 	ShowLikesOfPage,
 } from "../likes"
 
 import {
+	ConnectedSummarizeLikesOfPage,
 	ConnectedCreateLikeForPage
 } from "../../redux_stuff/connected_components"
 
@@ -71,20 +71,12 @@ class PageCard extends Component {
 
 	render() {
 
-		let componentToUse = (this.props.isCategoryInstead) ?
-			<ComponentForShowingPageCategory
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-			/> :
-	  		<ComponentForShowingPage
-				dataPayloadFromParent = { this.props.dataPayloadFromParent }
-	  		/>
-
 		return (
 		  	<View>
 
 		  		<View>
 					{/* first the parent / card component */}
-					{componentToUse}
+					<ComponentForShowingPage/>
 		  		</View>
 
 

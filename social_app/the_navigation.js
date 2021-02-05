@@ -42,6 +42,8 @@ import {
 	ConnectedIndividualBook,
 	ConnectedSportScreen,
 	ConnectedIndividualSport,
+	ConnectedFriendsScreen,
+	ConnectedNotificationsScreen,
 } from "./redux_stuff/connected_components";
 
 
@@ -81,6 +83,138 @@ function InnerStack({navigation}) {
 			// headerMode='none'
 		>
 
+{/* friends suggestions | friends list */} 
+{/* notifications */} 
+
+{/*SocialPosts*/}
+	{/* own wall */}
+	{/* some users wall | non-friendly users own wall */}
+	{/* photo posts from user on his wall */}
+	{/* video posts from user on his wall */} 
+			<Stack.Screen name="Notifications" component={ ConnectedNotificationsScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Notifications',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
+
+
+
+			<Stack.Screen name="Friends" component={ ConnectedFriendsScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Friends',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
+
+
+			<Stack.Screen name="Ad" component={ ConnectedAdvertisementScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Ad',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
+			<Stack.Screen name="Sport" component={ ConnectedSportScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Sport',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
+			<Stack.Screen name="Books" component={ ConnectedBookScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Books',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+			<Stack.Screen name="Pages" component={ ConnectedPageScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Pages',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
 			<Stack.Screen name="BlogPost" component={ ConnectedSocialPostScreen }
 				options={{ 
 					headerShown:true,
@@ -99,100 +233,13 @@ function InnerStack({navigation}) {
 				}}
 			/>
 		
-			<Stack.Screen name="Video" component={ ConnectedPageScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Video',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
 		
-			<Stack.Screen name="Image" component={ ConnectedBookScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
 
-			<Stack.Screen name="Sport" component={ ConnectedSportScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="Ad" component={ ConnectedAdvertisementScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Image',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="ConnectedIndividualSocialPost" component={ConnectedIndividualSocialPost}
-				options={{ 
-					headerShown:true,
-					title: 'Individual BlogPost',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
 		
-			<Stack.Screen name="Individual_Video" component={ConnectedIndividualAdvertisement}
+			<Stack.Screen name="Individual_Ad" component={ConnectedIndividualAdvertisement}
 				options={{ 
 					headerShown:true,
-					title: 'Individual Video',
+					title: 'Individual Ad',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
@@ -207,10 +254,10 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="ConnectedIndividualBook" component={ConnectedIndividualBook}
+			<Stack.Screen name="Individual_Book" component={ConnectedIndividualBook}
 				options={{ 
 					headerShown:true,
-					title: 'Individual Video',
+					title: 'Individual Book',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
@@ -225,10 +272,10 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="ConnectedIndividualSport" component={ConnectedIndividualSport}
+			<Stack.Screen name="Individual_Sport" component={ConnectedIndividualSport}
 				options={{ 
 					headerShown:true,
-					title: 'Individual Video',
+					title: 'Individual Sport',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
@@ -243,10 +290,10 @@ function InnerStack({navigation}) {
 				}}
 			/>
 	
-			<Stack.Screen name="Individual_Image" component={ConnectedIndividualPage}
+			<Stack.Screen name="Individual_Page" component={ConnectedIndividualPage}
 				options={{ 
 					headerShown:true,
-					title: 'Individual Image',
+					title: 'Individual Page',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{

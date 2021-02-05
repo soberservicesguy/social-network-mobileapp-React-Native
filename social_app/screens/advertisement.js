@@ -18,6 +18,7 @@ import {
 
 // IMPORT CONNECTED COMPONENTS
 import {
+	ConnectedAdvertisementCard,
 	ConnectedComponentForShowingAdvertisement,
 	ConnectedCreateAdvertisement,
 } from '../redux_stuff/connected_components';

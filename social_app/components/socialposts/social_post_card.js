@@ -23,17 +23,18 @@ import {
 } from "."
 
 import {
-	SummarizeCommentsOfSocialPost,
 	ShowCommentsOfSocialPost,
 } from "../comments/"
 
 import {
 	ConnectedCreateCommentForSocialpost,
+	ConnectedSummarizeCommentsOfSocialPost,
+	ConnectedSummarizeLikesOfSocialPost,
+	ConnectedSummarizeSharesOfSocialPost,
 } from "../../redux_stuff/connected_components"
 
 
 import {
-	SummarizeLikesOfSocialPost,
 	ShowLikesOfSocialPost,
 } from "../likes/"
 
@@ -43,7 +44,6 @@ import {
 
 
 import {
-	SummarizeSharesOfSocialPost,
 	ShowSharesOfSocialPost,
 } from "../shares/"
 

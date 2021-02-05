@@ -27,7 +27,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-class BookScreen extends Component {
+class NotificationsScreen extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
@@ -92,7 +92,7 @@ class BookScreen extends Component {
 	}
 }
 
-BookScreen.defaultProps = {
+NotificationsScreen.defaultProps = {
 	// : ,
 };
 
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default BookScreen
+export default NotificationsScreen

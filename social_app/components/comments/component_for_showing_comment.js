@@ -39,12 +39,12 @@ class ComponentForShowingComment extends Component {
 
 		return (
 			<View style={styles.outerContainer}>
-				<Text>
+{/*				<Text>
 					{ data.comment_text }
 				</Text>
 				<Text>
 					{ data.date_of_publishing }
-				</Text>
+				</Text>*/}
 			</View>
 		);
 	}

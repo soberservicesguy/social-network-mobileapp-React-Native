@@ -42,6 +42,16 @@ export const rootReducer = combineReducers({
 export const mapStateToProps = state => {
 	return {
 
+		show_socialpost_comments:state.socialposts.showOnlyCommentsQuantityForSocialPost,
+
+		show_socialpost_likes:state.socialposts.showOnlyLikesQuantityForSocialPost,
+		show_sport_likes:state.sports.showOnlyLikesQuantityForSport,
+		show_book_likes:state.books.showOnlyLikesQuantityForBook,
+		show_page_likes:state.pages.showOnlyLikesQuantityForPage,
+
+		show_socialpost_shares:state.socialposts.showOnlySharesQuantityForSocialPost,
+
+
 		total_socialposts: state.socialposts.totalSocialPost,
 		current_socialpost: state.socialposts.currentSocialPost,
 
@@ -85,6 +95,15 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => {
 	return {
+
+		toggle_show_comments_for_socialpost: () => dispatch( {type: "TOGGLE_COMMENT_QUANTITY_FOR_SOCIALPOST"} ),
+
+		toggle_show_likes_for_socialpost: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_SOCIALPOST"} ),
+		toggle_show_likes_for_book: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_BOOK"} ),
+		toggle_show_likes_for_page: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_PAGE"} ),
+		toggle_show_likes_for_sport: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_SPORT"} ),
+
+		toggle_show_shares_for_socialpost: () => dispatch( {type: "TOGGLE_SHARE_QUANTITY_FOR_SOCIALPOST"} ),
 
 // user
 		set_is_signed_in: (booleon) => dispatch( { type:"SET_IS_SIGNED_IN", booleon: booleon } ),

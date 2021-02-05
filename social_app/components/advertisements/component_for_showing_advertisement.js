@@ -39,7 +39,7 @@ class ComponentForShowingAdvertisement extends Component {
 
 		return (
 			<View style={styles.outerContainer}>
-				<Text>
+{/*				<Text>
 					{ data.ad_name }
 				</Text>
 				<Text>
@@ -50,7 +50,7 @@ class ComponentForShowingAdvertisement extends Component {
 				</Text>
 				<Text>
 					{ data.endpoint }
-				</Text>
+				</Text>*/}
 			</View>
 		);
 	}

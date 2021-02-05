@@ -16,7 +16,8 @@ import {
 	IndividualSport,	
 	LoginScreen,
 	SignUpScreen,
-
+	FriendsScreen,
+	NotificationsScreen,
 } from "../screens";
 
 import AppNavigation from '../the_navigation'
@@ -53,6 +54,7 @@ import {
 
 import {
 	CreateCommentForSocialpost,
+	SummarizeCommentsOfSocialPost,
 } from "../components/comments"
 
 import {
@@ -60,11 +62,58 @@ import {
 	CreateLikeForSport,
 	CreateLikeForBook,
 	CreateLikeForPage,	
+	SummarizeLikesOfBook,
+	SummarizeLikesOfPage,
+	SummarizeLikesOfSocialPost,
+	SummarizeLikesOfSport,
 } from "../components/likes"
 
 import {
 	CreateShareForSocialpost,
+	SummarizeSharesOfSocialPost,
 } from "../components/shares"
+
+
+export const ConnectedSummarizeCommentsOfSocialPost = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SummarizeCommentsOfSocialPost)
+
+
+export const ConnectedSummarizeSharesOfSocialPost = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SummarizeSharesOfSocialPost)
+
+export const ConnectedFriendsScreen = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(FriendsScreen)
+
+export const ConnectedNotificationsScreen = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(NotificationsScreen);
+
+export const ConnectedSummarizeLikesOfBook = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SummarizeLikesOfBook);
+
+export const ConnectedSummarizeLikesOfPage = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SummarizeLikesOfPage);
+
+export const ConnectedSummarizeLikesOfSocialPost = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SummarizeLikesOfSocialPost);
+
+export const ConnectedSummarizeLikesOfSport = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SummarizeLikesOfSport);
 
 export const ConnectedAppNavigation = connect(
 	mapStateToProps,

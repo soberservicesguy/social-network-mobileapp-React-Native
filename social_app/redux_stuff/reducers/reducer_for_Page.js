@@ -1,5 +1,7 @@
 const initialState = {
 
+	showOnlyLikesQuantityForPage:false,
+
 	currentPage:{
 			page_name:'dummy',
 			page_image:'dummy',
@@ -24,6 +26,10 @@ const initialState = {
 const reducerForPage = (state = initialState, action) => {
 
 	switch (action.type) {
+
+		case "TOGGLE_LIKE_QUANTITY_FOR_PAGE":
+			return {...state, showOnlyLikesQuantityForPage: (state.showOnlyLikesQuantityForPage === true) ? false : true }
+			break;
 
 		case "SET_CURRENT_PAGE":
 

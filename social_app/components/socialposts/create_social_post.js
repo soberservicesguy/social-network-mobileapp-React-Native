@@ -68,7 +68,7 @@ class CreateSocialPost extends Component {
 					}}>
 
 						<Button 
-							title={'Select Post Image From Phone'}
+							title={'Select Post Image'}
 							style={styles.buttonWithoutBG}
 							onPress={async () => {
 								try {
@@ -92,7 +92,7 @@ class CreateSocialPost extends Component {
 							}}
 						/>
 						<Button 
-							title={'Select Post Video From Phone'}
+							title={'Select Post Video'}
 							style={styles.buttonWithoutBG}
 							onPress={async () => {
 								try {

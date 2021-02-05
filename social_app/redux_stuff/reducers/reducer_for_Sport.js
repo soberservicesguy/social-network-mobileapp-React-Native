@@ -1,5 +1,7 @@
 const initialState = {
 
+	showOnlyLikesQuantityForSport:false,
+
 	currentSport:{
 			sport_name:'dummy',
 			sport_image:'dummy',
@@ -24,6 +26,10 @@ const initialState = {
 const reducerForSport = (state = initialState, action) => {
 
 	switch (action.type) {
+
+		case "TOGGLE_LIKE_QUANTITY_FOR_SPORT":
+			return {...state, showOnlyLikesQuantityForSport: (state.showOnlyLikesQuantityForSport === true) ? false : true }
+			break;
 
 		case "SET_CURRENT_SPORT":
 

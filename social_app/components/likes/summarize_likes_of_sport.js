@@ -5,6 +5,8 @@ import {
 	View, 
 	Text,
 	TouchableHighlight,
+	Modal,
+	Button,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -47,7 +49,6 @@ class SummarizeLikesOfSport extends Component {
 						// raised
 						name={utils.likeIcon}
 						type='font-awesome'
-						iconStyle='Outlined'
 						color='#f50'
 						size={30}
 						// onPress={() => console.log('hello')} 

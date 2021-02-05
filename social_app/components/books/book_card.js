@@ -17,6 +17,7 @@ import axios from 'axios';
 
 import {
 	ConnectedCreateLikeForBook,
+	ConnectedSummarizeLikesOfBook,
 } from "../../redux_stuff/connected_components"
 
 import {
@@ -24,7 +25,6 @@ import {
 } from "."
 
 import {
-	SummarizeLikesOfBook,
 	ShowLikesOfBook,
 } from "../likes/";
 

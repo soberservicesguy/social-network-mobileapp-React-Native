@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
 	textinputContainer:{
 		marginTop: windowHeight * 0.05, // or 30  gap
 		height: windowHeight * 0.1, // or 100
-		width: '80%',
+		// width: '80%',
 		justifyContent: 'center', // vertically centered
 		alignSelf: 'center', // horizontally centered
 		// backgroundColor: utils.lightGreen,
@@ -198,31 +198,7 @@ const styles = StyleSheet.create({
 		paddingBottom:15,
 		fontSize:18,
 	},
-	outerContainer: {
-	},
-	bigBlue: {
-	},
 
-
-	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
-	},
-	textinput:{
-		marginTop:20,
-		textAlign:'left',
-		borderWidth:1,
-		borderColor:(utils.lightGrey),
-		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
-		fontSize:18,
-	},
 });
 
 export default CreatePage

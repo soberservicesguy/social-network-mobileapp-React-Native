@@ -1,5 +1,7 @@
 const initialState = {
 
+	showOnlyLikesQuantityForBook:false,
+
 	currentBook:{
 			book_name:'dummy',
 			book_image:'dummy',
@@ -24,6 +26,10 @@ const initialState = {
 const reducerForBook = (state = initialState, action) => {
 
 	switch (action.type) {
+
+		case "TOGGLE_LIKE_QUANTITY_FOR_BOOK":
+			return {...state, showOnlyLikesQuantityForBook: (state.showOnlyLikesQuantityForBook === true) ? false : true }
+			break;
 
 		case "SET_CURRENT_BOOK":
 

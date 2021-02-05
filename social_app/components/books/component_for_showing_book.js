@@ -38,7 +38,7 @@ class ComponentForShowingBook extends Component {
 
 		return (
 			<View style={styles.outerContainer}>
-				<Text>
+{/*				<Text>
 					{ data.book_name }
 				</Text>
 				<Text>
@@ -49,7 +49,7 @@ class ComponentForShowingBook extends Component {
 				</Text>
 				<Text>
 					{ data.endpoint }
-				</Text>
+				</Text>*/}
 			</View>
 		);
 	}

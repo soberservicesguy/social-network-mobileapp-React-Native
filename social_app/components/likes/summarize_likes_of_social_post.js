@@ -49,14 +49,13 @@ class SummarizeLikesOfSocialPost extends Component {
 						// raised
 						name={utils.likeIcon}
 						type='font-awesome'
-						iconStyle='Outlined'
 						color='#f50'
 						size={30}
 						// onPress={() => console.log('hello')} 
 						// reverse={true}
 					/>
 					<Text style={styles.commentQuantityText}>
-						Total likes{this.props.child_quantity}
+						Likes{this.props.child_quantity}
 					</Text>
 				</View>
 

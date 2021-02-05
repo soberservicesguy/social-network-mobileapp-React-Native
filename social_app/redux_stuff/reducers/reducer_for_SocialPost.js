@@ -1,5 +1,9 @@
 const initialState = {
 
+	showOnlyCommentsQuantityForSocialPost:false,
+	showOnlyLikesQuantityForSocialPost:false,
+	showOnlySharesQuantityForSocialPost: false,
+
 	currentSocialPost:{
 			type_of_post:'dummy',
 			post_text:'dummy',
@@ -29,6 +33,19 @@ const initialState = {
 const reducerForSocialPost = (state = initialState, action) => {
 
 	switch (action.type) {
+
+		case "TOGGLE_SHARE_QUANTITY_FOR_SOCIALPOST":
+			return {...state, showOnlySharesQuantityForSocialPost: (state.showOnlySharesQuantityForSocialPost === true) ? false : true }
+			break;
+
+
+		case "TOGGLE_COMMENT_QUANTITY_FOR_SOCIALPOST":
+			return {...state, showOnlyCommentsQuantityForSocialPost: (state.showOnlyCommentsQuantityForSocialPost === true) ? false : true }
+			break;
+
+		case "TOGGLE_LIKE_QUANTITY_FOR_SOCIALPOST":
+			return {...state, showOnlyLikesQuantityForSocialPost: (state.showOnlyLikesQuantityForSocialPost === true) ? false : true }
+			break;
 
 		case "SET_CURRENT_SOCIALPOST":
 

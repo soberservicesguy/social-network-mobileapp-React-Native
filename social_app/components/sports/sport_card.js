@@ -19,7 +19,6 @@ import utils from "../../utilities";
 
 import {
 	ComponentForShowingSport,
-	ComponentForShowingSportCategory,
 } from "."
 
 import {
@@ -28,6 +27,7 @@ import {
 
 import {
 	ConnectedCreateLikeForSport,
+	ConnectedSummarizeLikesOfSport,
 } from "../../redux_stuff/connected_components"
 
 class SportCard extends Component {

@@ -39,7 +39,7 @@ class ComponentForShowingSocialPost extends Component {
 
 		return (
 			<View style={styles.outerContainer}>
-				<Text>
+{/*				<Text>
 					{ data.type_of_post }
 				</Text>
 				<Text>
@@ -65,7 +65,7 @@ class ComponentForShowingSocialPost extends Component {
 				</Text>
 				<Text>
 					{ data.date_of_publishing }
-				</Text>
+				</Text>*/}
 			</View>
 		);
 	}
