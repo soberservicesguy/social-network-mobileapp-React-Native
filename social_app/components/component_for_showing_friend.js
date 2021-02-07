@@ -36,29 +36,124 @@ class ComponentForShowingFriend extends Component {
 
 	}
 
+	sendFriendRequest(endpoint){
+
+		axios.post(utils.baseUrl + '/books/books-list-with-children', {endpoint: endpoint})
+		.then((response) => {
+			this.props.set_fetched_books(response.data)
+		})
+		.catch((error) => {
+			console.log(error);
+		})
+
+	}
 
 	render() {
 
 		let data = this.props.dataPayloadFromParent
 		let base64Image = "data:image/jpeg;base64," + data.user_avatar_image
-
+		
 		return (
 
-		  	<TouchableOpacity 
-		  		activeOpacity={0.2}
-		  		style={styles.outerContainer} 
-		  		onPress={ () => this.props.navigation.navigate('SocialPost', {endpoint: data.endpoint}) } 
-	  		>
+			<View>
+		
+				{(() => {
 
-				<View style={styles.imageContainer}>
-					<Image 
-						source={utils.image}
-						// source={{uri: base64Image}} 
-						style={styles.imageStyle}
-					/>
-				</View>
+					if (this.props.showFriendsSuggestionsInstead === true){
+					
+						return (
 
-		  	</TouchableOpacity>
+							<TouchableOpacity 
+						  		activeOpacity={0.2}
+						  		style={styles.outerContainer} 
+						  		onPress={ () => this.sendFriendRequest(data.endpoint) } 
+					  		>
+								<View style={styles.innerContainer}>
+									<View style={styles.imageContainer}>
+										<Image 
+											source={utils.image}
+											// source={{uri: base64Image}} 
+											style={styles.imageStyle}
+										/>
+									</View>
+
+									<View style={styles.textContainer}>
+										<Text style={{...styles.nameText, color:'black'}}>
+											arsalan {data.user_name_in_profile}
+										</Text>
+									</View>
+
+									<View style={{...styles.iconContainer, flex:3, height: '50%', backgroundColor: utils.darkBlue}}>
+										<View style={{flex:1}}>
+											<Icon
+												// raised
+												name={utils.sendFriendRequestIcon}
+												type='font-awesome'
+												color={utils.lightBlue}
+												size={25}
+												// onPress={() => console.log('hello')} 
+												// reverse={true}
+											/>
+										</View>
+										<View style={{flex:3}}>
+											<Text style={{...styles.followingText, textAlign:'center'}}>
+												Send Friend Request
+											</Text>
+										</View>
+									</View>
+								</View>
+
+						  	</TouchableOpacity>
+						) 
+					
+					} else {
+
+						return (
+
+							<TouchableOpacity 
+						  		activeOpacity={0.2}
+						  		style={styles.outerContainer} 
+						  		onPress={ () => this.props.navigation.navigate('SocialPost', {endpoint: data.endpoint}) } 
+					  		>
+								<View style={styles.innerContainer}>
+									<View style={styles.imageContainer}>
+										<Image 
+											source={utils.image}
+											// source={{uri: base64Image}} 
+											style={styles.imageStyle}
+										/>
+									</View>
+
+									<View style={styles.textContainer}>
+										<Text style={styles.nameText}>
+											arsalan {data.user_name_in_profile}
+										</Text>
+									</View>
+
+									<View style={styles.iconContainer}>
+										<Icon
+											// raised
+											name={utils.followingIcon}
+											type='font-awesome'
+											color={utils.lightBlue}
+											size={25}
+											// onPress={() => console.log('hello')} 
+											// reverse={true}
+										/>
+										
+										<Text style={styles.followingText}>
+											Following
+										</Text>
+									</View>
+								</View>
+
+						  	</TouchableOpacity>
+						)
+					}
+				})()}
+
+			</View>
+
 
 		);
 	}
@@ -76,7 +171,7 @@ const styles = StyleSheet.create({
 		height: windowHeight * 0.14,
 		width: windowWidth,
 		// backgroundColor: '#000000',
-		marginTop:windowHeight * 0.01,
+		// marginTop:windowHeight * 0.01,
 		marginBottom:windowHeight * 0.01,
 		borderBottomWidth: 1,
 		borderBottomColor: utils.dimWhite,
@@ -108,7 +203,7 @@ const styles = StyleSheet.create({
 		borderRadius: windowWidth * 1/2,
 	},
 
-// text
+// friend name
 	textContainer:{
 		flex:3,
 		marginLeft:windowWidth * 0.1,
@@ -121,22 +216,24 @@ const styles = StyleSheet.create({
 	nameText:{
 		fontSize:20,
 		fontWeight:'bold',
+		color:utils.darkBlue,
 	},
-	activityText:{
-		fontSize:15,
-		fontStyle: 'italic', 
-		color:utils.darkBlue
-	},
-	newFriendsName:{
-		fontSize:20,
-		fontStyle: 'italic', 
-		color:utils.orange
-	},
+
 // icon
 	iconContainer:{
-		flex:1,
-		// backgroundColor: '#000000'
-	}
+		flex:2,
+		flexDirection:'row',
+		justifyContent: 'center',
+		alignItems:'center',
+		backgroundColor: utils.darkGreen,
+		borderRadius: 10,
+		height: '40%',
+	},
+	followingText:{
+		fontSize:15,
+		color:utils.dimWhite,
+		fontWeight:'bold',
+	},
 
 });
 

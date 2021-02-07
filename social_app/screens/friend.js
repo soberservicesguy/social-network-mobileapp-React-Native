@@ -30,6 +30,7 @@ class FriendsScreen extends Component {
 		super(props);
 // STATE	
 		this.state = {
+			showFriendsSuggestionsInstead: false,
 		}	
 	}
 
@@ -37,13 +38,43 @@ class FriendsScreen extends Component {
 	componentDidMount() {
 
 // FETCHING DATA FOR COMPONENT
-		axios.get(utils.baseUrl + '/books/books-list-with-children',)
-		.then((response) => {
-			this.props.set_fetched_books(response.data)
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+		const payload_from_previous_screen = this.props.navigation
+
+		if (payload_from_previous_screen.showFriendsSuggestionsInstead){
+
+			this.setState(prev => ({...prev, showFriendsSuggestionsInstead: true }) )
+			
+			this.props.navigation.setOptions({
+				title: `Friends Suggestions`,
+			})
+
+
+			axios.get(utils.baseUrl + '/books/books-list-with-children',)
+			.then((response) => {
+				this.props.set_fetched_books(response.data)
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+
+
+		} else {
+
+			this.setState(prev => ({...prev, showFriendsSuggestionsInstead: false }) )
+
+			this.props.navigation.setOptions({
+				title: `Friends`,
+			})
+
+			axios.get(utils.baseUrl + '/books/books-list-with-children',)
+			.then((response) => {
+				this.props.set_fetched_books(response.data)
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+
+		}
 
 
 	}
@@ -61,21 +92,28 @@ class FriendsScreen extends Component {
 	render() {
 			
 		const friends = this.props.friends
+		const friend_suggestions = this.props.friend_suggestions
+		const payload_from_previous_screen = this.props.navigation
+
+		console.log(payload_from_previous_screen)
 
 		return (
+
 
 			<View style={{backgroundColor: '#eee'}} >
 				
 	  	  		<FlatList
 	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
 	  				numColumns={1}
-	  	  			data={friends}
+	  	  			// data={(this.state.showFriendsSuggestionsInstead) ? friend_suggestions : friends}
 	  	  			data={[1,2,3,4,5,6,7,8,9,10]}
 	  				renderItem={
 	  					({ item }) => (
 							<ConnectedComponentForShowingFriend
 								dataPayloadFromParent = { item }
 								navigation = {this.props.navigation}
+								showFriendsSuggestionsInstead = {this.state.showFriendsSuggestionsInstead}
+								showFriendsSuggestionsInstead = {true}
 							/>
 	  					)}
 	  				keyExtractor={(item, index) => String(index)}

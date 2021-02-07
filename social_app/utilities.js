@@ -19,7 +19,11 @@ const utils = {
 	createdAdIcon:'heartbeat',
 
 
-
+	// component for showing friend
+	darkGreen:'#5a9f28',
+	followingIcon: 'heartbeat',
+	sendFriendRequestIcon: 'heartbeat',
+	lightBlue:'#4ea4a1',
 
 
 
