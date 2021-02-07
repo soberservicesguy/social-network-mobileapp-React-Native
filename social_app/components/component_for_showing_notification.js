@@ -346,11 +346,11 @@ class ComponentForShowingNotification extends Component {
 		]
 
 		let componentToShow 
+
 		// switch(data.activity_type){
 		switch("created_post"){
 
 			case "created_post":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 
@@ -393,7 +393,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "liked_post":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 
@@ -436,7 +435,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "shared_post":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 
@@ -479,7 +477,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "commented_on_post":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 
@@ -522,7 +519,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "accepted_friend_request":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64ImageNewFriend = "data:image/jpeg;base64," + data.new_friends_avatar
@@ -577,7 +573,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "created_book":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64Book = "data:image/jpeg;base64," + data.book_image
@@ -629,7 +624,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "got_interested_in_book":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64Book = "data:image/jpeg;base64," + data.book_image
@@ -681,7 +675,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "created_page":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64Page = "data:image/jpeg;base64," + data.page_image
@@ -733,7 +726,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "got_interested_in_page":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64Page = "data:image/jpeg;base64," + data.page_image
@@ -785,7 +777,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "created_sport":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64Sport = "data:image/jpeg;base64," + data.sport_image
@@ -837,7 +828,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			case "got_interested_in_sport":
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64Sport = "data:image/jpeg;base64," + data.sport_image
@@ -890,7 +880,6 @@ class ComponentForShowingNotification extends Component {
 
 			case "created_advertisement":
 
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 				var base64Ad = "data:image/jpeg;base64," + data.ad_image
@@ -942,7 +931,6 @@ class ComponentForShowingNotification extends Component {
 				break
 
 			default:
-// { user_name, user_avatar_image, friend_endpoint } , endpoint (not needed though since everything is being sent here, just take it and switch screen)
 
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 

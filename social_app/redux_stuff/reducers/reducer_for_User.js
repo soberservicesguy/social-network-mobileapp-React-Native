@@ -1,5 +1,8 @@
 const initialState = {
 
+	friends:[],
+	friend_suggestions:[],
+
 	isSignedIn: false,
 	userToken: null,
 
@@ -18,6 +21,17 @@ const initialState = {
 const reducerForUser = (state = initialState, action) => {
 
 	switch (action.type) {
+
+		case "SET_FRIENDS":
+
+			return {...state, friends: action.friends_list}
+			break;
+
+		case "SET_FRIENDS_SUGGESTIONS":
+
+			return {...state, friend_suggestions: action.friends_suggestions_list}
+			break;
+
 
 		case "SET_IS_SIGNED_IN":
 

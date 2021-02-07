@@ -44,6 +44,9 @@ export const rootReducer = combineReducers({
 
 export const mapStateToProps = state => {
 	return {
+		
+		friends: state.users.friends,
+		friend_suggestions: state.users.friend_suggestions,
 
 		total_notifications:state.notifications.all_notifications,
 
@@ -100,6 +103,8 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => {
 	return {
+		set_friends: (friends_list) => dispatch( { type: "SET_FRIENDS", friends_list: friends_list } ),
+		set_friends_suggestions: (friends_suggestions_list) => dispatch( { type: "SET_FRIENDS_SUGGESTIONS", friends_suggestions_list: friends_suggestions_list } ),
 
 		set_fetched_notifications: (notifications_list) => dispatch( { type: "SET_FETCHED_NOTIFICATIONS", notifications_list: notifications_list } ),
 
@@ -208,6 +213,12 @@ const persistConfig = {
 		'current_book',
 		'total_sports',
 		'current_sport',
+		'toggle_show_comments_for_socialpost',
+		'toggle_show_likes_for_socialpost',
+		'toggle_show_likes_for_book',
+		'toggle_show_likes_for_page',
+		'toggle_show_likes_for_sport',
+		'toggle_show_shares_for_socialpost',
 	],
 }
 

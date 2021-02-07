@@ -84,13 +84,39 @@ function InnerStack({navigation}) {
 		>
 
 {/* friends suggestions | friends list */} 
-{/* notifications */} 
 
 {/*SocialPosts*/}
 	{/* own wall */}
 	{/* some users wall | non-friendly users own wall */}
 	{/* photo posts from user on his wall */}
 	{/* video posts from user on his wall */} 
+
+
+{/* shows both friends list and friends suggestions */} 
+			<Stack.Screen name="Friends" component={ ConnectedFriendsScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Friends',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
+
+
+
+
 			<Stack.Screen name="Notifications" component={ ConnectedNotificationsScreen }
 				options={{ 
 					headerShown:true,
@@ -110,27 +136,6 @@ function InnerStack({navigation}) {
 			/>
 
 
-
-
-
-
-			<Stack.Screen name="Friends" component={ ConnectedFriendsScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Friends',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
 
 
 

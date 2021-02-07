@@ -18,9 +18,7 @@ import {
 
 // IMPORT CONNECTED COMPONENTS
 import {
-	ConnectedComponentForShowingBook,
-	ConnectedCreateBook,
-	ConnectedBookCard,
+	ConnectedComponentForShowingFriend,
 } from '../redux_stuff/connected_components';
 
 import { Dimensions } from 'react-native';
@@ -62,25 +60,22 @@ class FriendsScreen extends Component {
 // RENDER METHOD
 	render() {
 			
-		const total_books = this.props.total_books
+		const friends = this.props.friends
 
 		return (
 
 			<View style={{backgroundColor: '#eee'}} >
 				
-				<View>
-		  			<ConnectedCreateBook/>
-		  		</View>
-
 	  	  		<FlatList
 	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
 	  				numColumns={1}
-	  	  			data={total_books}
+	  	  			data={friends}
+	  	  			data={[1,2,3,4,5,6,7,8,9,10]}
 	  				renderItem={
 	  					({ item }) => (
-							<ConnectedBookCard
+							<ConnectedComponentForShowingFriend
 								dataPayloadFromParent = { item }
-								likes = { item.likes || [] }						
+								navigation = {this.props.navigation}
 							/>
 	  					)}
 	  				keyExtractor={(item, index) => String(index)}

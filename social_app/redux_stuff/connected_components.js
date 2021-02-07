@@ -75,7 +75,13 @@ import {
 
 import {
 	ComponentForShowingNotification,
+	ComponentForShowingFriend,
 } from "../components/"
+
+export const ConnectedComponentForShowingFriend = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ComponentForShowingFriend)
 
 export const ConnectedComponentForShowingNotification = connect(
 	mapStateToProps,
