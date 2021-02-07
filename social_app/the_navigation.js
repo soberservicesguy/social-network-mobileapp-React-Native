@@ -214,7 +214,7 @@ function InnerStack({navigation}) {
 			/>
 
 
-
+		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
 			<Stack.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
 				options={{ 
 					headerShown:true,
@@ -274,6 +274,8 @@ function InnerStack({navigation}) {
 					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
+
+
 
 			<Stack.Screen name="Individual_Book" component={ConnectedIndividualBook}
 				options={{ 

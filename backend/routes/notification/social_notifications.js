@@ -89,15 +89,16 @@ router.get('/get-notifications', passport.authenticate('jwt', { session: false }
 					let { activity_type } = activity
 
 					switch (activity_type) {
-						
+
 						case "accepted_friend_request":
 							var { accepted_friend_request } = activity
 							new_friend = await User.findOne({_id: accepted_friend_request})
 							let new_friends_details = { 
 								new_friends_user_name: new_friend.user_name_in_profile,
 								new_friends_avatar: new_friend.user_avatar_image,
+								new_friend_endpoint :new_friend.endpoint,
 							}
-							post_details = { ...post_details, ...new_friends_details, activity_type, user_name_in_profile, user_avatar_image, endpoint }
+							post_details = { ...post_details, ...new_friends_details, activity_type, user_name_in_profile, user_avatar_image, new_friend_endpoint }
 							activities_to_send.push(post_details)
 
 						case "created_post":
@@ -157,7 +158,7 @@ router.get('/get-notifications', passport.authenticate('jwt', { session: false }
 
 							let { book_liked } = activity
 							book_liked = await Book.findOne({_id: book_liked})
-							var { book_name, book_image, book_description, endpoint } = book_liked
+							var { book_name, book_image, book_description, interested_users, endpoint } = book_liked
 							post_details = { ...post_details, activity_type, book_name, book_image, book_description, endpoint }
 							activities_to_send.push(post_details)
 							break
@@ -166,7 +167,7 @@ router.get('/get-notifications', passport.authenticate('jwt', { session: false }
 
 							let { page_created } = activity
 							page_created = await Page.findOne({_id: page_created})
-							var { page_name, page_image, page_description, endpoint } = page_created
+							var { page_name, page_image, page_description, interested_users, endpoint } = page_created
 							post_details = { ...post_details, activity_type, page_name, page_image, page_description, endpoint }
 							activities_to_send.push(post_details)
 							break
@@ -175,7 +176,7 @@ router.get('/get-notifications', passport.authenticate('jwt', { session: false }
 
 							let { page_liked } = activity
 							page_liked = await Page.findOne({_id: page_liked})
-							var { page_name, page_image, page_description, endpoint } = page_liked
+							var { page_name, page_image, page_description, interested_users, endpoint } = page_liked
 							post_details = { ...post_details, activity_type, page_name, page_image, page_description, endpoint }
 							activities_to_send.push(post_details)
 							break
@@ -184,7 +185,7 @@ router.get('/get-notifications', passport.authenticate('jwt', { session: false }
 
 							let { sport_created } = activity
 							sport_created = await Sport.findOne({_id: sport_created})
-							var { sport_name, sport_image, sport_description, endpoint } = sport_created
+							var { sport_name, sport_image, sport_description, interested_users, endpoint } = sport_created
 							post_details = { ...post_details, activity_type, sport_name, sport_image, sport_description, endpoint }
 							activities_to_send.push(post_details)
 							break
@@ -193,7 +194,7 @@ router.get('/get-notifications', passport.authenticate('jwt', { session: false }
 
 							let { sport_liked } = activity
 							sport_liked = await Sport.findOne({_id: sport_liked})
-							var { sport_name, sport_image, sport_description, endpoint } = sport_created
+							var { sport_name, sport_image, sport_description, interested_users, endpoint } = sport_created
 							post_details = { ...post_details, activity_type, sport_name, sport_image, sport_description, endpoint }
 							activities_to_send.push(post_details)
 							break

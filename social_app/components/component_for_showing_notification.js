@@ -46,63 +46,279 @@ class ComponentForShowingNotification extends Component {
 		switch(notification_type){
 
 			case "created_post":
+
 				screen_name = 'Individual_SocialPost'
-				payload = {}
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					type_of_post: data.type_of_post,
+					total_likes: data.total_likes,
+					total_shares: data.total_shares,
+					total_comments: data.total_comments,
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					post_text: data.post_text,
+				}
+
 				break
 
 			case "liked_post":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_SocialPost'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					type_of_post: data.type_of_post,
+					total_likes: data.total_likes,
+					total_shares: data.total_shares,
+					total_comments: data.total_comments,
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					post_text: data.post_text,
+				}
+
 				break
 
 			case "shared_post":
-				screen_name = 'Home'
-				payload = {}
+				screen_name = 'Individual_SocialPost'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					type_of_post: data.type_of_post,
+					total_likes: data.total_likes,
+					total_shares: data.total_shares,
+					total_comments: data.total_comments,
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					post_text: data.post_text,
+				}
+
 				break
 
 			case "commented_on_post":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_SocialPost'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					type_of_post: data.type_of_post,
+					total_likes: data.total_likes,
+					total_shares: data.total_shares,
+					total_comments: data.total_comments,
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					post_text: data.post_text,
+				}
+
 				break
 
 			case "accepted_friend_request":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'SocialPost'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					type_of_post: data.type_of_post,
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					new_friend_endpoint: data.new_friend_endpoint, // this will be used to get his wall posts
+					new_friends_user_name: data.new_friends_user_name, // this will be used to generate his wall header
+					new_friends_avatar: data.new_friends_avatar, // this will be used to generate his wall header
+				}
+
 				break
 
 			case "created_book":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_Book'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					interested_users: data.interested_users, 
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					book_name: data.book_name, 
+					book_description: data.book_description, 
+					book_image: data.book_image, 
+				}
+
 				break
 
 			case "got_interested_in_book":
-				screen_name = 'Home'
-				payload = {}
-				break
+
+				screen_name = 'Individual_Book'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					interested_users: data.interested_users, 
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					book_name: data.book_name, 
+					book_description: data.book_description, 
+					book_image: data.book_image, 
+				}
 
 			case "created_page":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_Page'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					interested_users: data.interested_users, 
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					page_name: data.page_name, 
+					page_description: data.page_description, 
+					page_image: data.page_image, 
+				}
+
 				break
 
 			case "got_interested_in_page":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_Page'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					interested_users: data.interested_users, 
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					page_name: data.page_name, 
+					page_description: data.page_description, 
+					page_image: data.page_image, 
+				}
+
 				break
 
 			case "created_sport":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_Sport'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					interested_users: data.interested_users, 
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					sport_name: data.sport_name, 
+					sport_description: data.sport_description, 
+					sport_image: data.sport_image, 
+				}
+
 				break
 
 			case "got_interested_in_sport":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_Sport'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					interested_users: data.interested_users, 
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					sport_name: data.sport_name, 
+					sport_description: data.sport_description, 
+					sport_image: data.sport_image, 
+				}
+
 				break
 
 			case "created_advertisement":
-				screen_name = 'Home'
-				payload = {}
+
+				screen_name = 'Individual_Ad'
+
+				payload = {
+
+				// users data
+					user_name: data.user_name,
+					user_avatar_image: data.user_avatar_image,
+
+				// social stats
+					endpoint: data.endpoint,
+					// activity_type: activity_type,
+
+				// content to show
+					ad_name: data.ad_name, 
+					ad_description: data.ad_description, 
+					ad_image: data.ad_image, 
+				}
+
 				break
 
 			default:
