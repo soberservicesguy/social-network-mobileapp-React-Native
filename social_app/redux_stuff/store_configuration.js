@@ -24,6 +24,7 @@ import {
 	reducerForPage,
 	reducerForBook,
 	reducerForSport,
+	reducerForNotification,
 } from "./reducers"
 
 export const rootReducer = combineReducers({
@@ -37,10 +38,14 @@ export const rootReducer = combineReducers({
 	books: reducerForBook,
 	sports: reducerForSport,
 	privileges: reducerForPrivileges,
+
+	notifications:reducerForNotification,
 });
 
 export const mapStateToProps = state => {
 	return {
+
+		total_notifications:state.notifications.all_notifications,
 
 		show_socialpost_comments:state.socialposts.showOnlyCommentsQuantityForSocialPost,
 
@@ -95,6 +100,8 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => {
 	return {
+
+		set_fetched_notifications: (notifications_list) => dispatch( { type: "SET_FETCHED_NOTIFICATIONS", notifications_list: notifications_list } ),
 
 		toggle_show_comments_for_socialpost: () => dispatch( {type: "TOGGLE_COMMENT_QUANTITY_FOR_SOCIALPOST"} ),
 

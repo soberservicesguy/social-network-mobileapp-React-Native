@@ -73,6 +73,14 @@ import {
 	SummarizeSharesOfSocialPost,
 } from "../components/shares"
 
+import {
+	ComponentForShowingNotification,
+} from "../components/"
+
+export const ConnectedComponentForShowingNotification = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ComponentForShowingNotification)
 
 export const ConnectedSummarizeCommentsOfSocialPost = connect(
 	mapStateToProps,

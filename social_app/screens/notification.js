@@ -18,9 +18,7 @@ import {
 
 // IMPORT CONNECTED COMPONENTS
 import {
-	ConnectedComponentForShowingBook,
-	ConnectedCreateBook,
-	ConnectedBookCard,
+	ConnectedComponentForShowingNotification,
 } from '../redux_stuff/connected_components';
 
 import { Dimensions } from 'react-native';
@@ -39,48 +37,35 @@ class NotificationsScreen extends Component {
 	componentDidMount() {
 
 // FETCHING DATA FOR COMPONENT
-		axios.get(utils.baseUrl + '/books/books-list-with-children',)
+		axios.get(utils.baseUrl + '/notifications/get-notifications',)
 		.then((response) => {
-			this.props.set_fetched_books(response.data)
+			this.props.set_fetched_notifications(response.data)
 		})
 		.catch((error) => {
 			console.log(error);
 		})
 
-
-	}
-	get_10_more_items() {
-		axios.get(utils.baseUrl + `/books/books-list-next-10-with-children`)
-		.then((response) => {
-			this.props.set_fetched_10_more_book(response.data)
-		})
-		.catch((error) => {
-			console.log(error);
-		})		
 	}
 
 // RENDER METHOD
 	render() {
 			
-		const total_books = this.props.total_books
+		const total_notifications = this.props.total_notifications
 
 		return (
 
 			<View style={{backgroundColor: '#eee'}} >
 				
-				<View>
-		  			<ConnectedCreateBook/>
-		  		</View>
-
 	  	  		<FlatList
 	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
 	  				numColumns={1}
-	  	  			data={total_books}
+	  	  			// data={total_notifications}
+	  	  			data={[1,2,3,4,5,6,7,8,9,10]}
 	  				renderItem={
 	  					({ item }) => (
-							<ConnectedBookCard
+							<ConnectedComponentForShowingNotification
 								dataPayloadFromParent = { item }
-								likes = { item.likes || [] }						
+								navigation = {this.props.navigation} // for passing navigation controls
 							/>
 	  					)}
 	  				keyExtractor={(item, index) => String(index)}

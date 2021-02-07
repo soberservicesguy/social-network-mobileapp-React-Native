@@ -4,7 +4,8 @@ router.use('/users', require('./user/users'));
 router.use('/users', require('./user/sign_up'));
 
 router.use('/videos', require('./video/video_stream'));
-router.use('/notifications', require('./notification/push_notifications'));
+
+router.use('/notifications', require('./notification/social_notifications'));
 
 router.use('/socialposts', require('./social_post/socialposts'));
 router.use('/advertisements', require('./advertisement/advertisements'));

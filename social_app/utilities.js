@@ -4,8 +4,19 @@ const utils = {
 	// create_share_for_socialpost
 	shareIcon:'heartbeat',
 
-
-
+	// component_for_showing_notification
+	createPostIcon:'heartbeat',
+	likedPostIcon:'heartbeat',
+	sharedPostIcon:'heartbeat',
+	commentedOnPostIcon:'heartbeat',
+	becameFriendsIcon:'heartbeat',
+	createdBookIcon:'heartbeat',
+	likesBookIcon:'heartbeat',
+	createdPageIcon:'heartbeat',
+	likesPageIcon:'heartbeat',
+	createdSportIcon:'heartbeat',
+	likesSportPostIcon:'heartbeat',
+	createdAdIcon:'heartbeat',
 
 
 

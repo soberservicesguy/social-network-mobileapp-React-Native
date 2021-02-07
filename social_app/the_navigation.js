@@ -215,10 +215,31 @@ function InnerStack({navigation}) {
 
 
 
-			<Stack.Screen name="BlogPost" component={ ConnectedSocialPostScreen }
+			<Stack.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
 				options={{ 
 					headerShown:true,
-					title: 'BlogPost',
+					title: 'SocialPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
+
+			<Stack.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
+				options={{ 
+					headerShown:true,
+					title: 'SocialPost',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
