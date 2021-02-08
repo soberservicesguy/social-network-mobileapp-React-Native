@@ -37,8 +37,8 @@ class SocialPostScreen extends Component {
 // STATE	
 		this.state = {
 			showOwnWallInstead:false,
-			showFriendsWallInstead:false,
-			showNonFriendsWallInstead:true,
+			showFriendsWallInstead:true,
+			showNonFriendsWallInstead:false,
 		}	
 	}
 
@@ -141,7 +141,7 @@ class SocialPostScreen extends Component {
 					<View style={styles.socialStatsContainer}>
 						<View style={styles.friendsContainer}>
 							<Text style={styles.statsCountText}>
-								
+								232
 							</Text>
 							<Text style={styles.statsNameText}>
 								friends
@@ -150,7 +150,7 @@ class SocialPostScreen extends Component {
 
 						<View style={styles.followersContainer}>
 							<Text style={styles.statsCountText}>
-								
+								232
 							</Text>
 							<Text style={styles.statsNameText}>
 								followers
@@ -173,9 +173,11 @@ class SocialPostScreen extends Component {
 										// reverse={true}
 									/>
 									
-									<Text>
-										send friend request
-									</Text>
+									<View style={{width:windowWidth*0.2}}>
+										<Text style={styles.sendRequestText}>
+											Send Friend Request
+										</Text>
+									</View>
 								</View>)
 
 							} else if (this.state.showFriendsWallInstead){
@@ -190,10 +192,11 @@ class SocialPostScreen extends Component {
 										// onPress={() => console.log('hello')} 
 										// reverse={true}
 									/>
-
-									<Text>
-										un-friend
-									</Text>
+									<View style={{width:windowWidth*0.2}}>
+										<Text style={styles.unFriendText}>
+											Un-friend
+										</Text>
+									</View>
 								</View>)
 
 							} else if (this.state.showOwnWallInstead){
@@ -285,7 +288,7 @@ const styles = StyleSheet.create({
 		height: windowHeight * 0.5,
 		width: windowWidth,
 		marginTop:20,
-		backgroundColor: 'green'
+		// backgroundColor: 'green'
 
 	},
 	headerText:{
@@ -309,6 +312,8 @@ const styles = StyleSheet.create({
 		height:windowHeight * 0.15,
 		marginTop: windowHeight * 0.05/2,
 		// backgroundColor: '#000000',
+		width:'95%',
+		alignSelf:'center',
 	},
 	friendsContainer:{
 		flex:1,
@@ -318,9 +323,47 @@ const styles = StyleSheet.create({
 	},
 	sendFriendRequestContainer:{
 		flex:1,
+		flexDirection: 'row',
+		backgroundColor: utils.darkGreen,
+		height:windowHeight * 0.07,
+		borderRadius:10,
+		justifyContent: 'center',
+		alignItems:'center',
+
 	},
 	unFriendRequestContainer:{
 		flex:1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems:'center',
+		height:windowHeight * 0.07,
+		borderRadius:10,
+		justifyContent: 'center',
+		alignItems:'center',
+		backgroundColor: 'black',
+	},
+
+	sendRequestText:{
+		color:'white',
+		fontWeight:'bold',
+		textAlign:'center',
+	},
+	unFriendText:{
+		color:'red',
+		fontWeight:'bold',
+		textAlign:'center',
+	},
+
+// text
+	statsCountText:{
+		textAlign:'center',
+		fontSize:20,
+		fontWeight:'bold',
+	},
+	statsNameText:{
+		textAlign:'center',
+		color:utils.darkBlue,
+		fontSize:17,
 	},
 });
 
