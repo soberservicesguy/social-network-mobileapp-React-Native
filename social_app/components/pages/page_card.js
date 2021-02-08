@@ -46,7 +46,11 @@ class PageCard extends Component {
 
 // COMPONENT DID MOUNT
 	componentDidMount() {
+		this.props.hide_likes_for_page()
+	}
 
+	componentWillUnmount(){
+		this.props.hide_likes_for_page()
 	}
 
 	fetchAllLike(endpoint) {

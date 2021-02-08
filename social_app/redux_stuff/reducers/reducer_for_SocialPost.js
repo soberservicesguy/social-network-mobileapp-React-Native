@@ -34,6 +34,21 @@ const reducerForSocialPost = (state = initialState, action) => {
 
 	switch (action.type) {
 
+		case "HIDE_SHARE_QUANTITY_FOR_SOCIALPOST":
+			return {...state, showOnlySharesQuantityForSocialPost: false }
+			break;
+
+
+		case "HIDE_COMMENT_QUANTITY_FOR_SOCIALPOST":
+			return {...state, showOnlyCommentsQuantityForSocialPost: false }
+			break;
+
+		case "HIDE_LIKE_QUANTITY_FOR_SOCIALPOST":
+			return {...state, showOnlyLikesQuantityForSocialPost: false }
+			break;
+
+
+
 		case "TOGGLE_SHARE_QUANTITY_FOR_SOCIALPOST":
 			return {...state, showOnlySharesQuantityForSocialPost: (state.showOnlySharesQuantityForSocialPost === true) ? false : true }
 			break;

@@ -27,6 +27,12 @@ const reducerForSport = (state = initialState, action) => {
 
 	switch (action.type) {
 
+
+		case "HIDE_LIKE_QUANTITY_FOR_SPORT":
+			return {...state, showOnlyLikesQuantityForSport: false }
+			break;
+
+
 		case "TOGGLE_LIKE_QUANTITY_FOR_SPORT":
 			return {...state, showOnlyLikesQuantityForSport: (state.showOnlyLikesQuantityForSport === true) ? false : true }
 			break;

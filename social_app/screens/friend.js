@@ -113,7 +113,7 @@ class FriendsScreen extends Component {
 								dataPayloadFromParent = { item }
 								navigation = {this.props.navigation}
 								showFriendsSuggestionsInstead = {this.state.showFriendsSuggestionsInstead}
-								showFriendsSuggestionsInstead = {true}
+								// showFriendsSuggestionsInstead = {true}
 							/>
 	  					)}
 	  				keyExtractor={(item, index) => String(index)}

@@ -27,6 +27,11 @@ const reducerForBook = (state = initialState, action) => {
 
 	switch (action.type) {
 
+		case "HIDE_LIKE_QUANTITY_FOR_BOOK":
+			return {...state, showOnlyLikesQuantityForBook: false }
+			break;
+
+
 		case "TOGGLE_LIKE_QUANTITY_FOR_BOOK":
 			return {...state, showOnlyLikesQuantityForBook: (state.showOnlyLikesQuantityForBook === true) ? false : true }
 			break;

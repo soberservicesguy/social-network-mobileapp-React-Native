@@ -45,7 +45,11 @@ class BookCard extends Component {
 
 // COMPONENT DID MOUNT
 	componentDidMount() {
+		this.props.hide_likes_for_book()
+	}
 
+	componentWillUnmount(){
+		this.props.hide_likes_for_book()
 	}
 
 	fetchAllLike(endpoint) {

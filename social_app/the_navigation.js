@@ -83,7 +83,6 @@ function InnerStack({navigation}) {
 			// headerMode='none'
 		>
 
-{/* friends suggestions | friends list */} 
 
 {/*SocialPosts*/}
 	{/* own wall */}
@@ -91,7 +90,54 @@ function InnerStack({navigation}) {
 	{/* photo posts from user on his wall */}
 	{/* video posts from user on his wall */} 
 
+		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
+			<Stack.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
+				options={{ 
+						headerShown:true,
+					title: 'SocialPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
+
+
+
+			<Stack.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
+				options={{ 
+					headerShown:true,
+					title: 'SocialPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+		
+		
+
+
+
+
+
+
+{/* friends suggestions | friends list */} 
 {/* shows both friends list and friends suggestions */} 
 			<Stack.Screen name="Friends" component={ ConnectedFriendsScreen }
 				options={{ 
@@ -161,24 +207,6 @@ function InnerStack({navigation}) {
 
 
 
-			<Stack.Screen name="Sport" component={ ConnectedSportScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Sport',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
 
 
 			<Stack.Screen name="Books" component={ ConnectedBookScreen }
@@ -219,47 +247,6 @@ function InnerStack({navigation}) {
 			/>
 
 
-		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
-			<Stack.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
-				options={{ 
-					headerShown:true,
-					title: 'SocialPost',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-
-
-
-			<Stack.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
-				options={{ 
-					headerShown:true,
-					title: 'SocialPost',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-		
-		
 
 		
 			<Stack.Screen name="Individual_Ad" component={ConnectedIndividualAdvertisement}

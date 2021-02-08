@@ -25,7 +25,8 @@ const utils = {
 	sendFriendRequestIcon: 'heartbeat',
 	lightBlue:'#4ea4a1',
 
-
+	// socialposts screen
+	unfriendIcon:'heartbeat',
 
 
 	image:require('./images/samosa.jpg'),

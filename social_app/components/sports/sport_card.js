@@ -44,7 +44,11 @@ class SportCard extends Component {
 
 // COMPONENT DID MOUNT
 	componentDidMount() {
+		this.props.hide_likes_for_sport()
+	}
 
+	componentWillUnmount(){
+		this.props.hide_likes_for_sport()
 	}
 
 	fetchAllLike(endpoint) {

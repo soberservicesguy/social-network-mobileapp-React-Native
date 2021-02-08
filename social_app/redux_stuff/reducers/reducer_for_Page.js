@@ -27,6 +27,11 @@ const reducerForPage = (state = initialState, action) => {
 
 	switch (action.type) {
 
+		case "HIDE_LIKE_QUANTITY_FOR_PAGE":
+			return {...state, showOnlyLikesQuantityForPage: false }
+			break;
+
+
 		case "TOGGLE_LIKE_QUANTITY_FOR_PAGE":
 			return {...state, showOnlyLikesQuantityForPage: (state.showOnlyLikesQuantityForPage === true) ? false : true }
 			break;

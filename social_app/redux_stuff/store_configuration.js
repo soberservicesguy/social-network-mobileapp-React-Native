@@ -106,16 +106,25 @@ export const mapDispatchToProps = dispatch => {
 		set_friends: (friends_list) => dispatch( { type: "SET_FRIENDS", friends_list: friends_list } ),
 		set_friends_suggestions: (friends_suggestions_list) => dispatch( { type: "SET_FRIENDS_SUGGESTIONS", friends_suggestions_list: friends_suggestions_list } ),
 
+
 		set_fetched_notifications: (notifications_list) => dispatch( { type: "SET_FETCHED_NOTIFICATIONS", notifications_list: notifications_list } ),
 
-		toggle_show_comments_for_socialpost: () => dispatch( {type: "TOGGLE_COMMENT_QUANTITY_FOR_SOCIALPOST"} ),
 
+		hide_comments_for_socialpost: () => dispatch( {type: "HIDE_COMMENT_QUANTITY_FOR_SOCIALPOST"} ),
+		hide_likes_for_socialpost: () => dispatch( {type: "HIDE_LIKE_QUANTITY_FOR_SOCIALPOST"} ),
+		hide_likes_for_book: () => dispatch( {type: "HIDE_LIKE_QUANTITY_FOR_BOOK"} ),
+		hide_likes_for_page: () => dispatch( {type: "HIDE_LIKE_QUANTITY_FOR_PAGE"} ),
+		hide_likes_for_sport: () => dispatch( {type: "HIDE_LIKE_QUANTITY_FOR_SPORT"} ),
+		hide_shares_for_socialpost: () => dispatch( {type: "HIDE_SHARE_QUANTITY_FOR_SOCIALPOST"} ),
+
+
+		toggle_show_comments_for_socialpost: () => dispatch( {type: "TOGGLE_COMMENT_QUANTITY_FOR_SOCIALPOST"} ),
 		toggle_show_likes_for_socialpost: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_SOCIALPOST"} ),
 		toggle_show_likes_for_book: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_BOOK"} ),
 		toggle_show_likes_for_page: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_PAGE"} ),
 		toggle_show_likes_for_sport: () => dispatch( {type: "TOGGLE_LIKE_QUANTITY_FOR_SPORT"} ),
-
 		toggle_show_shares_for_socialpost: () => dispatch( {type: "TOGGLE_SHARE_QUANTITY_FOR_SOCIALPOST"} ),
+
 
 // user
 		set_is_signed_in: (booleon) => dispatch( { type:"SET_IS_SIGNED_IN", booleon: booleon } ),

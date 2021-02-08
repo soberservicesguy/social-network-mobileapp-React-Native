@@ -132,7 +132,13 @@ class SocialPostCard extends Component {
 
 // COMPONENT DID MOUNT
 	componentDidMount() {
+		this.props.hide_comments_for_socialpost()
+		this.props.hide_likes_for_socialpost()
+	}
 
+	componentWillUnmount(){
+		this.props.hide_comments_for_socialpost()
+		this.props.hide_likes_for_socialpost()		
 	}
 
 	render() {
