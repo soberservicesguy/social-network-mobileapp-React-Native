@@ -7,6 +7,7 @@ import {
 	TouchableHighlight,
 	Modal,
 	TouchableOpacity,
+	Image,
 } from "react-native";
 import PropTypes from 'prop-types';
 					
@@ -35,23 +36,33 @@ class ComponentForShowingPage extends Component {
 
 	render() {
 
-		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
+		// const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
+		let data = {}
+		var base64Image = "data:image/jpeg;base64," + data.page_image
 
 		return (
 			<View style={styles.outerContainer}>
-{/*				<Text>
-					{ data.page_name }
-				</Text>
-				<Text>
-					{ data.page_image }
-				</Text>
-				<Text>
-					{ data.page_description }
-				</Text>
-				<Text>
-					{ data.endpoint }
-				</Text>*/}
+				<View style={styles.pageNameContainer}>
+					<Text style={styles.pageNameText}>
+						Page name { data.page_name }
+					</Text>
+				</View>
+
+				<View style={styles.imageContainer}>
+					<Image 
+						source={utils.image}
+						// source={{uri: base64Image}} 
+						style={styles.imageStyle}
+					/>
+				</View>
+
+				<View style={styles.pageDescriptionContainer}>
+					<Text style={styles.pageDescriptionText}>
+						Page description { data.page_description }
+					</Text>
+				</View>
 			</View>
+
 		);
 	}
 }
@@ -61,7 +72,46 @@ ComponentForShowingPage.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	outerContainer: {
+	outerContainer:{
+		alignItems:'center',
+		justifyContent: 'center',
+	},
+
+
+	imageStyle:{
+		alignSelf:'center',
+		resizeMode: "stretch",
+		height: '90%',
+		width: '80%',
+	},
+
+	imageContainer:{
+		// marginTop: windowHeight * 0.05, // or 30  gap
+		height: windowHeight * 0.3, // or 100
+		width: windowWidth,
+		justifyContent: 'center', // vertically centered
+		alignSelf: 'center', // horizontally centered
+		// backgroundColor: utils.lightGreen,
+	},
+
+	pageNameContainer:{
+		height:windowHeight * 0.05,
+		marginTop:10,
+	},
+	pageNameText:{
+		textAlign:'center',
+		fontSize:20,
+		fontWeight: 'bold',
+		color:utils.mediumGrey
+	},
+	pageDescriptionContainer:{
+		marginTop:10,
+		height:windowHeight * 0.15,
+		width: windowWidth,
+	},
+	pageDescriptionText:{
+		fontSize:15,
+		textAlign:'left'
 	},
 });
 

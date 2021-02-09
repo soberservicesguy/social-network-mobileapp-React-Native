@@ -85,7 +85,7 @@ class CreateShareForSocialpost extends Component {
 						}}
 					>			
 						<Icon
-						  // raised
+					  // raised
 						  name={utils.shareIcon}
 						  type='font-awesome'
 						  color='#f50'

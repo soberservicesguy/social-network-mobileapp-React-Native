@@ -96,14 +96,12 @@ class SportCard extends Component {
 							dataPayloadFromParent = { this.props.likes }
 						/>
 					</TouchableOpacity>
-				</View>
 
-				<View style={styles.createCommentAndLikeContainer}>
-					{/* 4th create individual child options like comment / like */}					
 					<ConnectedCreateLikeForSport
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
 					/>
 				</View>
+
 
 		  	</View>
 		);
@@ -111,27 +109,33 @@ class SportCard extends Component {
 }
 	
 SportCard.defaultProps = {
-	isCategoryInstead:true,
 };
 
 const styles = StyleSheet.create({
 	outerContainer:{
+		// backgroundColor: '#000000',
+		width:windowWidth,
+		marginTop: 30,
 	},
 
 // comments and likes counts
 	socialButtonsAndStatsContainer:{
 		flexDirection:'row', 
-		// justifyContent:'space-between',
-		justifyContent:'flex-start',
+		justifyContent:'space-between',
+		// justifyContent:'flex-start',
+		// borderBottomColor: utils.dimWhite,
+		// borderBottomWidth: 1,
+		width:'90%',
+		alignSelf:'center',
+		marginBottom:10,
+		paddingBottom:10,
+		// backgroundColor: '#000000'
+
 	},
 	socialButtonAndStats:{
 		height:windowHeight * 0.05
 	},
 
-// create comment and like
-	createCommentAndLikeContainer:{
-		marginTop: windowHeight * 0.001,
-	},
 });
 
 export default SportCard

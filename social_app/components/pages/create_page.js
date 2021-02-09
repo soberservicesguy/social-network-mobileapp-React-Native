@@ -62,8 +62,9 @@ class CreatePage extends Component {
 				<View style={styles.outerContainer}>
 
 					<Button 
-						title={'Select Image From Phone'}
+						title={'Upload Image'}
 						style={styles.buttonWithoutBG}
+						color={utils.mediumGrey}
 						onPress={async () => {
 							try {
 								let res = await DocumentPicker.pick({
@@ -89,14 +90,14 @@ class CreatePage extends Component {
 
 					<View style={{
 						display: 'flex',
-						flexDirection: 'row',
+						// flexDirection: 'row',
 					}}>
 
 					  	<View style={styles.textinputContainer}>
 							<TextInput
 								style={styles.textinput}
 								placeholder="Type your page_name"
-								placeholderTextColor = {utils.lightGrey}
+								placeholderTextColor = {utils.mediumGrey}
 								// maxLength=10
 								// caretHidden=true
 								// multiline=true
@@ -113,7 +114,7 @@ class CreatePage extends Component {
 							<TextInput
 								style={styles.textinput}
 								placeholder="Type your page_description"
-								placeholderTextColor = {utils.lightGrey}
+								placeholderTextColor = {utils.mediumGrey}
 								// maxLength=10
 								// caretHidden=true
 								// multiline=true
@@ -129,16 +130,22 @@ class CreatePage extends Component {
 
 					<TouchableOpacity
 						activeOpacity={0.2}
-						style={styles.bottomButton}
+						style={styles.createPageButton}
 						onPress={ () => {
 
 							let setResponseInCurrentPage = (arg) => this.props.set_current_page(arg)
 							let redirectToNewPage = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
 
 							const formData = new FormData()
-							formData.append('page_description', this.state.page_description)
-							formData.append('page_name', this.state.page_name)
-							formData.append('page_image', {uri: this.state.page_image.uri, name: this.state.page_image.name, type: this.state.page_image.type})
+							if (this.state.page_description !== ''){
+								formData.append('page_description', this.state.page_description)
+							}
+							if (this.state.page_name !== ''){
+								formData.append('page_name', this.state.page_name)
+							}
+							if (this.state.page_image !== ''){
+								formData.append('page_image', {uri: this.state.page_image.uri, name: this.state.page_image.name, type: this.state.page_image.type})
+							}
 
 							axios.post(utils.baseUrl + '/pages/create-page-with-user', formData)
 							.then(function (response) {
@@ -157,8 +164,8 @@ class CreatePage extends Component {
 
 						}}
 					>
-						<Text style={styles.buttonText}>
-							Press To Create Page
+						<Text style={styles.innerText}>
+							Create Page
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -172,33 +179,56 @@ CreatePage.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
-	},
-	innerText:{
-
-	},
 	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		// width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
+		paddingTop:0,
+		marginTop:10,	
+		// backgroundColor: '#000000',
+		width: '90%',
+		alignSelf:'center',
+		// flex:1,
+		height: windowHeight * 0.07
+		// marginBottom: windowHeight * 0.005,
 	},
 	textinput:{
-		marginTop:20,
+		// backgroundColor: '#000000',
+		// marginTop:10,
 		textAlign:'left',
 		borderWidth:1,
-		borderColor:(utils.lightGrey),
 		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
+		// paddingTop:17,
+		// paddingBottom:17,
 		fontSize:18,
+		borderRadius:50,
+		borderColor:utils.lightGrey,
+		// backgroundColor: utils.darkGrey,
+		borderWidth:2,
+		paddingLeft:windowWidth * 0.17,
+		fontWeight: 'bold',
+		opacity: 0.5,
 	},
 
+
+	
+	createPageButton:{	
+		// flex:1,
+		// position:'absolute',
+		// top:windowHeight * 0.073,
+		// right: windowWidth * 0.06,
+		marginTop:10,
+		width: windowWidth,
+		height: windowHeight * 0.08,
+		alignItems: 'center',
+		justifyContent: 'center',
+		// alignSelf:'center',
+		backgroundColor: 'black',
+		// borderRadius: windowWidth * 1/2
+	},
+	innerText:{
+		textAlign:'center',
+		color:'white',
+		fontSize:20,
+		// fontWeight:'bold'
+	},
 });
 
 export default CreatePage

@@ -74,7 +74,7 @@ class PageScreen extends Component {
 		  		</View>
 
 	  	  		<FlatList
-	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
+	  				style={{flexDirection: 'column', flexWrap : "wrap", marginTop:10,}}
 	  				numColumns={1}
 	  	  			data={total_pages}
 	  				renderItem={

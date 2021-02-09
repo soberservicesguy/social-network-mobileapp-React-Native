@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
 		height: windowHeight * 0.05,
 		// backgroundColor: 'grey',
 		position:'absolute',
-		bottom:windowHeight * 0.08,
-		left:windowWidth * 0.82,
+		// bottom:windowHeight * 0.08,
+		left:windowWidth * 0.78,
 	},
 });
 

@@ -62,8 +62,9 @@ class CreateBook extends Component {
 				<View style={styles.outerContainer}>
 
 					<Button 
-						title={'Select IMAGE MAIN From Phone'}
+						title={'Upload Image'}
 						style={styles.buttonWithoutBG}
+						color={utils.mediumGrey}
 						onPress={async () => {
 							try {
 								let res = await DocumentPicker.pick({
@@ -88,14 +89,14 @@ class CreateBook extends Component {
 
 					<View style={{
 						display: 'flex',
-						flexDirection: 'row',
+						// flexDirection: 'row',
 					}}>
 
 					  	<View style={styles.textinputContainer}>
 							<TextInput
 								style={styles.textinput}
 								placeholder="Type your book_name"
-								placeholderTextColor = {utils.lightGrey}
+								placeholderTextColor = {utils.mediumGrey}
 								// maxLength=10
 								// caretHidden=true
 								// multiline=true
@@ -113,7 +114,7 @@ class CreateBook extends Component {
 							<TextInput
 								style={styles.textinput}
 								placeholder="Type your book_description"
-								placeholderTextColor = {utils.lightGrey}
+								placeholderTextColor = {utils.mediumGrey}
 								// maxLength=10
 								// caretHidden=true
 								// multiline=true
@@ -129,15 +130,21 @@ class CreateBook extends Component {
 
 					<TouchableOpacity
 						activeOpacity={0.2}
-						style={styles.bottomButton}
+						style={styles.createBookButton}
 						onPress={ () => {
 							let setResponseInCurrentBook = (arg) => this.props.set_current_book(arg)
 							let redirectToNewBook = () => this.setState(prev => ({...prev, redirectToRoute: (prev.redirectToRoute === false) ? true : false }))	
 
 							const formData = new FormData()
-							formData.append('book_name', this.state.book_name)
-							formData.append('book_description', this.state.book_description)
-							formData.append('book_image', {uri: this.state.book_image.uri, type: this.state.book_image.type, name: this.state.book_image.name})
+							if (this.state.book_name !== ''){
+								formData.append('book_name', this.state.book_name)
+							}
+							if (this.state.book_description){
+								formData.append('book_description', this.state.book_description)
+							}
+							if (this.state.book_image){
+								formData.append('book_image', {uri: this.state.book_image.uri, type: this.state.book_image.type, name: this.state.book_image.name})
+							}
 
 							axios.post(utils.baseUrl + '/books/create-book-with-user', formData)
 							.then(function (response) {
@@ -156,8 +163,8 @@ class CreateBook extends Component {
 
 						}}
 					>
-						<Text style={styles.buttonText}>
-							Press To Create Book
+						<Text style={styles.innerText}>
+							Create Book
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -171,56 +178,55 @@ CreateBook.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	buttonWithoutBG:{
-		marginTop:50,
-		marginBottom:50,
+	textinputContainer:{
+		paddingTop:0,
+		marginTop:10,	
+		// backgroundColor: '#000000',
+		width: '90%',
+		alignSelf:'center',
+		// flex:1,
+		height: windowHeight * 0.07
+		// marginBottom: windowHeight * 0.005,
+	},
+	textinput:{
+		// backgroundColor: '#000000',
+		// marginTop:10,
+		textAlign:'left',
+		borderWidth:1,
+		borderStyle:'solid',
+		// paddingTop:17,
+		// paddingBottom:17,
+		fontSize:18,
+		borderRadius:50,
+		borderColor:utils.lightGrey,
+		// backgroundColor: utils.darkGrey,
+		borderWidth:2,
+		paddingLeft:windowWidth * 0.17,
+		fontWeight: 'bold',
+		opacity: 0.5,
+	},
+
+
+
+	createBookButton:{	
+		// flex:1,
+		// position:'absolute',
+		// top:windowHeight * 0.073,
+		// right: windowWidth * 0.06,
+		marginTop:10,
+		width: windowWidth,
+		height: windowHeight * 0.08,
+		alignItems: 'center',
+		justifyContent: 'center',
+		// alignSelf:'center',
+		backgroundColor: 'black',
+		// borderRadius: windowWidth * 1/2
 	},
 	innerText:{
-
-	},
-	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
-	},
-	textinput:{
-		marginTop:20,
-		textAlign:'left',
-		borderWidth:1,
-		borderColor:(utils.lightGrey),
-		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
-		fontSize:18,
-	},
-	outerContainer: {
-	},
-	bigBlue: {
-	},
-
-
-	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
-	},
-	textinput:{
-		marginTop:20,
-		textAlign:'left',
-		borderWidth:1,
-		borderColor:(utils.lightGrey),
-		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
-		fontSize:18,
+		textAlign:'center',
+		color:'white',
+		fontSize:20,
+		// fontWeight:'bold'
 	},
 });
 
