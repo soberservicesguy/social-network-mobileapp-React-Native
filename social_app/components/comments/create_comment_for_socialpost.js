@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 		height: windowHeight * 0.08,
 		// backgroundColor: '#000000',
 		alignItems: 'center',
-		flexDirection:'row',
+		// flexDirection:'row',
 	},
 
 
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
 		paddingTop:0,
 		marginTop:0,	
 		// backgroundColor: '#000000',
-		// width: '70%',
-		flex:4,
+		width: '90%',
+		// flex:1,
 		height: windowHeight * 0.07
 		// marginBottom: windowHeight * 0.005,
 	},
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
 		// paddingBottom:17,
 		fontSize:18,
 		borderRadius:50,
-		borderColor:utils.darkGrey,
+		borderColor:utils.dimWhite,
 		// backgroundColor: utils.darkGrey,
 		borderWidth:2,
 		paddingLeft:windowWidth * 0.17,
@@ -162,10 +162,21 @@ const styles = StyleSheet.create({
 
 // create comment button
 	buttonWithoutBG:{
-		flex:1
+		// flex:1,
+		position:'absolute',
+		top:windowHeight * 0.007,
+		right: windowWidth * 0.06,
+		width: windowWidth * 0.21,
+		height: windowHeight * 0.055,
+		// alignItems: 'center',
+		// justifyContent: 'center',
+		// alignSelf:'center',
+		backgroundColor: utils.dimWhite,
+		borderRadius: windowWidth * 1/2
 	},
 	innerText:{
 		textAlign:'center',
+		// color:'white',
 	},
 });
 

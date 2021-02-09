@@ -144,7 +144,7 @@ class SocialPostCard extends Component {
 	render() {
 
 		return (
-		  	<View>
+		  	<View style={styles.outerContainer}>
 
 		  		<View>
 					{/* first the parent / card component */}
@@ -153,6 +153,23 @@ class SocialPostCard extends Component {
 
 				<View style={styles.socialButtonsAndStatsContainer}>
 					{/* 2nd show individual summary of childs */}
+
+					<TouchableOpacity 
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => { 
+							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
+							this.props.toggle_show_likes_for_socialpost()
+						}}
+					>						
+						<ConnectedSummarizeLikesOfSocialPost
+							showOnlyQuantity = { this.props.show_socialpost_likes }
+							child_quantity = { this.props.likes_quantity }
+							dataPayloadFromParent = { this.props.likes }
+						/>
+					</TouchableOpacity>
+
+
 					<TouchableOpacity
 						style={styles.socialButtonAndStats}
 						activeOpacity={0.2} 
@@ -173,21 +190,6 @@ class SocialPostCard extends Component {
 						style={styles.socialButtonAndStats}
 						activeOpacity={0.2} 
 						onPress={ () => { 
-							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_likes_for_socialpost()
-						}}
-					>						
-						<ConnectedSummarizeLikesOfSocialPost
-							showOnlyQuantity = { this.props.show_socialpost_likes }
-							child_quantity = { this.props.likes_quantity }
-							dataPayloadFromParent = { this.props.likes }
-						/>
-					</TouchableOpacity>
-
-					<TouchableOpacity 
-						style={styles.socialButtonAndStats}
-						activeOpacity={0.2} 
-						onPress={ () => { 
 							this.fetchAllShare( this.props.dataPayloadFromParent.endpoint ) 
 							this.props.toggle_show_shares_for_socialpost()
 						}}
@@ -200,11 +202,8 @@ class SocialPostCard extends Component {
 					</TouchableOpacity>
 				</View>
 
-				<View style={styles.createCommentAndLikeContainer}>
+				<View style={styles.createLikeAndShareContainer}>
 					{/* 4th create individual child options like comment / like */}					
-					<ConnectedCreateCommentForSocialpost
-						parentDetailsPayload = { this.props.dataPayloadFromParent }
-					/>					
 					<ConnectedCreateLikeForSocialpost
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
 					/>					
@@ -212,6 +211,10 @@ class SocialPostCard extends Component {
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
 					/>
 				</View>
+
+				<ConnectedCreateCommentForSocialpost
+					parentDetailsPayload = { this.props.dataPayloadFromParent }
+				/>					
 
 		  	</View>
 		);
@@ -223,21 +226,38 @@ SocialPostCard.defaultProps = {
 
 const styles = StyleSheet.create({
 	outerContainer:{
+		// backgroundColor: '#000000',
+		width:windowWidth,
+		marginTop: 30,
 	},
 
 // comments and likes counts
 	socialButtonsAndStatsContainer:{
 		flexDirection:'row', 
-		// justifyContent:'space-between',
-		justifyContent:'flex-start',
+		justifyContent:'space-between',
+		// justifyContent:'flex-start',
+		borderBottomColor: utils.dimWhite,
+		borderBottomWidth: 1,
+		width:'90%',
+		alignSelf:'center',
+		marginBottom:10,
+		paddingBottom:10,
+
 	},
 	socialButtonAndStats:{
 		height:windowHeight * 0.05
 	},
 
 // create comment and like
-	createCommentAndLikeContainer:{
+	createLikeAndShareContainer:{
 		marginTop: windowHeight * 0.001,
+		flexDirection:'row',
+		justifyContent:'space-between',
+		width:'90%',
+		alignSelf:'center',
+		// marginBottom:10,
+		// paddingBottom:10,
+
 	},
 });
 

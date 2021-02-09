@@ -29,6 +29,10 @@ const utils = {
 	unfriendIcon:'heartbeat',
 
 
+	// component for showing social post
+	playIcon:'heartbeat',
+
+
 	image:require('./images/samosa.jpg'),
 
 // login screen

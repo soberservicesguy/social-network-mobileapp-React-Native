@@ -7,6 +7,8 @@ import {
 	FlatList,
 	Button,
 	ImageBackground,
+	SafeAreaView,
+	ScrollView,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -122,156 +124,167 @@ class SocialPostScreen extends Component {
 
 		return (
 
-			<View style={{backgroundColor: '#eee'}} >
+			<SafeAreaView>
+				<ScrollView contentContainerStyle={styles.screenContainer}>
 
-			{/*profile header*/}
-				<View style={styles.headerContainer}>
-					<ImageBackground 
-						// source={{uri: base64Image}} 
-						source={utils.image}
+					<View style={{
+						backgroundColor: '#eee'
+					}} >
 
-						style={styles.bgImage}
-					>
-						<Text style={styles.headerText}>
-							Arsalan{payload_from_previous_screen.user_name_in_profile}
-						</Text>						
-					</ImageBackground>
+		{/* -------------------- profile header starts here ------------------------ */}
+						<View style={styles.headerContainer}>
+							<ImageBackground 
+								// source={{uri: base64Image}} 
+								source={utils.image}
 
-				{/*social stats*/}
-					<View style={styles.socialStatsContainer}>
-						<View style={styles.friendsContainer}>
-							<Text style={styles.statsCountText}>
-								232
-							</Text>
-							<Text style={styles.statsNameText}>
-								friends
-							</Text>
+								style={styles.bgImage}
+							>
+								<Text style={styles.headerText}>
+									Arsalan{payload_from_previous_screen.user_name_in_profile}
+								</Text>						
+							</ImageBackground>
+
+						{/*social stats*/}
+							<View style={styles.socialStatsContainer}>
+								<View style={styles.friendsContainer}>
+									<Text style={styles.statsCountText}>
+										232
+									</Text>
+									<Text style={styles.statsNameText}>
+										friends
+									</Text>
+								</View>
+
+								<View style={styles.followersContainer}>
+									<Text style={styles.statsCountText}>
+										232
+									</Text>
+									<Text style={styles.statsNameText}>
+										followers
+									</Text>
+								</View>
+
+
+								{(() => {
+									if (this.state.showNonFriendsWallInstead){
+
+										return (<View style={styles.sendFriendRequestContainer}>
+											
+											<Icon
+												// raised
+												name={utils.becameFriendsIcon}
+												type='font-awesome'
+												color='#f50'
+												size={20}
+												// onPress={() => console.log('hello')} 
+												// reverse={true}
+											/>
+											
+											<View style={{width:windowWidth*0.2}}>
+												<Text style={styles.sendRequestText}>
+													Send Friend Request
+												</Text>
+											</View>
+										</View>)
+
+									} else if (this.state.showFriendsWallInstead){
+
+										return (<View style={styles.unFriendRequestContainer}>
+											<Icon
+												// raised
+												name={utils.unfriendIcon}
+												type='font-awesome'
+												color='#f50'
+												size={20}
+												// onPress={() => console.log('hello')} 
+												// reverse={true}
+											/>
+											<View style={{width:windowWidth*0.2}}>
+												<Text style={styles.unFriendText}>
+													Un-friend
+												</Text>
+											</View>
+										</View>)
+
+									} else if (this.state.showOwnWallInstead){
+										null
+									}
+							
+								})()}
+
+							</View>
+		{/* -------------------- profile header ends here ------------------------ */}
+
+
+
+
 						</View>
 
-						<View style={styles.followersContainer}>
-							<Text style={styles.statsCountText}>
-								232
-							</Text>
-							<Text style={styles.statsNameText}>
-								followers
-							</Text>
-						</View>
 
 
-						{(() => {
-							if (this.state.showNonFriendsWallInstead){
 
-								return (<View style={styles.sendFriendRequestContainer}>
-									
-									<Icon
-										// raised
-										name={utils.becameFriendsIcon}
-										type='font-awesome'
-										color='#f50'
-										size={20}
-										// onPress={() => console.log('hello')} 
-										// reverse={true}
-									/>
-									
-									<View style={{width:windowWidth*0.2}}>
-										<Text style={styles.sendRequestText}>
-											Send Friend Request
-										</Text>
-									</View>
-								</View>)
+						{(this.state.showOwnWallInstead) ? (
 
-							} else if (this.state.showFriendsWallInstead){
+							<View>
+					  			<ConnectedCreateSocialPost/>
+					  		</View>
 
-								return (<View style={styles.unFriendRequestContainer}>
-									<Icon
-										// raised
-										name={utils.unfriendIcon}
-										type='font-awesome'
-										color='#f50'
-										size={20}
-										// onPress={() => console.log('hello')} 
-										// reverse={true}
-									/>
-									<View style={{width:windowWidth*0.2}}>
-										<Text style={styles.unFriendText}>
-											Un-friend
-										</Text>
-									</View>
-								</View>)
+							) : (
 
-							} else if (this.state.showOwnWallInstead){
 								null
-							}
-					
-						})()}
+
+							)
+
+						}
+
+
+
+						{(this.state.showNonFriendsWallInstead || this.state.showOwnWallInstead) ? (
+
+							null
+
+							) : (
+
+					  	  		<FlatList
+					  				style={{flexDirection: 'column', flexWrap : "wrap", }}
+					  				numColumns={1}
+					  	  			data={total_socialposts}
+					  				renderItem={
+					  					({ item }) => (
+											<ConnectedSocialPostCard
+												dataPayloadFromParent = { item }
+
+												comments_quantity = { item.comments_quantity }
+												comments = { item.comments || [] }
+
+												likes_quantity = { item.likes_quantity }
+												likes = { item.likes || [] }
+
+												shares_quantity = { item.shares_quantity }
+												shares = { item.shares || [] }
+
+												// user_quantity = { item.user_quantity }
+												// user = { item.user || [] }
+
+											 // not needed
+												// showOwnWallInstead = {this.state.showOwnWallInstead}
+												// showFriendsWallInstead = {this.state.showFriendsWallInstead}
+												// showNonFriendsWallInstead = {this.state.showNonFriendsWallInstead}
+											
+											/>
+					  					)}
+					  				keyExtractor={(item, index) => String(index)}
+					  			/>
+							)
+
+						}		  		
 
 					</View>
 
 
+				</ScrollView>
+			</SafeAreaView>
 
-
-				</View>
-
-
-
-
-				{(this.state.showOwnWallInstead) ? (
-
-					<View>
-			  			<ConnectedCreateSocialPost/>
-			  		</View>
-
-					) : (
-
-						null
-
-					)
-
-				}
-
-
-
-				{(this.state.showNonFriendsWallInstead) ? (
-
-					null
-
-					) : (
-
-			  	  		<FlatList
-			  				style={{flexDirection: 'column', flexWrap : "wrap"}}
-			  				numColumns={1}
-			  	  			data={total_socialposts}
-			  				renderItem={
-			  					({ item }) => (
-									<ConnectedSocialPostCard
-										dataPayloadFromParent = { item }
-
-										comments_quantity = { item.comments_quantity }
-										comments = { item.comments || [] }
-
-										likes_quantity = { item.likes_quantity }
-										likes = { item.likes || [] }
-
-										shares_quantity = { item.shares_quantity }
-										shares = { item.shares || [] }
-
-										// user_quantity = { item.user_quantity }
-										// user = { item.user || [] }
-
-									 // not needed
-										// showOwnWallInstead = {this.state.showOwnWallInstead}
-										// showFriendsWallInstead = {this.state.showFriendsWallInstead}
-										// showNonFriendsWallInstead = {this.state.showNonFriendsWallInstead}
-									
-									/>
-			  					)}
-			  				keyExtractor={(item, index) => String(index)}
-			  			/>
-					)
-
-				}		  		
-
-			</View>
 
 		);
 	}
@@ -282,6 +295,21 @@ SocialPostScreen.defaultProps = {
 };
 
 const styles = StyleSheet.create({
+	// screenContainer:{
+	// 	// flex:1,
+	// 	// display:'flex',
+	// 	alignItems: 'center', // horizontally centered
+	// 	justifyContent: 'space-between', 
+	// },
+	// somethingContainer:{
+	// 	marginTop: windowHeight * 0.05, // or 30  gap
+	// 	height: windowHeight * 0.1, // or 100
+	// 	width: '80%',
+	// 	justifyContent: 'center', // vertically centered
+	// 	alignSelf: 'center', // horizontally centered
+	// 	// backgroundColor: utils.lightGreen,
+	// },
+
 
 	headerContainer:{
 		alignItems: 'center',

@@ -86,7 +86,7 @@ class CreateLikeForSocialpost extends Component {
 						}}
 					>
 						<Icon
-						  raised
+						  // raised
 						  name={utils.likeIcon}
 						  type='font-awesome'
 						  color='#f50'
