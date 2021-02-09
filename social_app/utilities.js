@@ -33,6 +33,11 @@ const utils = {
 	playIcon:'heartbeat',
 
 
+	// inidividual sport screen
+	unLikeIcon: 'heartbeat',
+
+
+
 	image:require('./images/samosa.jpg'),
 
 // login screen

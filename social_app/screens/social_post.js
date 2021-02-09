@@ -213,13 +213,9 @@ class SocialPostScreen extends Component {
 								})()}
 
 							</View>
-		{/* -------------------- profile header ends here ------------------------ */}
-
-
-
-
 						</View>
 
+		{/* -------------------- profile header ends here ------------------------ */}
 
 
 

@@ -85,12 +85,11 @@ class CreateShareForSocialpost extends Component {
 						}}
 					>			
 						<Icon
-					  // raised
-						  name={utils.shareIcon}
-						  type='font-awesome'
-						  color='#f50'
-						  size={30}
-						  // reverse={true}
+							name={utils.shareIcon}
+							type='font-awesome'
+							color='#f50'
+							size={30}
+							// reverse={true}
 						/>
 					</TouchableOpacity>
 				</View>
