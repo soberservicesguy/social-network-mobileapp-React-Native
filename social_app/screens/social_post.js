@@ -38,8 +38,8 @@ class SocialPostScreen extends Component {
 		super(props);
 // STATE	
 		this.state = {
-			showOwnWallInstead:false,
-			showFriendsWallInstead:true,
+			showOwnWallInstead:true,
+			showFriendsWallInstead:false,
 			showNonFriendsWallInstead:false,
 		}	
 	}
@@ -239,7 +239,7 @@ class SocialPostScreen extends Component {
 
 
 
-						{(this.state.showNonFriendsWallInstead || this.state.showOwnWallInstead) ? (
+						{(this.state.showNonFriendsWallInstead) ? (
 
 							null
 

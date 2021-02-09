@@ -5,6 +5,8 @@ import {
 	Text,
 	TouchableHighlight,
 	FlatList,
+	SafeAreaView,
+	ScrollView,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -66,27 +68,29 @@ class AdvertisementScreen extends Component {
 
 		return (
 
-			<View style={{backgroundColor: '#eee'}} >
-				
-				<View>
-		  			<ConnectedCreateAdvertisement/>
-		  		</View>
+			<SafeAreaView>
+				<ScrollView contentContainerStyle={styles.screenContainer}>
+					<View>
+			  			<ConnectedCreateAdvertisement/>
+			  		</View>
 
-	  	  		<FlatList
-	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
-	  				numColumns={1}
-	  	  			data={total_advertisements}
-	  				renderItem={
-	  					({ item }) => (
-							<ConnectedAdvertisementCard
-								dataPayloadFromParent = { item }
-							
-							/>
-	  					)}
-	  				keyExtractor={(item, index) => String(index)}
-	  			/>
+		  	  		<FlatList
+		  				style={{flexDirection: 'column', flexWrap : "wrap", marginTop:10,}}
+		  				numColumns={1}
+		  	  			data={total_advertisements}
+		  	  			data={[1,2,3,4,5,6,7,8,9,10]}
+		  				renderItem={
+		  					({ item }) => (
+								<ConnectedAdvertisementCard
+									dataPayloadFromParent = { item }
+								
+								/>
+		  					)}
+		  				keyExtractor={(item, index) => String(index)}
+		  			/>
 
-			</View>
+				</ScrollView>
+			</SafeAreaView>
 
 		);
 	}

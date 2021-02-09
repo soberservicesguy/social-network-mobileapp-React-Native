@@ -76,7 +76,7 @@ class CreateCommentForSocialpost extends Component {
 
 				  	<TouchableOpacity 
 				  		activeOpacity={0.2} 
-				  		style={styles.buttonWithoutBG}
+				  		style={styles.createComment}
 						onPress={ () => {
 							let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
 							let redirectToNewSocialpost = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
 	},
 
 // create comment button
-	buttonWithoutBG:{
+	createComment:{
 		// flex:1,
 		position:'absolute',
 		top:windowHeight * 0.007,

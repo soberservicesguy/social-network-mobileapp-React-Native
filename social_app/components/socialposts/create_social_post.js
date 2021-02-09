@@ -65,11 +65,13 @@ class CreateSocialPost extends Component {
 					<View style={{
 						display: 'flex',
 						flexDirection: 'row',
+						justifyContent: 'space-around',
 					}}>
 
 						<Button 
-							title={'Select Post Image'}
+							title={'Upload Image'}
 							style={styles.buttonWithoutBG}
+							color={utils.mediumGrey}
 							onPress={async () => {
 								try {
 									let res = await DocumentPicker.pick({
@@ -92,8 +94,9 @@ class CreateSocialPost extends Component {
 							}}
 						/>
 						<Button 
-							title={'Select Post Video'}
+							title={'Upload Video'}
 							style={styles.buttonWithoutBG}
+							color={utils.mediumGrey}
 							onPress={async () => {
 								try {
 									let res = await DocumentPicker.pick({
@@ -121,14 +124,11 @@ class CreateSocialPost extends Component {
 				  	</View>
 
 
-					<View style={{
-						display: 'flex',
-						flexDirection: 'row',
-					}}>
+					<View style={styles.textinputContainer}>
 						<TextInput
 							style={styles.textinput}
 							placeholder="Type your post_text"
-							placeholderTextColor = {utils.lightGrey}
+							placeholderTextColor = {utils.mediumGrey}
 							// maxLength=10
 							// caretHidden=true
 							// multiline=true
@@ -143,17 +143,24 @@ class CreateSocialPost extends Component {
 
 					<TouchableOpacity
 						activeOpacity={0.2}
-						style={styles.bottomButton}
+						style={styles.createPostButton}
 						onPress={ () => {
 
 							let setResponseInCurrentSocialPost = (arg) => this.props.set_current_socialpost(arg)
 							let redirectToNewSocialPost = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
 
-							const formData = new FormData()
+							let formData = new FormData()
 
-							formData.append('post_text', this.state.post_text)
-							formData.append('image_upload', this.state.image_upload, this.state.image_upload.name)
-							formData.append('video_upload', {uri: this.state.video_upload.uri, type: this.state.video_upload.type, name: this.state.video_upload.name})
+
+							if (this.state.post_text !== ''){
+								formData.append('post_text', this.state.post_text)
+							}
+							if (this.state.image_upload !== ''){
+								formData.append('image_upload', this.state.image_upload, this.state.image_upload.name)
+							}
+							if (this.state.video_upload !== ''){
+								formData.append('video_upload', {uri: this.state.video_upload.uri, type: this.state.video_upload.type, name: this.state.video_upload.name})
+							}
 
 							axios.post(utils.baseUrl + '/socialposts/create-socialpost-with-user', formData)
 							.then(function (response) {
@@ -172,8 +179,8 @@ class CreateSocialPost extends Component {
 
 						}}
 					>
-						<Text style={styles.buttonText}>
-							Press To Create SocialPost
+						<Text style={styles.innerText}>
+							Create SocialPost
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -191,52 +198,51 @@ const styles = StyleSheet.create({
 		marginTop:50,
 		marginBottom:50,
 	},
+	textinputContainer:{
+		paddingTop:0,
+		marginTop:10,	
+		// backgroundColor: '#000000',
+		width: '90%',
+		alignSelf:'center',
+		// flex:1,
+		height: windowHeight * 0.07
+		// marginBottom: windowHeight * 0.005,
+	},
+	textinput:{
+		// backgroundColor: '#000000',
+		// marginTop:10,
+		textAlign:'left',
+		borderWidth:1,
+		borderStyle:'solid',
+		// paddingTop:17,
+		// paddingBottom:17,
+		fontSize:18,
+		borderRadius:50,
+		borderColor:utils.mediumGrey,
+		// backgroundColor: utils.darkGrey,
+		borderWidth:2,
+		paddingLeft:windowWidth * 0.17,
+		fontWeight: 'bold',
+		opacity: 0.5,
+	},
+
+	createPostButton:{
+		// flex:1,
+		position:'absolute',
+		top:windowHeight * 0.073,
+		right: windowWidth * 0.06,
+		width: windowWidth * 0.21,
+		height: windowHeight * 0.055,
+		// alignItems: 'center',
+		// justifyContent: 'center',
+		// alignSelf:'center',
+		backgroundColor: 'black',
+		borderRadius: windowWidth * 1/2
+	},
 	innerText:{
-
-	},
-	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
-	},
-	textinput:{
-		marginTop:20,
-		textAlign:'left',
-		borderWidth:1,
-		borderColor:(utils.lightGrey),
-		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
-		fontSize:18,
-	},
-	outerContainer: {
-	},
-	bigBlue: {
-	},
-
-
-	textinputContainer:{
-		marginTop: windowHeight * 0.05, // or 30  gap
-		height: windowHeight * 0.1, // or 100
-		width: '80%',
-		justifyContent: 'center', // vertically centered
-		alignSelf: 'center', // horizontally centered
-		// backgroundColor: utils.lightGreen,
-	},
-	textinput:{
-		marginTop:20,
-		textAlign:'left',
-		borderWidth:1,
-		borderColor:(utils.lightGrey),
-		borderStyle:'solid',
-		paddingLeft:20,
-		paddingTop:15,
-		paddingBottom:15,
-		fontSize:18,
+		textAlign:'center',
+		color:'white',
+		// fontWeight:'bold'
 	},
 });
 
