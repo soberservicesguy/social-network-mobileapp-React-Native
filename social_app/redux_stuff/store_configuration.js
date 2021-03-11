@@ -8,6 +8,7 @@ import {createStore, applyMiddleware} from "redux";
 import { connect } from "react-redux";
 import { combineReducers } from 'redux'; 
 
+import ReduxThunk from 'redux-thunk'
 
 // IMPORT rootSaga
 // import {rootSaga} from "../saga_stuff/saga_combined";
@@ -24,31 +25,39 @@ import {
 	reducerForPage,
 	reducerForBook,
 	reducerForSport,
+
 	reducerForNotification,
 } from "./reducers"
+
+import { add_more_socialposts } from "./reducers/reducer_for_SocialPost"
 
 export const rootReducer = combineReducers({
 	socialposts: reducerForSocialPost,
 	comments: reducerForComment,
 	likes: reducerForLike,
 	shares: reducerForShare,
-	users: reducerForUser,
 	advertisements: reducerForAdvertisement,
 	pages: reducerForPage,
 	books: reducerForBook,
 	sports: reducerForSport,
 	privileges: reducerForPrivileges,
 
+	all_users: reducerForUser,
 	notifications:reducerForNotification,
 });
 
 export const mapStateToProps = state => {
 	return {
-		
-		friends: state.users.friends,
-		friend_suggestions: state.users.friend_suggestions,
+		total_friends:state.all_users.total_friends, 
 
-		total_notifications:state.notifications.all_notifications,
+		list_of_friends: state.all_users.list_of_friends,
+		list_of_friend_suggestions: state.all_users.suggestions,
+		list_of_friend_requests: state.all_users.requests,		
+		// friends: state.all_users.friends,
+		// friend_suggestions: state.all_users.friend_suggestions,
+
+		notifications_list:state.notifications.all_notifications,
+		// total_notifications:state.notifications.all_notifications,
 
 		show_socialpost_comments:state.socialposts.showOnlyCommentsQuantityForSocialPost,
 
@@ -59,23 +68,22 @@ export const mapStateToProps = state => {
 
 		show_socialpost_shares:state.socialposts.showOnlySharesQuantityForSocialPost,
 
-
 		total_socialposts: state.socialposts.totalSocialPost,
 		current_socialpost: state.socialposts.currentSocialPost,
 
-		userToken: state.users.userToken,
-		isSignedIn: state.users.isSignedIn,
+		userToken: state.all_users.userToken,
+		isSignedIn: state.all_users.isSignedIn,
 
-		phone_number: state.users.phone_number,
-		user_name: state.users.user_name,
-		// user_name_in_profile: state.users.user_name_in_profile,
-		// user_avatar_image: state.users.user_avatar_image,
-		// user_cover_image: state.users.user_cover_image,
-		// user_brief_intro: state.users.user_brief_intro,
-		// user_about_me: state.users.user_about_me,
-		// user_working_zone: state.users.user_working_zone,
-		// user_education: state.users.user_education,
-		// user_contact_details: state.users.user_contact_details,
+		phone_number: state.all_users.phone_number,
+		user_name: state.all_users.user_name,
+		user_name_in_profile: state.all_users.user_name_in_profile,
+		user_avatar_image: state.all_users.user_avatar_image,
+		user_cover_image: state.all_users.user_cover_image,
+		// user_brief_intro: state.all_users.user_brief_intro,
+		// user_about_me: state.all_users.user_about_me,
+		// user_working_zone: state.all_users.user_working_zone,
+		// user_education: state.all_users.user_education,
+		// user_contact_details: state.all_users.user_contact_details,
 
 		total_advertisements: state.advertisements.totalAdvertisement,
 		current_advertisement: state.advertisements.currentAdvertisement,
@@ -103,11 +111,14 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => {
 	return {
+		
+		set_total_friends_count: (total_friends) => dispatch( { type: "SET_FRIENDS_COUNT", total_friends: total_friends } ),
 		set_friends: (friends_list) => dispatch( { type: "SET_FRIENDS", friends_list: friends_list } ),
-		set_friends_suggestions: (friends_suggestions_list) => dispatch( { type: "SET_FRIENDS_SUGGESTIONS", friends_suggestions_list: friends_suggestions_list } ),
-
+		set_friends_suggestions: (args_list) => dispatch( { type: "SET_FRIENDS_SUGGESTIONS", args_list: args_list } ),
+		set_friends_requests: (args_list) => dispatch( { type: "SET_FRIENDS_REQUESTS", args_list: args_list } ),
 
 		set_fetched_notifications: (notifications_list) => dispatch( { type: "SET_FETCHED_NOTIFICATIONS", notifications_list: notifications_list } ),
+		append_fetched_notifications: (notifications_list) => dispatch( { type: "APPEND_FETCHED_NOTIFICATIONS", notifications_list: notifications_list } ),
 
 
 		hide_comments_for_socialpost: () => dispatch( {type: "HIDE_COMMENT_QUANTITY_FOR_SOCIALPOST"} ),
@@ -134,6 +145,13 @@ export const mapDispatchToProps = dispatch => {
 		set_user_name: (user_name) => dispatch( { type: "SET_USER_NAME", user_name: user_name} ),
 		remove_user_name: () => dispatch( { type: "REMOVE_USER_NAME" } ),
 
+		set_user_name_in_profile: (user_name_in_profile) => dispatch( { type: "SET_USER_NAME_IN_PROFILE", user_name_in_profile: user_name_in_profile} ),
+		remove_user_name_in_profile: () => dispatch( { type: "REMOVE_USER_NAME_IN_PROFILE" } ),
+		set_user_avatar_image: (user_avatar_image) => dispatch( { type: "SET_USER_AVATAR_IMAGE", user_avatar_image: user_avatar_image} ),
+		remove_user_avatar_image: () => dispatch( { type: "REMOVE_USER_AVATAR_IMAGE" } ),
+		set_user_cover_image: (user_cover_image) => dispatch( { type: "SET_USER_COVER_IMAGE", user_cover_image: user_cover_image} ),
+		remove_user_cover_image: () => dispatch( { type: "REMOVE_USER_COVER_IMAGE" } ),
+
 // privileges
 		allow_basic_privilege: () => dispatch( { type:"ALLOW_BASIC" } ),
 		allow_posts_interaction_privilege: () => dispatch( { type:"ALLOW_POSTS_INTERACTION" } ),
@@ -154,6 +172,8 @@ export const mapDispatchToProps = dispatch => {
 		set_current_socialpost: (current_socialpost) => dispatch( { type: "SET_CURRENT_SOCIALPOST", current_socialpost:current_socialpost } ),
 		set_fetched_socialposts: (socialpost_list) => dispatch( { type: "SET_FETCHED_SOCIALPOST", socialpost_list: socialpost_list } ),
 		set_fetched_10_more_socialpost: (socialpost_list) => dispatch( { type: "SET_FETCHED_10_MORE_SOCIALPOST", socialpost_list: socialpost_list } ),
+
+		async_append_fetched_socialposts:(socialpost_list) => dispatch( add_more_socialposts(socialpost_list) ),
 
 // comment, like, share social posts 
 		add_comment_to_socialpost: (socialpost_id, comment_object) => dispatch( { type: "ADD_COMMENT_TO_SOCIALPOST", socialpost_id: socialpost_id, comment_object: comment_object } ),
@@ -228,6 +248,8 @@ const persistConfig = {
 		'toggle_show_likes_for_page',
 		'toggle_show_likes_for_sport',
 		'toggle_show_shares_for_socialpost',
+		'list_of_friends',
+		'list_of_friend_suggestions',
 	],
 }
 
@@ -235,8 +257,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = createStore(persistedReducer
 	// , applyMiddleware(sagaMiddleWare)
+	, applyMiddleware(ReduxThunk)
 );
 
-export const persistor = persistStore(store)
+// export const persistor = persistStore(store)
 
 // sagaMiddleWare.run(rootSaga);

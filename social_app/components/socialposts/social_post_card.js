@@ -148,7 +148,9 @@ class SocialPostCard extends Component {
 
 		  		<View>
 					{/* first the parent / card component */}
-					<ComponentForShowingSocialPost/>
+					<ComponentForShowingSocialPost
+						dataPayloadFromParent = {this.props.dataPayloadFromParent}
+					/>
 		  		</View>
 
 				<View style={styles.socialButtonsAndStatsContainer}>

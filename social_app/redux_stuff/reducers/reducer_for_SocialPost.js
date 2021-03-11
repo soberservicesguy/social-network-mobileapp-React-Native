@@ -4,6 +4,7 @@ const initialState = {
 	showOnlyLikesQuantityForSocialPost:false,
 	showOnlySharesQuantityForSocialPost: false,
 
+
 	currentSocialPost:{
 			type_of_post:'dummy',
 			post_text:'dummy',
@@ -15,6 +16,8 @@ const initialState = {
 			endpoint:'dummy',
 			date_of_publishing:'dummy',
 		},
+
+
 
 	totalSocialPost: [
 			{ type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
@@ -28,9 +31,14 @@ const initialState = {
 			{ type_of_post:'dummy9', post_text:'dummy9', image_for_post:'dummy9', video_for_post:'dummy9', video_thumbnail_image:'dummy9', total_likes:'dummy9', total_shares:'dummy9', endpoint:'dummy9', date_of_publishing:'dummy9',},
 			{ type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
 		],
+
 	}
 
 const reducerForSocialPost = (state = initialState, action) => {
+
+	let list_with_key = []
+	let last_key
+
 
 	switch (action.type) {
 
@@ -68,15 +76,49 @@ const reducerForSocialPost = (state = initialState, action) => {
 			break;
 
 
+		case "APPEND_FETCHED_SOCIALPOST":
+
+			last_key = (state.totalSocialPost.length > 0) ? state.totalSocialPost[ state.totalSocialPost.length - 1 ].key : 0
+			// console.log({last_key:last_key})
+			list_with_key = [ ...state.totalSocialPost ] // since previously we assigned keys
+
+			action.socialpost_list.map((item, index) => {
+				list_with_key.push( {key: last_key + index + 1, ...item} )
+			})
+
+			return {...state, totalSocialPost: list_with_key }
+			break;
+
+
+
 		case "SET_FETCHED_SOCIALPOST":
 
-			return {...state, totalSocialPost: action.socialpost_list}
+			list_with_key = []
+
+			action.socialpost_list.map((item, index) => {
+				list_with_key.push( {key: index, ...item} )
+			})
+
+			return {...state, totalSocialPost: list_with_key}
 			break;
 
 		case "SET_FETCHED_10_MORE_SOCIALPOST":
 
-			return {...state, totalSocialPost: [...state.SocialPost, action.socialpost_list] }
+			last_key = (state.totalSocialPost.length > 0) ? state.totalSocialPost[ state.totalSocialPost.length - 1 ].key : 0
+
+			list_with_key = [ ...state.totalSocialPost ] // since previously we assigned keys
+
+			action.socialpost_list.map((item, index) => {
+				list_with_key.push( {key: last_key + index + 1, ...item} )
+			})
+
+			return {...state, totalSocialPost: list_with_key }
 			break;
+
+
+		case 'ADD_SOCIALPOSTS': 
+			return {...state, totalSocialPost:action.socialposts}
+		
 
 
 		default:
@@ -88,3 +130,34 @@ const reducerForSocialPost = (state = initialState, action) => {
 };
 
 export default reducerForSocialPost;
+
+// Write a synchronous outer function that receives the `text` parameter:
+export function add_more_socialposts(socialpost_list) {
+	// And then creates and returns the async thunk function:
+	return async function saveNewTodoThunk(dispatch, getState) {
+		// ✅ Now we can use the text value and send it to the server
+
+		let current_state = getState()
+		// console.log(current_state)
+		// let current_socialposts = current_state.totalSocialPost
+		let { socialposts } = current_state
+		// console.log( Object.keys(current_state) )
+		// console.log(socialposts.totalSocialPost)
+		socialposts = socialposts.totalSocialPost
+
+		let last_key = (socialposts.length > 0) ? socialposts[ socialposts.length - 1 ].key  : 0
+		// console.log({last_key:last_key})
+		let list_with_key = [ ...socialposts ] // since previously we assigned keys
+
+		socialpost_list.map((item, index) => {
+			list_with_key.push( {key: last_key + index + 1, ...item} )
+		})
+
+		// console.log(list_with_key)
+
+		dispatch({type:'ADD_SOCIALPOSTS', socialposts: list_with_key })
+	}
+}
+
+
+// store.dispatch( add_more_socialposts(socialpost_list) )

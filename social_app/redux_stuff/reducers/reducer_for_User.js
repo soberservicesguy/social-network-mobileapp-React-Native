@@ -3,14 +3,16 @@ const initialState = {
 	friends:[],
 	friend_suggestions:[],
 
+	total_friends:0,
+
 	isSignedIn: false,
 	userToken: null,
 
 	phone_number:'dummy',
 	user_name:'dummy',
-	// user_name_in_profile:'dummy',
-	// user_avatar_image:'dummy',
-	// user_cover_image:'dummy',
+	user_name_in_profile:'dummy',
+	user_avatar_image:'dummy',
+	user_cover_image:'dummy',
 	// user_brief_intro:'dummy',
 	// user_about_me:'dummy',
 	// user_working_zone:'dummy',
@@ -21,6 +23,12 @@ const initialState = {
 const reducerForUser = (state = initialState, action) => {
 
 	switch (action.type) {
+
+		case "SET_FRIENDS_COUNT":
+
+			return {...state, total_friends: action.total_friends}
+			break;
+
 
 		case "SET_FRIENDS":
 
@@ -63,35 +71,35 @@ const reducerForUser = (state = initialState, action) => {
 			return {...state, user_name: null}
 			break;
 
-		// case "SET_USER_NAME_IN_PROFILE":
+		case "SET_USER_NAME_IN_PROFILE":
 
-		// 	return {...state, user_name_in_profile: action.user_name_in_profile}
-		// 	break;
+			return {...state, user_name_in_profile: action.user_name_in_profile}
+			break;
 
-		// case "REMOVE_USER_NAME_IN_PROFILE":
+		case "REMOVE_USER_NAME_IN_PROFILE":
 
-		// 	return {...state, user_name_in_profile: null}
-		// 	break;
+			return {...state, user_name_in_profile: null}
+			break;
 
-		// case "SET_USER_AVATAR_IMAGE":
+		case "SET_USER_AVATAR_IMAGE":
 
-		// 	return {...state, user_avatar_image: action.user_avatar_image}
-		// 	break;
+			return {...state, user_avatar_image: action.user_avatar_image}
+			break;
 
-		// case "REMOVE_USER_AVATAR_IMAGE":
+		case "REMOVE_USER_AVATAR_IMAGE":
 
-		// 	return {...state, user_avatar_image: null}
-		// 	break;
+			return {...state, user_avatar_image: null}
+			break;
 
-		// case "SET_USER_COVER_IMAGE":
+		case "SET_USER_COVER_IMAGE":
 
-		// 	return {...state, user_cover_image: action.user_cover_image}
-		// 	break;
+			return {...state, user_cover_image: action.user_cover_image}
+			break;
 
-		// case "REMOVE_USER_COVER_IMAGE":
+		case "REMOVE_USER_COVER_IMAGE":
 
-		// 	return {...state, user_cover_image: null}
-		// 	break;
+			return {...state, user_cover_image: null}
+			break;
 
 		// case "SET_USER_BRIEF_INTRO":
 

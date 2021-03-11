@@ -82,6 +82,48 @@ function InnerStack({navigation}) {
 		<Stack.Navigator
 			// headerMode='none'
 		>
+{/*SocialPosts*/}
+	{/* own wall */}
+	{/* some users wall | non-friendly users own wall */}
+	{/* photo posts from user on his wall */}
+	{/* video posts from user on his wall */} 
+
+		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
+			<Stack.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
+				options={{ 
+						headerShown:true,
+					title: 'SocialPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<Stack.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
+				options={{ 
+					headerShown:true,
+					title: 'SocialPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
 			<Stack.Screen name="Individual_Page" component={ConnectedIndividualPage}
 				options={{ 
@@ -101,9 +143,6 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-
-
-
 			<Stack.Screen name="Individual_Sport" component={ConnectedIndividualSport}
 				options={{ 
 					headerShown:true,
@@ -121,9 +160,6 @@ function InnerStack({navigation}) {
 					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
-
-
-
 
 			<Stack.Screen name="Individual_Book" component={ConnectedIndividualBook}
 				options={{ 
@@ -168,9 +204,6 @@ function InnerStack({navigation}) {
 
 
 
-
-
-
 			<Stack.Screen name="Sports" component={ ConnectedSportScreen }
 				options={{ 
 					headerShown:true,
@@ -188,12 +221,6 @@ function InnerStack({navigation}) {
 					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
-
-
-
-
-
-
 
 			<Stack.Screen name="Pages" component={ ConnectedPageScreen }
 				options={{ 
@@ -213,14 +240,6 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-
-
-
-
-
-
-
-
 			<Stack.Screen name="Books" component={ ConnectedBookScreen }
 				options={{ 
 					headerShown:true,
@@ -239,12 +258,6 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-
-
-
-
-
-
 			<Stack.Screen name="Ad" component={ ConnectedAdvertisementScreen }
 				options={{ 
 					headerShown:true,
@@ -262,62 +275,6 @@ function InnerStack({navigation}) {
 					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
-
-
-
-
-{/*SocialPosts*/}
-	{/* own wall */}
-	{/* some users wall | non-friendly users own wall */}
-	{/* photo posts from user on his wall */}
-	{/* video posts from user on his wall */} 
-
-		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
-			<Stack.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
-				options={{ 
-						headerShown:true,
-					title: 'SocialPost',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-
-
-
-			<Stack.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
-				options={{ 
-					headerShown:true,
-					title: 'SocialPost',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-		
-		
-
-
-
-
-
 
 {/* friends suggestions | friends list */} 
 {/* shows both friends list and friends suggestions */} 
@@ -338,12 +295,6 @@ function InnerStack({navigation}) {
 					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
-
-
-
-
-
-
 
 			<Stack.Screen name="Notifications" component={ ConnectedNotificationsScreen }
 				options={{ 
@@ -498,12 +449,16 @@ class AppNavigation extends Component {
 		return (
 			<NavigationContainer>
 				<RootStack.Navigator headerMode='none'>
-					{this.props.userToken !== null && this.props.isSignedIn !== false 
+
+					{/*this.props.userToken === null*/}
+
+					{this.props.isSignedIn === false 
 						? 
 							( <RootStack.Screen name="SignInStack" component={SignInStack}/> )
 						: 
 							( <RootStack.Screen name="InnerStack" component={InnerStack} /> )
 					}		
+
 				</RootStack.Navigator>
 			</NavigationContainer>
 		);
