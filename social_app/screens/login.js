@@ -89,7 +89,6 @@ class LoginScreen extends Component {
 		)
 		.then(function (response) {
 			if (response.data.success === true){
-				// console.log(response.data)
 				axios.defaults.headers.common['Authorization'] = response.data.token				
 				// verify_privilege_callack(response)
 				set_phone_number_callback()
@@ -110,110 +109,113 @@ class LoginScreen extends Component {
 
 		})
 		.catch(function (error) {
-			// console.log(error);
+			console.log(error);
 		});	
 	}
 
 	render() {
 		return(
-			<ImageBackground source={utils.firstScreenBG} style={styles.bgImage}>
-				<View style={styles.screenContainer}>
-					
-					<View style={{
-						...styles.textinputContainer, 
-						marginTop:windowHeight * 0.57
-					}}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Phone number"
-							placeholderTextColor ={utils.dimWhite}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) =>  this.setState(prev => ({...prev, phone_number: value})) }
-						/>
-						<View style={styles.iconContainer}>
-							<Icon
-							  // raised
-							  name={utils.userIcon}
-							  type='font-awesome'
-							  // iconStyle='Outlined'
-							  color={utils.mediumGrey}
-							  size={30}
-							  // onPress={() => console.log('hello')} 
-							  // reverse={true}
-							/>
-						</View>
-					</View>
-
-
-					<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Password"
-							placeholderTextColor = {utils.dimWhite}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (value) =>  this.setState(prev => ({...prev, password: value})) }
-						/>
-						<View style={styles.iconContainer}>
-							<Icon
-							  // raised
-							  name={utils.userIcon}
-							  type='font-awesome'
-							  // iconStyle='Outlined'
-							  color={utils.mediumGrey}
-							  size={30}
-							  // onPress={() => console.log('hello')} 
-							  // reverse={true}
-							/>
-						</View>
-					</View>
+			<KeyboardAwareScrollView>
+				<ImageBackground source={utils.firstScreenBG} style={styles.bgImage}>
+					<View style={styles.screenContainer}>
 						
-					<View style={styles.buttonContainer}>
-						<TouchableOpacity activeOpacity={0.2} onPress={() => this.login_and_get_jwt_token_and_privileges()} style={styles.roundButton}>
-							<Text style={styles.innerText}>
-								Get Started
-							</Text>
-						</TouchableOpacity>
-					</View>
+						<View style={{
+							...styles.textinputContainer, 
+							marginTop:windowHeight * 0.57
+						}}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Phone number"
+								placeholderTextColor ={utils.dimWhite}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) =>  this.setState(prev => ({...prev, phone_number: value})) }
+							/>
+							<View style={styles.iconContainer}>
+								<Icon
+								  // raised
+								  name={utils.userIcon}
+								  type='font-awesome'
+								  // iconStyle='Outlined'
+								  color={utils.mediumGrey}
+								  size={30}
+								  // onPress={() => console.log('hello')} 
+								  // reverse={true}
+								/>
+							</View>
+						</View>
 
-					<View style={styles.bottomButtonsContainer}>
-						<View style={{flex:1,}}>
-							<TouchableOpacity activeOpacity={0.2} onPress={() => {}} style={styles.buttonWithoutBG}>
-								<Text style={styles.createAccountText}>
-									Create Account
+
+						<View style={styles.textinputContainer}>
+							<TextInput
+								style={styles.textinput}
+								placeholder="Password"
+								placeholderTextColor = {utils.dimWhite}
+								secureTextEntry={true}
+								// maxLength=10
+								// caretHidden=true
+								// multiline=true
+								// numberOfLines=3
+								// onChangeText={ () => null }
+								// value='dummy'
+								// autoFocus=true
+								onChangeText={ (value) =>  this.setState(prev => ({...prev, password: value})) }
+							/>
+							<View style={styles.iconContainer}>
+								<Icon
+								  // raised
+								  name={utils.userIcon}
+								  type='font-awesome'
+								  // iconStyle='Outlined'
+								  color={utils.mediumGrey}
+								  size={30}
+								  // onPress={() => console.log('hello')} 
+								  // reverse={true}
+								/>
+							</View>
+						</View>
+
+						<View style={styles.buttonContainer}>
+							<TouchableOpacity activeOpacity={0.2} onPress={() => this.login_and_get_jwt_token_and_privileges()} style={styles.roundButton}>
+								<Text style={styles.innerText}>
+									Get Started
 								</Text>
 							</TouchableOpacity>
 						</View>
 
-						<View style={{flex:1}}>
-							<TouchableOpacity activeOpacity={0.2} onPress={() => {}} style={styles.buttonWithoutBG}>
-								<Text style={styles.needHelpText}>
-									Need Help?
-								</Text>
-							</TouchableOpacity>
+						<View style={styles.bottomButtonsContainer}>
+							<View style={{flex:1,}}>
+								<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.navigate('SignUp')} style={styles.buttonWithoutBG}>
+									<Text style={styles.createAccountText}>
+										Create Account
+									</Text>
+								</TouchableOpacity>
+							</View>
+
+							<View style={{flex:1}}>
+								<TouchableOpacity activeOpacity={0.2} onPress={() => {}} style={styles.buttonWithoutBG}>
+									<Text style={styles.needHelpText}>
+										Need Help?
+									</Text>
+								</TouchableOpacity>
+							</View>
+
 						</View>
 
+		{/*				<Button 
+							title={'LOGOUT'}
+							style={styles.lowerButton} activeOpacity={0.2}
+							onPress={ () => this.logout_and_remove_jwt_token() }
+						/>
+		*/}
 					</View>
-
-	{/*				<Button 
-						title={'LOGOUT'}
-						style={styles.lowerButton} activeOpacity={0.2}
-						onPress={ () => this.logout_and_remove_jwt_token() }
-					/>
-	*/}
-				</View>
-			</ImageBackground>
+				</ImageBackground>
+			</KeyboardAwareScrollView>
 		);
 	}
 }

@@ -45,7 +45,6 @@ class SignUpScreen extends Component {
 
 			privileges_selected:'',
 
-			switchScreen: false,
 
 		}
 	}
@@ -55,6 +54,9 @@ class SignUpScreen extends Component {
 
 
 	signup_and_get_privileges(){
+
+		let redirectToLoginCallback = () => this.props.navigation.navigate('Login')
+
 		// upload file with axios request
 		const formData = new FormData()
 		formData.append('user_name', this.state.user_name)
@@ -73,43 +75,23 @@ class SignUpScreen extends Component {
 		.then(function (response) {
 			console.log(`POST rest call response is${JSON.stringify(response.data, null, 1)}`);
 			if (response.data.success === true){
-				// console.log('yes')
-			}
-
-			return response
-		})
-		.then((response) => {
-			if (response.data.success === true){
-
 			// REDIRECT TO LOGIN
-				this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
+				redirectToLoginCallback()
 
 			} else {
 				console.log('user sign up failed, try again')
 			}
+
 		})
 		.catch(function (error) {
-			// console.log(error);
+			console.log(error);
 		});	
 	}
 
 	render() {
 
-		if ( this.state.switchScreen !== false ){
-
-			// switching it back to false
-			this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
-
-			// redirecting
-			this.props.navigation.navigate('Login', {
-				itemId: 86,
-				otherParam: 'anything you want here',
-			})
-			// const payload_from_previous_screen = this.props.navigation.route.params 
-
-		} else {
-
-			return(
+		return(
+			<KeyboardAwareScrollView>
 				<ImageBackground source={utils.secondScreenBG} style={styles.bgImage}>
 					<View style={styles.screenContainer}>
 						<Text style={{
@@ -183,6 +165,7 @@ class SignUpScreen extends Component {
 								style={styles.textinput}
 								placeholder="Password"
 								placeholderTextColor = {utils.dimWhite}
+								secureTextEntry={true}
 								// maxLength=10
 								// caretHidden=true
 								// multiline=true
@@ -263,7 +246,7 @@ class SignUpScreen extends Component {
 							...styles.buttonContainer,
 							// marginTop:windowHeight * 0.03
 						}}>
-							<TouchableOpacity activeOpacity={0.2} onPress={() => {}} style={styles.roundButton}>
+							<TouchableOpacity activeOpacity={0.2} onPress={() => this.signup_and_get_privileges()} style={styles.roundButton}>
 								<Text style={styles.innerText}>
 									Continue
 								</Text>
@@ -280,8 +263,8 @@ class SignUpScreen extends Component {
 					
 					</View>
 			</ImageBackground>
-			);
-		}
+		</KeyboardAwareScrollView>
+		);
 	}
 }
 

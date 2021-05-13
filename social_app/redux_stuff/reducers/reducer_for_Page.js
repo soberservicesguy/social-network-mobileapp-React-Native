@@ -3,23 +3,23 @@ const initialState = {
 	showOnlyLikesQuantityForPage:false,
 
 	currentPage:{
-			page_name:'dummy',
-			page_image:'dummy',
-			page_description:'dummy',
-			endpoint:'dummy',
-		},
+		// page_name:'dummy',
+		// page_image:'dummy',
+		// page_description:'dummy',
+		// endpoint:'dummy',
+	},
 
 	totalPage: [
-			{ page_name:'dummy1', page_image:'dummy1', page_description:'dummy1', endpoint:'dummy1',},
-			{ page_name:'dummy2', page_image:'dummy2', page_description:'dummy2', endpoint:'dummy2',},
-			{ page_name:'dummy3', page_image:'dummy3', page_description:'dummy3', endpoint:'dummy3',},
-			{ page_name:'dummy4', page_image:'dummy4', page_description:'dummy4', endpoint:'dummy4',},
-			{ page_name:'dummy5', page_image:'dummy5', page_description:'dummy5', endpoint:'dummy5',},
-			{ page_name:'dummy6', page_image:'dummy6', page_description:'dummy6', endpoint:'dummy6',},
-			{ page_name:'dummy7', page_image:'dummy7', page_description:'dummy7', endpoint:'dummy7',},
-			{ page_name:'dummy8', page_image:'dummy8', page_description:'dummy8', endpoint:'dummy8',},
-			{ page_name:'dummy9', page_image:'dummy9', page_description:'dummy9', endpoint:'dummy9',},
-			{ page_name:'dummy10', page_image:'dummy10', page_description:'dummy10', endpoint:'dummy10',},
+			// { page_name:'dummy1', page_image:'dummy1', page_description:'dummy1', endpoint:'dummy1',},
+			// { page_name:'dummy2', page_image:'dummy2', page_description:'dummy2', endpoint:'dummy2',},
+			// { page_name:'dummy3', page_image:'dummy3', page_description:'dummy3', endpoint:'dummy3',},
+			// { page_name:'dummy4', page_image:'dummy4', page_description:'dummy4', endpoint:'dummy4',},
+			// { page_name:'dummy5', page_image:'dummy5', page_description:'dummy5', endpoint:'dummy5',},
+			// { page_name:'dummy6', page_image:'dummy6', page_description:'dummy6', endpoint:'dummy6',},
+			// { page_name:'dummy7', page_image:'dummy7', page_description:'dummy7', endpoint:'dummy7',},
+			// { page_name:'dummy8', page_image:'dummy8', page_description:'dummy8', endpoint:'dummy8',},
+			// { page_name:'dummy9', page_image:'dummy9', page_description:'dummy9', endpoint:'dummy9',},
+			// { page_name:'dummy10', page_image:'dummy10', page_description:'dummy10', endpoint:'dummy10',},
 		],
 	}
 

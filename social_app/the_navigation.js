@@ -452,7 +452,7 @@ class AppNavigation extends Component {
 
 					{/*this.props.userToken === null*/}
 
-					{this.props.isSignedIn === false 
+					{this.props.isSignedIn === false || this.props.phone_number === null 
 						? 
 							( <RootStack.Screen name="SignInStack" component={SignInStack}/> )
 						: 
