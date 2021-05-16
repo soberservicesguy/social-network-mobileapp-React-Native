@@ -48,9 +48,7 @@ export const rootReducer = combineReducers({
 
 export const mapStateToProps = state => {
 	return {
-		total_friends:state.all_users.total_friends, 
-
-		list_of_friends: state.all_users.list_of_friends,
+		total_friends:state.all_users.list_of_friends, 
 		list_of_friend_suggestions: state.all_users.suggestions,
 		list_of_friend_requests: state.all_users.requests,		
 		// friends: state.all_users.friends,

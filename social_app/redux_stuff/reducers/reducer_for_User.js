@@ -1,7 +1,8 @@
 const initialState = {
 
-	friends:[],
-	friend_suggestions:[],
+	list_of_friends:[],
+	suggestions:[],
+	requests:[],
 
 	total_friends:0,
 
@@ -32,12 +33,17 @@ const reducerForUser = (state = initialState, action) => {
 
 		case "SET_FRIENDS":
 
-			return {...state, friends: action.friends_list}
+			return {...state, list_of_friends: action.friends_list}
 			break;
 
 		case "SET_FRIENDS_SUGGESTIONS":
 
-			return {...state, friend_suggestions: action.friends_suggestions_list}
+			return {...state, suggestions: action.args_list}
+			break;
+
+		case "SET_FRIENDS_REQUESTS":
+
+			return {...state, requests: action.args_list}
 			break;
 
 

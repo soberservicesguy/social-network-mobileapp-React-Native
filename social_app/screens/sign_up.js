@@ -74,6 +74,10 @@ class SignUpScreen extends Component {
 		})
 		.then(function (response) {
 			console.log(`POST rest call response is${JSON.stringify(response.data, null, 1)}`);
+
+			console.log('response.data')
+			console.log(response.data)
+
 			if (response.data.success === true){
 			// REDIRECT TO LOGIN
 				redirectToLoginCallback()
@@ -308,9 +312,12 @@ const styles = StyleSheet.create({
 	iconContainer:{
 		position: 'relative',
 		bottom: windowHeight * 0.065,
-		right: windowWidth * 0.35,
+		// right: windowWidth * 0.35,
+		// backgroundColor: 'white',
+		width: 60,
 	},
 	textinput:{
+		color:'white',
 		// backgroundColor: '#000000',
 		// marginTop:10,
 		textAlign:'left',

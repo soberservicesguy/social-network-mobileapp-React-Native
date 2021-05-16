@@ -26,8 +26,6 @@ import {
 // 	request_multiple_permissions,
 // } from "./handy_functions/permissions_functions"
 
-
-
 // IMPORT connected screens
 import {
 	ConnectedLoginScreen,
@@ -47,9 +45,272 @@ import {
 } from "./redux_stuff/connected_components";
 
 
+
+
+
+const FriendTabs = createBottomTabNavigator();
+
+function FriendTabsComponent({navigation}) {
+	return (
+		<FriendTabs.Navigator
+			options={{ title: 'My home' }}
+			// initialRouteName= 'FriendScreen'
+			tabBar={() => 
+				<View style={{
+					display:'flex',
+					flexDirection: 'row',
+					alignItems:'center',
+					justifyContent: 'space-between',
+					height:50,
+
+				}}>
+					{[
+						{option_name:'Friends', screen_payload:"showFriends"}, 
+						{option_name:'Suggestions',  screen_payload:"showFriendsSuggestionsInstead"}, 
+						{option_name:'Requests',  screen_payload:"showFriendsRequestInstead"}, 
+					].map((item) => {
+
+						return (
+							<TouchableOpacity activeOpacity={0.2} onPress={ () => {
+								navigation.navigate('Friendsection', {screen: 'FriendsScreen', params:{payload: item.screen_payload}} )
+								console.log(item.screen_payload)
+							}}>
+								<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+									{item.option_name}
+								</Text>
+							</TouchableOpacity>
+						)
+					})}
+				</View>
+			} // tabBar closed
+			// backBehavior= 'initialRoute / order / history / none'
+
+			// tabBarOptions={{
+			//   activeTintColor:'',
+			//   inactiveTintColor:'',
+			//   activeBackgroundColor:'',
+			//   inactiveBackgroundColor:'',
+				
+			//   showLabel: true / false,
+			//   showIcon: true / false,
+
+			//   labelPosition: 'beside-icon / below-icon'  
+			//   FriendTabstyle: // style object
+			//   labelStyle: // style object
+			//   style: // style object
+
+			// }}
+
+			// screenOptions={{
+			//     title:'',
+			//     tabBarVisible: true /false,
+			//     tabBarIcon: , // function returning tab bar icon
+			//     tabBarLabel: , // function returning label in tab bar
+			//     tabBarButton: , // function returning tabbar button
+			//   }}
+		>
+
+
+		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
+			<FriendTabs.Screen name="FriendsScreen" component={ ConnectedFriendsScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Friends na',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+		</FriendTabs.Navigator>
+	)
+} 
+
+
+
+
+
+const ContentTabs = createBottomTabNavigator();
+
+function ContentTabsComponent({navigation}) {
+	return (
+		<ContentTabs.Navigator
+			tabBar={() => 
+				<View style={{
+					display:'flex',
+					flexDirection: 'row',
+					alignItems:'center',
+					justifyContent: 'space-between',
+					height:50,
+
+				}}>
+					{['SocialPost', 'Pages', 'Sports', 'Books',
+					// 'Video'
+					].map((option) => {
+
+						let screen_name = option
+						option = option.toLowerCase()
+						option = option.charAt(0).toUpperCase() + option.slice(1);
+
+						return (
+							<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) }>
+								<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+									{option}
+								</Text>
+							</TouchableOpacity>
+						)
+					})}
+				</View>
+			} // tabBar closed
+			// backBehavior= 'initialRoute / order / history / none'
+
+			// tabBarOptions={{
+			//   activeTintColor:'',
+			//   inactiveTintColor:'',
+			//   activeBackgroundColor:'',
+			//   inactiveBackgroundColor:'',
+				
+			//   showLabel: true / false,
+			//   showIcon: true / false,
+
+			//   labelPosition: 'beside-icon / below-icon'  
+			//   ContenttabStyle: // style object
+			//   labelStyle: // style object
+			//   style: // style object
+
+			// }}
+
+			// screenOptions={{
+			//     title:'',
+			//     tabBarVisible: true /false,
+			//     tabBarIcon: , // function returning tab bar icon
+			//     tabBarLabel: , // function returning label in tab bar
+			//     tabBarButton: , // function returning tabbar button
+			//   }}
+		>
+
+
+
+{/*SocialPosts*/}
+	{/* own wall */}
+	{/* some users wall | non-friendly users own wall */}
+	{/* photo posts from user on his wall */}
+	{/* video posts from user on his wall */} 
+
+		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
+			<ContentTabs.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
+				options={{ 
+					headerShown:true,
+					title: 'SocialPost',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+			<ContentTabs.Screen name="Pages" component={ ConnectedPageScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Pages',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+
+			<ContentTabs.Screen name="Sports" component={ ConnectedSportScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Sports',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			<ContentTabs.Screen name="Books" component={ ConnectedBookScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Books',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+			{/*<ContentTabs.Screen name="Ad" component={ ConnectedAdvertisementScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Ad',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>*/}
+
+
+
+		</ContentTabs.Navigator>
+	)
+} 
+
+
+
+
 const Stack = createStackNavigator();
 
-function SignInStack({navigation}) {
+function SignInStackComponent({navigation}) {
 	return (
 		<Stack.Navigator
 			headerMode='none'
@@ -77,22 +338,59 @@ function SignInStack({navigation}) {
 }
 
 
-function InnerStack({navigation}) {
-	return (
-		<Stack.Navigator
-			// headerMode='none'
-		>
-{/*SocialPosts*/}
-	{/* own wall */}
-	{/* some users wall | non-friendly users own wall */}
-	{/* photo posts from user on his wall */}
-	{/* video posts from user on his wall */} 
+const InnerDrawer = createDrawerNavigator();
 
-		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
-			<Stack.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
+function InnerDrawerComponent({navigation}) {
+	return (
+		<InnerDrawer.Navigator
+			headerMode='none'
+			// initialRouteName= ''
+			// backBehavior= 'initialRoute / order / history / none'
+			// drawerPosition= 'left / right'
+			// drawerType='front / back / slide / permanent'
+			hideStatusBar={false}
+			drawerStyle={{ // style object for drawer
+				// backgroundColor: '#eee',
+				backgroundColor: 'black',
+				width: 150
+			}}
+
+			drawerContent={() => {
+				return(
+					<ScrollView contentContainerStyle={{
+						flex:1,
+						alignItems:'center',
+						justifyContent: 'space-between', 
+					}}>
+						{['SocialPost', 'Friendsection', 'Notifications',
+						// 'Video'
+						].map((option) => {
+
+							let screen_name = option
+							if (screen_name === 'FriendsSection'){
+								option = 'Friends'
+							} else if (screen_name === 'SocialPost'){
+								option = 'Wall'
+							}
+							option = option.toLowerCase()
+							option = option.charAt(0).toUpperCase() + option.slice(1);
+
+							return (
+								<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) } style={{marginTop:50, marginBottom:50,}}>
+									<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+										{option}
+									</Text>
+								</TouchableOpacity>
+							)
+						})}
+					</ScrollView>
+				)
+			}}
+		>
+			<InnerDrawer.Screen name="Friendsection" component={ FriendTabsComponent }
 				options={{ 
-						headerShown:true,
-					title: 'SocialPost',
+					headerShown:true,
+					title: 'Friends naaaa',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
 					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
@@ -107,7 +405,46 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
+
+			<InnerDrawer.Screen name="SocialPost" component={ ContentTabsComponent }
+				options={{ 
+					headerShown:false,
+					title: 'Wall',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+			<InnerDrawer.Screen name="Notifications" component={ ConnectedNotificationsScreen }
+				options={{ 
+					headerShown:true,
+					title: 'Notifications',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
+
+
+			<InnerDrawer.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
 				options={{ 
 					headerShown:true,
 					title: 'SocialPost',
@@ -125,7 +462,7 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="Individual_Page" component={ConnectedIndividualPage}
+			<InnerDrawer.Screen name="Individual_Page" component={ConnectedIndividualPage}
 				options={{ 
 					headerShown:true,
 					title: 'Individual Page',
@@ -143,7 +480,7 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="Individual_Sport" component={ConnectedIndividualSport}
+			<InnerDrawer.Screen name="Individual_Sport" component={ConnectedIndividualSport}
 				options={{ 
 					headerShown:true,
 					title: 'Individual Sport',
@@ -161,7 +498,7 @@ function InnerStack({navigation}) {
 				}}
 			/>
 
-			<Stack.Screen name="Individual_Book" component={ConnectedIndividualBook}
+			<InnerDrawer.Screen name="Individual_Book" component={ConnectedIndividualBook}
 				options={{ 
 					headerShown:true,
 					title: 'Individual Book',
@@ -183,7 +520,7 @@ function InnerStack({navigation}) {
 
 
 {/*NOT NEEDED*/}
-{/*			<Stack.Screen name="Individual_Ad" component={ConnectedIndividualAdvertisement}
+			{/*<InnerStack.Screen name="Individual_Ad" component={ConnectedIndividualAdvertisement}
 				options={{ 
 					headerShown:true,
 					title: 'Individual Ad',
@@ -202,248 +539,32 @@ function InnerStack({navigation}) {
 			/>*/}
 
 
-
-
-			<Stack.Screen name="Sports" component={ ConnectedSportScreen }
+		{/* added so that user could be pushed to login if token expired or unauthorized in backend*/}
+			<InnerDrawer.Screen name="SignInStack" component={SignInStackComponent}
 				options={{ 
-					headerShown:true,
-					title: 'Sports',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					headerShown:false,
 				}}
 			/>
 
-			<Stack.Screen name="Pages" component={ ConnectedPageScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Pages',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="Books" component={ ConnectedBookScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Books',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="Ad" component={ ConnectedAdvertisementScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Ad',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-{/* friends suggestions | friends list */} 
-{/* shows both friends list and friends suggestions */} 
-			<Stack.Screen name="Friends" component={ ConnectedFriendsScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Friends',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
-
-			<Stack.Screen name="Notifications" component={ ConnectedNotificationsScreen }
-				options={{ 
-					headerShown:true,
-					title: 'Notifications',
-					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-				}}
-			/>
 		
 
-		</Stack.Navigator>
+		</InnerDrawer.Navigator>
 	);
 }
 
-const Tabs = createBottomTabNavigator();
-function BottomTabs() {
-	return (
-		<Tabs.Navigator
-			tabBar={() => 
-				<View>
-				</View>
-			} // tabBar closed
-			// backBehavior= 'initialRoute / order / history / none'
-
-			// tabBarOptions={{
-			//   activeTintColor:'',
-			//   inactiveTintColor:'',
-			//   activeBackgroundColor:'',
-			//   inactiveBackgroundColor:'',
-				
-			//   showLabel: true / false,
-			//   showIcon: true / false,
-
-			//   labelPosition: 'beside-icon / below-icon'  
-			//   tabStyle: // style object
-			//   labelStyle: // style object
-			//   style: // style object
-
-			// }}
-
-			// screenOptions={{
-			//     title:'',
-			//     tabBarVisible: true /false,
-			//     tabBarIcon: , // function returning tab bar icon
-			//     tabBarLabel: , // function returning label in tab bar
-			//     tabBarButton: , // function returning tabbar button
-			//   }}
-		>
-			<Tabs.Screen 
-				name="Entire Stack" 
-				component={SignInStack}
-				// options={{
-				// 	title:'',
-				// 	drawerLabel: , // function returning label
-				// 	drawerIcon: ,// function returning icon
-				// }} 
-			/>
-
-		</Tabs.Navigator>
-	)
-} 
 
 
 
 
-const Drawer = createDrawerNavigator();
-
-// component returning drawer with screens
-function TheDrawer() {
-	return (
-		<Drawer.Navigator
-			headerMode='none'
-			// initialRouteName= ''
-			// backBehavior= 'initialRoute / order / history / none'
-			// drawerPosition= 'left / right'
-			// drawerType='front / back / slide / permanent'
-			hideStatusBar={false}
-			drawerStyle={{ // style object
-				backgroundColor: '#000000'
-			}}
-
-			drawerContent={()=>
-				<ScrollView>
-					<View>
-					</View>
-				</ScrollView>
-			} // function returning element			
-		>
-			<Drawer.Screen name="Feeds" component={BottomTabs} />
-		</Drawer.Navigator>
-	);
-}
 
 
 const RootStack = createStackNavigator();
 
-
 class AppNavigation extends Component {
+
 	constructor(props) {
 			super(props);
 	}
-
-	componentDidUpdate(prevProps, prevState, snapshot){
-		// // Typical usage (don't forget to compare states) BUT STATE IS THROUGH props IN REDUX
-		// if (this.props.contacts !== prevProps.contacts) {
-		// 	show_all_contacts_and_set_in_state()
-		// 	console.log("--------LOG--------")
-		// 	console.log( this.props.contacts )
-		// }
-
-		// if ( this.props.is_internet_connected === false &&  prevProps.is_internet_connected === true){
-			// console.log('FROM this.props.is_internet_connected === false &&  prevProps.is_internet_connected === true')
-			// console.log("Connection type", state.type);
-			// console.log("Is connected?", this.props.is_internet_connected);
-		// }
-
-		// if ( this.props.is_internet_connected === true &&  prevProps.is_internet_connected === false){
-			// console.log('FROM this.props.is_internet_connected === true &&  prevProps.is_internet_connected === false')
-			// console.log("Connection type", state.type);
-			// console.log("Is connected?", this.props.is_internet_connected);
-		// }
-	}
-
-	componentDidMount(){
-
-		// this.unsubscribe = NetInfo.addEventListener(state => {
-			// this.props.set_internet_connection( state.isConnected )
-			// this.setState(prev => ({...prev, is_internet_connected: state.isConnected }));
-			// console.log(state.isConnected)
-			// console.log('FROM componentDidMOunt')
-			// console.log("Is connected?", this.props.is_internet_connected);			
-		// });
-
-	}
-
-	componentWillUnmount(){
-		// this.unsubscribe()
-	}
-
 
 	render() {
 		return (
@@ -454,9 +575,9 @@ class AppNavigation extends Component {
 
 					{this.props.isSignedIn === false || this.props.phone_number === null 
 						? 
-							( <RootStack.Screen name="SignInStack" component={SignInStack}/> )
+							( <RootStack.Screen name="SignInStack" component={SignInStackComponent}/> )
 						: 
-							( <RootStack.Screen name="InnerStack" component={InnerStack} /> )
+							( <RootStack.Screen name="InnerStack" component={InnerDrawerComponent} /> )
 					}		
 
 				</RootStack.Navigator>
@@ -466,378 +587,3 @@ class AppNavigation extends Component {
 }
 
 export default AppNavigation;
-
-
-// class AppNavigation extends Component {
-// 	constructor(props) {
-// 			super(props);
-// 	}
-// 	render() {
-// 		return (
-// 			<NavigationContainer>
-// 				<RootStack.Navigator headerMode='none'>
-// 					{this.props.userToken !== null 
-// 						? 
-// 							( <RootStack.Screen name="SignIn" component={BottomTabs}/> )
-// 						: 
-// 							( <RootStack.Screen name="Drawer" component={TheDrawer} /> )
-// 					}		
-// 				</RootStack.Navigator>
-// 			</NavigationContainer>
-// 		);
-// 	}
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-			// <Stack.Screen name="Fashion_Blogs" component={ConnectedSocialPostScreen}
-			// 	payload_for_filter = {{category: 'Fashion'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Fashion Blogs',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Food_Blogs" component={ConnectedSocialPostScreen}
-			// 	payload_for_filter = {{category: 'Food'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Food Blogs',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Travel_Blogs" component={ConnectedSocialPostScreen}
-			// 	payload_for_filter = {{category: 'Travel'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Travel Blogs',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Lifestyle_Blogs" component={ConnectedSocialPostScreen}
-			// 	payload_for_filter = {{category: 'Lifestyle'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Lifestyle Blogs',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Fitness_Blogs" component={ConnectedSocialPostScreen}
-			// 	payload_for_filter = {{category: 'Fitness'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Fitness Blogs',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="DIY_Blogs" component={ConnectedSocialPostScreen}
-			// 	payload_for_filter = {{category: 'DIY'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'DIY Blogs',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Film_&_Animation_Videos" component={ConnectedPageScreen}
-			// 	payload_for_filter = {{category: 'Film & Animation'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Film & Animation Videos',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Autos_&_Vehicles_Videos" component={ConnectedPageScreen}
-			// 	payload_for_filter = {{category: 'Autos & Vehicles'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Autos & Vehicles Videos',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Pets_&_Animals_Videos" component={ConnectedPageScreen}
-			// 	payload_for_filter = {{category: 'Pets & Animals'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Pets & Animals Videos',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Sports_Videos" component={ConnectedPageScreen}
-			// 	payload_for_filter = {{category: 'Sports'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Sports Videos',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Travel_&_Events_Videos" component={ConnectedPageScreen}
-			// 	payload_for_filter = {{category: 'Travel & Events'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Travel & Events Videos',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Entertainment_Videos" component={ConnectedPageScreen}
-			// 	payload_for_filter = {{category: 'Entertainment'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Entertainment Videos',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Animals_Images" component={ConnectedBookScreen}
-			// 	payload_for_filter = {{category: 'Animals'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Animals Images',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Architecture_Images" component={ConnectedBookScreen}
-			// 	payload_for_filter = {{category: 'Architecture'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Architecture Images',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Food_Images" component={ConnectedBookScreen}
-			// 	payload_for_filter = {{category: 'Food'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Food Images',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Sports_Images" component={ConnectedBookScreen}
-			// 	payload_for_filter = {{category: 'Sports'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Sports Images',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Travel_Images" component={ConnectedBookScreen}
-			// 	payload_for_filter = {{category: 'Travel'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Travel Images',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />
-
-			// <Stack.Screen name="Nature_Images" component={ConnectedBookScreen}
-			// 	payload_for_filter = {{category: 'Nature'}}
-			// 	options={{ 
-			// 		headerShown:true,
-			// 		title: 'Nature Images',
-			// 		headerTitleAlign: 'center',
-			// 		headerBackTitleVisible: false,
-			// 		headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-			// 			marginTop:50,
-			// 			marginBottom:50,
-			// 		}}>
-			// 			<Text>
-			// 				Go Back
-			// 			</Text>
-			// 		</TouchableOpacity>	),
-			// 		headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
-			// 	}}
-			// />

@@ -251,12 +251,12 @@ const styles = StyleSheet.create({
 	iconContainer:{
 		position: 'relative',
 		bottom: windowHeight * 0.065,
-		left: windowWidth * 0.05,
-		textAlign:'center',
-		width:30,
-		// margin:'auto'
+		// right: windowWidth * 0.35,
+		// backgroundColor: 'white',
+		width: 60,
 	},
 	textinput:{
+		color:'white',
 		// backgroundColor: '#000000',
 		// marginTop:10,
 		textAlign:'left',

@@ -71,15 +71,15 @@ class ComponentForShowingFriend extends Component {
 								<View style={styles.innerContainer}>
 									<View style={styles.imageContainer}>
 										<Image 
-											source={utils.image}
-											// source={{uri: base64Image}} 
+											// source={utils.image}
+											source={{uri: base64Image}} 
 											style={styles.imageStyle}
 										/>
 									</View>
 
 									<View style={styles.textContainer}>
 										<Text style={{...styles.nameText, color:'black'}}>
-											arsalan {data.user_name_in_profile}
+											{data.user_name_in_profile}
 										</Text>
 									</View>
 
@@ -106,7 +106,7 @@ class ComponentForShowingFriend extends Component {
 						  	</TouchableOpacity>
 						) 
 					
-					} else {
+					} else if (this.props.showFriendsRequestInstead === true) {
 
 						return (
 
@@ -118,15 +118,56 @@ class ComponentForShowingFriend extends Component {
 								<View style={styles.innerContainer}>
 									<View style={styles.imageContainer}>
 										<Image 
-											source={utils.image}
-											// source={{uri: base64Image}} 
+											// source={utils.image}
+											source={{uri: base64Image}} 
 											style={styles.imageStyle}
 										/>
 									</View>
 
 									<View style={styles.textContainer}>
 										<Text style={styles.nameText}>
-											arsalan {data.user_name_in_profile}
+											{data.user_name_in_profile}
+										</Text>
+									</View>
+
+									<View style={styles.iconContainer}>
+										<Icon
+											// raised
+											name={utils.sendFriendRequestIcon}
+											type='font-awesome'
+											color={utils.lightBlue}
+											size={25}
+											// onPress={() => console.log('hello')} 
+											// reverse={true}
+										/>
+										
+										<Text style={styles.followingText}>
+											Accept
+										</Text>
+									</View>
+								</View>
+
+						  	</TouchableOpacity>
+						)
+					} else if (this.props.showFriends === true){
+
+							<TouchableOpacity 
+						  		activeOpacity={0.2}
+						  		style={styles.outerContainer} 
+						  		onPress={ () => this.props.navigation.navigate('SocialPost', {endpoint: data.endpoint}) } 
+					  		>
+								<View style={styles.innerContainer}>
+									<View style={styles.imageContainer}>
+										<Image 
+											// source={utils.image}
+											source={{uri: base64Image}} 
+											style={styles.imageStyle}
+										/>
+									</View>
+
+									<View style={styles.textContainer}>
+										<Text style={styles.nameText}>
+											{data.user_name_in_profile}
 										</Text>
 									</View>
 
@@ -148,8 +189,8 @@ class ComponentForShowingFriend extends Component {
 								</View>
 
 						  	</TouchableOpacity>
-						)
 					}
+
 				})()}
 
 			</View>
@@ -200,7 +241,7 @@ const styles = StyleSheet.create({
 		resizeMode: "stretch",
 		height: windowHeight * 0.1,
 		width: windowWidth * 0.2,
-		borderRadius: windowWidth * 1/2,
+		borderRadius: 500,
 	},
 
 // friend name

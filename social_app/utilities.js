@@ -1,7 +1,7 @@
 const utils = {
 	// baseUrl:'https://hot-sheep-95.loca.lt',
 	// baseUrl:'http://localhost:3001',
-	baseUrl:'https://android-app-backend-307507.et.r.appspot.com',
+	baseUrl:'https://social-app-dot-portfolio-apps-311617.uc.r.appspot.com',
 
 	// create_share_for_socialpost
 	shareIcon:'heartbeat',
