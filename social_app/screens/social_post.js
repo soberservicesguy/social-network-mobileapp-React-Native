@@ -57,6 +57,35 @@ class SocialPostScreen extends Component {
 		}	
 	}
 
+	componentDidMount() {
+		this._unsubscribeFocus = this.props.navigation.addListener('focus', () => {
+			// below will be executed when user enters this screen
+			console.log('screen_payload')
+			console.log(this.state.screen_payload)
+
+			this.setUpScreen()
+			// const payload_from_previous_screen = this.props.navigation
+			// let { id } = payload_from_previous_screen
+		});
+
+		this._unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+			// below will be executed when user leaves this screen
+			console.log('I AM UNMOUNTED')
+			console.log('I AM UNMOUNTED')
+			console.log('I AM UNMOUNTED')
+
+			// const payload_from_previous_screen = this.props.navigation
+			// let { id } = payload_from_previous_screen
+		});
+
+	}
+
+	componentWillUnmount() {
+		this._unsubscribeFocus();
+		this._unsubscribeBlur();
+	}
+
+
 	getOwnSocialposts(){
 
 		let backend_requests_made = this.state.backend_requests_made
@@ -300,37 +329,6 @@ class SocialPostScreen extends Component {
 	
 	}
 
-	componentWillUnmount(){
-		console.log('I AM UNMOUNTED')
-		console.log('I AM UNMOUNTED')
-		console.log('I AM UNMOUNTED')
-	}
-
-
-	componentDidUpdate(prevProps, prevState, snapshot) {
-
-		if (prevProps.route.params !== this.props.route.params){
-			this.setUpScreen()
-		}
-
-	}
-
-
-// COMPONENT DID MOUNT
-	componentDidMount() {
-
-		console.log('screen_payload')
-		console.log(this.state.screen_payload)
-
-
-		this.setUpScreen()
-		// const payload_from_previous_screen = this.props.navigation
-
-
-		// let { id } = payload_from_previous_screen
-
-
-	}
 
 // detecting whether entire screen is scrolled
 	isScrollingCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
