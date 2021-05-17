@@ -48,6 +48,10 @@ export const rootReducer = combineReducers({
 
 export const mapStateToProps = state => {
 	return {
+		all_likes: state.socialposts.totalLikes,
+		all_shares: state.socialposts.totalShares,
+		all_comments: state.socialposts.totalComments,
+
 		total_friends:state.all_users.list_of_friends, 
 		list_of_friend_suggestions: state.all_users.suggestions,
 		list_of_friend_requests: state.all_users.requests,		
@@ -110,6 +114,12 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch => {
 	return {
 		
+		
+		
+		set_total_likes: (likes_list) => dispatch( { type: "SET_LIKES", likes_list: likes_list } ),
+		set_total_comments: (comments_list) => dispatch( { type: "SET_COMMENTS", comments_list: comments_list } ),
+		set_total_shares: (shares_list) => dispatch( { type: "SET_SHARES", shares_list: shares_list } ),
+
 		set_total_friends_count: (total_friends) => dispatch( { type: "SET_FRIENDS_COUNT", total_friends: total_friends } ),
 		set_friends: (friends_list) => dispatch( { type: "SET_FRIENDS", friends_list: friends_list } ),
 		set_friends_suggestions: (args_list) => dispatch( { type: "SET_FRIENDS_SUGGESTIONS", args_list: args_list } ),

@@ -58,9 +58,9 @@ class SocialPostCard extends Component {
 // STATE	
 		this.state = {
 			expanded: false,
-			comments: [],
-			likes: [],
-			shares: [],
+			// comments: [],
+			// likes: [],
+			// shares: [],
 			users: [],
 		}	
 
@@ -68,7 +68,7 @@ class SocialPostCard extends Component {
 
 	fetchAllComment(endpoint) {
 
-		axios.get(utils.baseUrl + '/sports/get-all-comments-of-sport', 
+		axios.get(utils.baseUrl + '/socialposts/get-all-comments-of-socialpost', 
 			{
 			    params: {
 					endpoint: endpoint,
@@ -77,8 +77,11 @@ class SocialPostCard extends Component {
 			})
 		.then((response) => {
 			// console.log(response.data);
-			this.setState( prev => ({...prev, comments: ( prev.comments.length === 0 ) ? response.data : [] }) )
-			
+			// this.setState( prev => ({...prev, comments: ( prev.comments.length === 0 ) ? response.data : [] }) )
+			// console.log('response.data comments')
+			// console.log(response.data)
+			this.props.set_total_comments(response.data)
+			this.props.toggle_show_comments_for_socialpost()
 		})
 		.catch((error) => {
 			console.log(error);
@@ -89,7 +92,7 @@ class SocialPostCard extends Component {
 
 	fetchAllLike(endpoint) {
 
-		axios.get(utils.baseUrl + '/sports/get-all-likes-of-sport', 
+		axios.get(utils.baseUrl + '/socialposts/get-all-likes-of-socialpost', 
 			{
 			    params: {
 					endpoint: endpoint,
@@ -98,19 +101,21 @@ class SocialPostCard extends Component {
 			})
 		.then((response) => {
 			// console.log(response.data);
-			this.setState( prev => ({...prev, likes: ( prev.likes.length === 0 ) ? response.data : [] }) )
-			
+			this.props.set_total_likes(response.data)
+			// this.setState( prev => ({...prev, likes: ( prev.likes.length === 0 ) ? response.data : [] }) )
+			this.props.toggle_show_likes_for_socialpost()
 		})
 		.catch((error) => {
 			console.log(error);
 		})
-		
+
+		this.setState( prev => ({...prev, show_like_modal: true}) )		
 	}
 
 
 	fetchAllShare(endpoint) {
 
-		axios.get(utils.baseUrl + '/sports/get-all-shares-of-sport', 
+		axios.get(utils.baseUrl + '/socialposts/get-all-shares-of-socialpost', 
 			{
 			    params: {
 					endpoint: endpoint,
@@ -119,8 +124,10 @@ class SocialPostCard extends Component {
 			})
 		.then((response) => {
 			// console.log(response.data);
-			this.setState( prev => ({...prev, shares: ( prev.shares.length === 0 ) ? response.data : [] }) )
-			
+			// this.setState( prev => ({...prev, shares: ( prev.shares.length === 0 ) ? response.data : [] }) )
+			this.props.set_total_shares(response.data)
+			this.props.toggle_show_shares_for_socialpost()
+
 		})
 		.catch((error) => {
 			console.log(error);
@@ -149,6 +156,7 @@ class SocialPostCard extends Component {
 		  		<View>
 					{/* first the parent / card component */}
 					<ComponentForShowingSocialPost
+						navigation={this.props.navigation}
 						dataPayloadFromParent = {this.props.dataPayloadFromParent}
 					/>
 		  		</View>
@@ -161,10 +169,11 @@ class SocialPostCard extends Component {
 						activeOpacity={0.2} 
 						onPress={ () => { 
 							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_likes_for_socialpost()
 						}}
 					>						
 						<ConnectedSummarizeLikesOfSocialPost
+							likes={this.state.likes}
+							navigation={this.props.navigation}
 							showOnlyQuantity = { this.props.show_socialpost_likes }
 							child_quantity = { this.props.likes_quantity }
 							dataPayloadFromParent = { this.props.likes }
@@ -177,10 +186,10 @@ class SocialPostCard extends Component {
 						activeOpacity={0.2} 
 						onPress={ () => {
 							this.fetchAllComment( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_comments_for_socialpost()
 						}}
 					>
 						<ConnectedSummarizeCommentsOfSocialPost
+							navigation={this.props.navigation}
 							showOnlyQuantity = { this.props.show_socialpost_comments }
 							child_quantity = { this.props.comments_quantity }
 							dataPayloadFromParent = { this.props.comments }
@@ -193,10 +202,10 @@ class SocialPostCard extends Component {
 						activeOpacity={0.2} 
 						onPress={ () => { 
 							this.fetchAllShare( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_shares_for_socialpost()
 						}}
 					>						
 						<ConnectedSummarizeSharesOfSocialPost
+							navigation={this.props.navigation}
 							showOnlyQuantity = { this.props.show_socialpost_shares }
 							child_quantity = { this.props.shares_quantity }
 							dataPayloadFromParent = { this.props.shares }
@@ -207,14 +216,17 @@ class SocialPostCard extends Component {
 				<View style={styles.createLikeAndShareContainer}>
 					{/* 4th create individual child options like comment / like */}					
 					<ConnectedCreateLikeForSocialpost
+						navigation={this.props.navigation}
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
 					/>					
 					<ConnectedCreateShareForSocialpost
+						navigation={this.props.navigation}
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
 					/>
 				</View>
 
 				<ConnectedCreateCommentForSocialpost
+					navigation={this.props.navigation}
 					parentDetailsPayload = { this.props.dataPayloadFromParent }
 				/>					
 

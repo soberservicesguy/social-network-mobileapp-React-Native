@@ -1,5 +1,9 @@
 const initialState = {
 
+	totalLikes:[],
+	totalShares:[],
+	totalComments:[],
+
 	showOnlyCommentsQuantityForSocialPost:false,
 	showOnlyLikesQuantityForSocialPost:false,
 	showOnlySharesQuantityForSocialPost: false,
@@ -41,6 +45,19 @@ const reducerForSocialPost = (state = initialState, action) => {
 
 
 	switch (action.type) {
+
+		case "SET_LIKES":
+			return {...state, totalLikes: action.likes_list}
+			break;
+		case "SET_COMMENTS":
+			return {...state, totalComments: action.comments_list}
+			break;
+		case "SET_SHARES":
+			return {...state, totalShares: action.shares_list}
+			break;
+
+
+
 
 		case "HIDE_SHARE_QUANTITY_FOR_SOCIALPOST":
 			return {...state, showOnlySharesQuantityForSocialPost: false }

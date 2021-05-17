@@ -79,9 +79,9 @@ class SummarizeSharesOfSocialPost extends Component {
 						/>
 
 			  	  		<FlatList
-			  				style={{flexDirection: 'column', flexWrap : "wrap"}}
+			  				style={{flexDirection: 'column'}}
 			  				numColumns={1}
-			  	  			data={this.props.dataPayloadFromParent}
+			  	  			data={this.props.all_shares}
 			  				renderItem={
 			  					({ item }) => (
 									<ComponentForShowingShare

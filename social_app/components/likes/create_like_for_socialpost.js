@@ -25,7 +25,6 @@ class CreateLikeForSocialpost extends Component {
 		super(props);
 // STATE	
 		this.state = {
-			switchScreen: false,
 		}
 
 	}
@@ -37,66 +36,51 @@ class CreateLikeForSocialpost extends Component {
 
 	render() {
 
-		// parameters being passed from previous route
-
-		if ( this.state.switchScreen !== false ){
-
-			// switching it back to false
-			this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
-
-			// redirecting
-			this.props.navigation.navigate('Individual-Socialpost', {
-				itemId: 86,
-				otherParam: 'anything you want here',
-			})
-
-		} else {
-
 		return (
 			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
 
-				<View style={styles.outerContainer}>
+			<View style={styles.outerContainer}>
 
-				  	<TouchableOpacity 
-				  		activeOpacity={0.2} 
-				  		style={styles.buttonWithoutBG}
-						onPress={ () => {
+			  	<TouchableOpacity 
+			  		activeOpacity={0.2} 
+			  		style={styles.buttonWithoutBG}
+					onPress={ () => {
 
-							let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
-							let redirectToNewSocialpost = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
+						let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
+						let redirectToNewSocialpost = () => this.props.navigation.navigate('Individual_SocialPost', {itemId: 86, otherParam: 'anything you want here',})
 
-							axios.post(utils.baseUrl + '/socialposts/create-like-for-socialpost', 
-								{
-									socialpost_endpoint: this.props.parentDetailsPayload.endpoint,
-								})
-							.then(function (response) {
-								console.log(response.data) // current blogpost screen data
-								
-								// set to current parent object
-								setResponseInCurrentSocialpost(response.data)
 
-								// change route to current_blogpost	
-								redirectToNewSocialpost()							
-
+						axios.post(utils.baseUrl + '/socialposts/create-like-for-socialpost', 
+							{
+								socialpost_endpoint: this.props.parentDetailsPayload.endpoint,
 							})
-							.catch(function (error) {
-								console.log(error)
-							});						
+						.then(function (response) {
+							console.log(response.data) // current blogpost screen data
+							
+							// set to current parent object
+							setResponseInCurrentSocialpost(response.data)
 
-						}}
-					>
-						<Icon
-						  // raised
-						  name={utils.likeIcon}
-						  type='font-awesome'
-						  color='#f50'
-						  size={30}
-						  // reverse={true}
-						/>
-					</TouchableOpacity>
-				</View>
-			);
-		}
+							// change route to current_blogpost	
+							redirectToNewSocialpost()							
+
+						})
+						.catch(function (error) {
+							console.log(error)
+						});						
+
+					}}
+				>
+					<Icon
+					  // raised
+					  name={utils.likeIcon}
+					  type='font-awesome'
+					  color='#f50'
+					  size={30}
+					  // reverse={true}
+					/>
+				</TouchableOpacity>
+			</View>
+		);
 	}
 }
 	

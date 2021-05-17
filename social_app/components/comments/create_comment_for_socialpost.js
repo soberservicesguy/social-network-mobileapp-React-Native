@@ -24,7 +24,6 @@ class CreateCommentForSocialpost extends Component {
 		super(props);
 // STATE	
 		this.state = {
-			switchScreen: false,
 			text: '',
 			// commenting_timestamp: '',
 		}
@@ -38,78 +37,61 @@ class CreateCommentForSocialpost extends Component {
 
 	render() {
 
-		// parameters being passed from previous route
-
-		if ( this.state.switchScreen !== false ){
-
-			// switching it back to false
-			this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
-
-			// redirecting
-			this.props.navigation.navigate('Individual-Socialpost', {
-				itemId: 86,
-				otherParam: 'anything you want here',
-			})
-
-		} else {
-
-		return (
-			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
-
-				<View style={styles.outerContainer}>
-				  	<View style={styles.textinputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder="Type your comment"
-							placeholderTextColor = {utils.lightGrey}
-							// maxLength=10
-							// caretHidden=true
-							// multiline=true
-							// numberOfLines=3
-							// onChangeText={ () => null }
-							// value='dummy'
-							// autoFocus=true
-							onChangeText={ (event) => this.setState( prev => ({...prev, text: value})) }
-						/>
-				  	</View>
+		return(
+			<View style={styles.outerContainer}>
+			  	<View style={styles.textinputContainer}>
+					<TextInput
+						style={styles.textinput}
+						placeholder="Type your comment"
+						placeholderTextColor = {utils.lightGrey}
+						// maxLength=10
+						// caretHidden=true
+						// multiline=true
+						// numberOfLines=3
+						// onChangeText={ () => null }
+						// value='dummy'
+						// autoFocus=true
+						onChangeText={ (value) => this.setState( prev => ({...prev, text: value})) }
+					/>
+			  	</View>
 
 
-				  	<TouchableOpacity 
-				  		activeOpacity={0.2} 
-				  		style={styles.createComment}
-						onPress={ () => {
-							let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
-							let redirectToNewSocialpost = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
+			  	<TouchableOpacity 
+			  		activeOpacity={0.2} 
+			  		style={styles.createComment}
+					onPress={ () => {
+						let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
+						let redirectToNewSocialpost = () => this.props.navigation.navigate('Individual_SocialPost', {itemId: 86, otherParam: 'anything you want here',})
 
-							// first create child object
-							axios.post(utils.baseUrl + '/socialposts/create-comment-for-socialpost', 
-								{
-									comment_text: this.state.text,
-									socialpost_endpoint: this.props.parentDetailsPayload.endpoint,
-								})
-							.then(function (response) {
-								console.log(response.data) // current image screen data
-								
-								// set to current parent object
-								setResponseInCurrentSocialpost(response.data)
 
-								// change route to current_image	
-								redirectToNewSocialpost()							
-
+						// first create child object
+						axios.post(utils.baseUrl + '/socialposts/create-comment-for-socialpost', 
+							{
+								comment_text: this.state.text,
+								socialpost_endpoint: this.props.parentDetailsPayload.endpoint,
 							})
-							.catch(function (error) {
-								console.log(error)
-							});						
+						.then(function (response) {
+							console.log(response.data) // current image screen data
+							
+							// set to current parent object
+							setResponseInCurrentSocialpost(response.data)
 
-						}}
-			  		>
-				  		<Text style={styles.innerText}>
-							Create Comment
-				  		</Text>
-					</TouchableOpacity>
-				</View>
-			);
-		}
+							// change route to current_image	
+							redirectToNewSocialpost()							
+
+						})
+						.catch(function (error) {
+							console.log(error)
+						});						
+
+					}}
+		  		>
+			  		<Text style={styles.innerText}>
+						Create Comment
+			  		</Text>
+				</TouchableOpacity>
+			</View>
+		);
 	}
 }
 	

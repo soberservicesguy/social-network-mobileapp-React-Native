@@ -38,6 +38,8 @@ class SummarizeLikesOfSocialPost extends Component {
 
 	}
 
+
+
 	render() {
 
 		return (
@@ -76,16 +78,17 @@ class SummarizeLikesOfSocialPost extends Component {
 								this.props.toggle_show_likes_for_socialpost()
 							}} 
 						/>
-
 			  	  		<FlatList
-			  				style={{flexDirection: 'column', flexWrap : "wrap"}}
+			  				// style={{flexDirection: 'column'}}
 			  				numColumns={1}
-			  	  			data={this.props.dataPayloadFromParent}
+			  	  			data={this.props.all_likes}
 			  				renderItem={
 			  					({ item }) => (
+
 									<ComponentForShowingLike
 										componentData = { item }
 									/>
+
 			  					)}
 			  				keyExtractor={(item, index) => String(index)}
 			  			/>	

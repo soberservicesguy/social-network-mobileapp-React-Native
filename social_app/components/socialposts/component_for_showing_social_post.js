@@ -54,7 +54,7 @@ class ComponentForShowingSocialPost extends Component {
 					<Image 
 						// source={utils.image}
 						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
-						style={styles.imageStyle}
+						style={{...styles.imageStyle, width:70, height:70}}
 					/>
 				</View>
 				
@@ -72,7 +72,7 @@ class ComponentForShowingSocialPost extends Component {
 					<Image 
 						// source={utils.image}
 						source={{uri: base64ImageAvatar}} 
-						style={styles.imageStyle}
+						style={{...styles.imageStyle, width:70, height:70}}
 					/>
 				</View>
 				
@@ -85,7 +85,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_post_created = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -94,7 +94,7 @@ class ComponentForShowingSocialPost extends Component {
 					/>
 				</View>
 				<View style={{...styles.usernameContainer, flex:10}}>
-					<Text style={{...styles.usernameText, fontSize:15, marginLeft:20, fontWeight:'normal'}}>
+					<Text style={{...styles.usernameText, fontSize:15, marginLeft:40, fontWeight:'normal'}}>
 						{data.friends_user_name} created a<Text style={{fontWeight:'normal', color:utils.maroonColor}}> post!</Text>
 					</Text>
 				</View>
@@ -102,7 +102,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_post_liked = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -119,7 +119,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_post_shared = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -136,7 +136,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_post_commented = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -153,7 +153,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_book_created = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -170,7 +170,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_book_liked = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -187,7 +187,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_page_created = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -204,7 +204,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_page_liked = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -221,7 +221,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_sport_created = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -238,7 +238,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_sport_liked = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -255,7 +255,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_ad_created = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -272,7 +272,7 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_ad_liked = (
-			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto'}}>
+			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
@@ -289,9 +289,12 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let post_text_content = (
-			<Text style={styles.postText}>
-				{ data.post_text }
-			</Text>
+			<View style={styles.postTextContainer}>
+				<Text style={styles.postText}>
+					{ data.post_text }
+				</Text>
+			</View>
+
 		)
 
 		let post_image_content = (
@@ -443,11 +446,16 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'created_post' && data.type_of_post === 'text_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
-							{activity_header_for_post_created}
-							{username_avatar_in_created_post_type}
-							{post_text_content}
+						<View>
+							<View>
+								{activity_header_for_post_created}
+							</View>
+							<View>
+								{username_avatar_in_created_post_type}
+							</View>
+							<View>
+								{post_text_content}
+							</View>
 
 						</View>
 					)
@@ -835,8 +843,8 @@ const styles = StyleSheet.create({
 // AVATAR
 	imageStyle:{
 		resizeMode: "stretch",
-		height: '100%',
-		width: '100%',
+		height: 40,
+		width: 40,
 		borderRadius: windowWidth * 1/2,
 	},
 	imagePostStyle:{
@@ -855,10 +863,21 @@ const styles = StyleSheet.create({
 	},
 
 	textContainer:{
-		marginLeft:10,
+		// paddingLeft:30,
 		flex:4,
+		width:'80%',
+		// backgroundColor: '#000000'
+		marginTop:20,
+	},
+
+	postTextContainer:{
+		paddingLeft:20,
+		flex:4,
+		width:'80%',
+		margin:'auto',
 		// backgroundColor: '#000000'
 	},
+
 	postText:{
 		fontSize:18,
 		color:utils.mediumGrey
@@ -903,12 +922,6 @@ const styles = StyleSheet.create({
 	},
 
 // post text
-	postTextContainer:{
-		marginTop:20,
-	},
-	postText:{
-		// color:'dark-grey',
-	},
 
 // post image
 	postImageContainer:{

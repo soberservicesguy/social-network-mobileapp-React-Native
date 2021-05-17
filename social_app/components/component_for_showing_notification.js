@@ -352,15 +352,20 @@ class ComponentForShowingNotification extends Component {
 
 			case "created_post":
 
+				console.log('Object.keys(data)')
+				console.log(Object.keys(data))
+
 				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
+
+				console.log(base64Image)
 
 				componentToShow = (
 
 					<View style={styles.innerContainer}>
 						<View style={styles.imageContainer}>
 							<Image 
-								source={utils.image}
-								// source={{uri: base64Image}} 
+								// source={utils.image}
+								source={{uri: base64Image}} 
 								style={styles.imageStyle}
 							/>
 						</View>
