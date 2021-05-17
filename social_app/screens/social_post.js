@@ -51,6 +51,9 @@ class SocialPostScreen extends Component {
 
 			total_friends:0,
 
+
+			screen_payload:this.props.route.params,
+
 		}	
 	}
 
@@ -133,7 +136,11 @@ class SocialPostScreen extends Component {
 
 	getSocialpostsOfSomeone(){
 
-		let { id } = this.props.navigation
+		// let { id } = this.props.navigation
+
+		let id = this.props.route.params.friends_endpoint
+
+		console.log({friend_id_is: id})
 
 		let backend_requests_made = this.state.backend_requests_made
 		let append_socialposts_callback = (response) => this.props.async_append_fetched_socialposts(response.data)
@@ -200,11 +207,13 @@ class SocialPostScreen extends Component {
 		})
 	}
 
-// COMPONENT DID MOUNT
-	componentDidMount() {
 
-		const payload_from_previous_screen = this.props.navigation
-		let { id } = payload_from_previous_screen
+	setUpScreen(){
+
+		let payload_from_previous_screen = this.props.route.params
+
+		let id = payload_from_previous_screen.friends_endpoint
+
 
 		if (payload_from_previous_screen.showOwnWallInstead){
 			console.log('TRIGGERED1')
@@ -279,6 +288,31 @@ class SocialPostScreen extends Component {
 			this.props.navigation.setOptions({title: this.props.user_name_in_profile,})
 			this.getFriendsSocialposts()			
 		}
+	
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+
+		if (prevProps.route.params !== this.props.route.params){
+			this.setUpScreen()
+		}
+
+	}
+
+
+// COMPONENT DID MOUNT
+	componentDidMount() {
+
+		console.log('screen_payload')
+		console.log(this.state.screen_payload)
+
+
+		this.setUpScreen()
+		// const payload_from_previous_screen = this.props.navigation
+
+
+		// let { id } = payload_from_previous_screen
+
 
 	}
 
@@ -404,7 +438,7 @@ class SocialPostScreen extends Component {
 							<View style={styles.socialStatsContainer}>
 								<View style={styles.friendsContainer}>
 									<Text style={styles.statsCountText}>
-										{(this.props.total_friends === 0) ? this.state.total_friends : this.props.total_friends}
+										{/*{(this.props.total_friends === 0) ? this.state.total_friends : this.props.total_friends}*/}
 									</Text>
 									<Text style={styles.statsNameText}>
 										friends
@@ -413,7 +447,7 @@ class SocialPostScreen extends Component {
 
 								<View style={styles.followersContainer}>
 									<Text style={styles.statsCountText}>
-										{this.props.total_friends}
+										{/*{this.props.total_friends}*/}
 									</Text>
 									<Text style={styles.statsNameText}>
 										followers

@@ -36,11 +36,29 @@ class ComponentForShowingFriend extends Component {
 
 	}
 
+	acceptFriendRequest(endpoint){
+
+		axios.post(utils.baseUrl + '/users/accept-friend-request', {endpoint: endpoint})
+		.then((response) => {
+			if(response.data.success){
+				console.log('FRIEND REQUEST SENT')
+				this.setState(prev => ({...prev, accepted_request: true }));
+			}
+		})
+		.catch((error) => {
+			console.log(error);
+		})
+
+	}
+
 	sendFriendRequest(endpoint){
 
-		axios.post(utils.baseUrl + '/books/books-list-with-children', {endpoint: endpoint})
+		axios.post(utils.baseUrl + '/users/send-friend-request', {endpoint: endpoint})
 		.then((response) => {
-			this.props.set_fetched_books(response.data)
+			if(response.data.success){
+				console.log('FRIEND REQUEST SENT')
+				this.setState(prev => ({...prev, request_sent: true }));
+			}
 		})
 		.catch((error) => {
 			console.log(error);
@@ -112,8 +130,8 @@ class ComponentForShowingFriend extends Component {
 
 							<TouchableOpacity 
 						  		activeOpacity={0.2}
-						  		style={styles.outerContainer} 
-						  		onPress={ () => this.props.navigation.navigate('SocialPost', {endpoint: data.endpoint}) } 
+						  		style={styles.outerContainer} acceptFriendRequest
+						  		onPress={ () => this.acceptFriendRequest(data.endpoint) } 
 					  		>
 								<View style={styles.innerContainer}>
 									<View style={styles.imageContainer}>
@@ -151,10 +169,11 @@ class ComponentForShowingFriend extends Component {
 						)
 					} else if (this.props.showFriends === true){
 
+						return(
 							<TouchableOpacity 
 						  		activeOpacity={0.2}
 						  		style={styles.outerContainer} 
-						  		onPress={ () => this.props.navigation.navigate('SocialPost', {endpoint: data.endpoint}) } 
+						  		onPress={ () => this.props.navigation.navigate('SocialPost', {screen: 'Socialpost', params:{friends_endpoint:data.endpoint, showFriendsWallInstead:true}}) } 
 					  		>
 								<View style={styles.innerContainer}>
 									<View style={styles.imageContainer}>
@@ -189,6 +208,7 @@ class ComponentForShowingFriend extends Component {
 								</View>
 
 						  	</TouchableOpacity>
+						)
 					}
 
 				})()}

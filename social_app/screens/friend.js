@@ -57,8 +57,6 @@ class FriendsScreen extends Component {
 
 		if (typeof this.props.route.params === 'undefined'){
 
-			console.log('payload_from_previous_screen 0')
-
 			this.setState(prev => ({...prev, showFriendsSuggestionsInstead: false, showFriendsRequestInstead:true, showFriends:false }) )
 
 			if (parentNavigator) {
@@ -84,7 +82,6 @@ class FriendsScreen extends Component {
 
 					// console.log('this.props.list_of_friend_requests')
 					// console.log(this.props.list_of_friend_requests)
-
 				}
 			})
 			.catch((error) => {
@@ -95,12 +92,6 @@ class FriendsScreen extends Component {
 		} else {
 
 			let payload_from_previous_screen = this.props.route.params.payload
-
-
-			console.log('payload_from_previous_screen 1')
-			console.log(payload_from_previous_screen)
-
-			// const payload_from_previous_screen = this.props.navigation
 
 			if (payload_from_previous_screen === 'showFriendsSuggestionsInstead'){
 
@@ -142,9 +133,6 @@ class FriendsScreen extends Component {
 
 			} else if (payload_from_previous_screen === 'showFriendsRequestInstead') {
 
-				console.log('payload_from_previous_screen 2')
-
-
 				this.setState(prev => ({...prev, showFriendsSuggestionsInstead: false, showFriendsRequestInstead:true, showFriends:false }) )
 
 				if (parentNavigator) {
@@ -179,10 +167,6 @@ class FriendsScreen extends Component {
 
 			} else if (payload_from_previous_screen === 'showFriends'){
 
-				console.log('payload_from_previous_screen 3')
-				console.log(payload_from_previous_screen)
-
-
 				this.setState(prev => ({...prev, showFriendsSuggestionsInstead: false, showFriendsRequestInstead: false, showFriends: true }) )
 
 				if (parentNavigator) {
@@ -209,7 +193,8 @@ class FriendsScreen extends Component {
 						// console.log('this.props.list_of_friends')
 						// console.log(this.props.list_of_friends)
 
-					}			})
+					}
+				})
 				.catch((error) => {
 					console.log(error);
 				})
@@ -250,7 +235,9 @@ class FriendsScreen extends Component {
 
 		} else if (this.props.route.params.payload === 'showFriends'){
 
-			data_to_use = this.props.list_of_friends
+			data_to_use = this.props.total_friends
+			console.log('this.state.showFriends')
+			console.log(this.state.showFriends)
 
 		} else {
 
@@ -267,15 +254,18 @@ class FriendsScreen extends Component {
 	  	  			// data={(this.state.showFriendsSuggestionsInstead) ? friend_suggestions : friends}
 	  	  			data={data_to_use}
 	  				renderItem={
-	  					({ item }) => (
-							<ConnectedComponentForShowingFriend
-								dataPayloadFromParent = { item }
-								navigation = {this.props.navigation}
-								showFriendsSuggestionsInstead = {this.state.showFriendsSuggestionsInstead}
-								showFriendsRequestInstead = {this.state.showFriendsRequestInstead}
-								showFriends = {this.state.showFriends}
-							/>
-	  					)}
+	  					({ item }) => {
+
+							return(
+								<ConnectedComponentForShowingFriend
+									dataPayloadFromParent = { item }
+									navigation = {this.props.navigation}
+									showFriendsSuggestionsInstead = {this.state.showFriendsSuggestionsInstead}
+									showFriendsRequestInstead = {this.state.showFriendsRequestInstead}
+									showFriends = {this.state.showFriends}
+								/>
+							)
+	  					}}
 	  				keyExtractor={(item, index) => String(index)}
 	  			/>
 

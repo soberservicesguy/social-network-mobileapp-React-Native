@@ -161,9 +161,9 @@ function ContentTabsComponent({navigation}) {
 						option = option.charAt(0).toUpperCase() + option.slice(1);
 
 						return (
-							<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) }>
+							<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(option) }>
 								<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
-									{option}
+									{screen_name}
 								</Text>
 							</TouchableOpacity>
 						)
@@ -206,7 +206,7 @@ function ContentTabsComponent({navigation}) {
 	{/* video posts from user on his wall */} 
 
 		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
-			<ContentTabs.Screen name="SocialPost" component={ ConnectedSocialPostScreen }
+			<ContentTabs.Screen name="Socialpost" component={ ConnectedSocialPostScreen }
 				options={{ 
 					headerShown:true,
 					title: 'SocialPost',
@@ -367,7 +367,7 @@ function InnerDrawerComponent({navigation}) {
 						].map((option) => {
 
 							let screen_name = option
-							if (screen_name === 'FriendsSection'){
+							if (screen_name === 'Friendsection'){
 								option = 'Friends'
 							} else if (screen_name === 'SocialPost'){
 								option = 'Wall'
