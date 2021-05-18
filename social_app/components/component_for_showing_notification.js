@@ -352,14 +352,26 @@ class ComponentForShowingNotification extends Component {
 
 			case "created_post":
 
-				console.log('Object.keys(data)')
-				console.log(Object.keys(data))
+				// console.log('Object.keys(data)')
+				// console.log(Object.keys(data))
 
-				var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
+				var base64Image = "data:image/jpeg;base64," + data.friends_user_avatar_image
 
-				console.log(base64Image)
+				// console.log(base64Image)
+
+// friend_endpoint
+// endpoint
 
 				componentToShow = (
+
+					<TouchableOpacity 
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => { 
+							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
+						}}
+					>						
+
 
 					<View style={styles.innerContainer}>
 						<View style={styles.imageContainer}>
@@ -372,10 +384,10 @@ class ComponentForShowingNotification extends Component {
 
 						<View style={styles.textContainer}>
 							<Text style={styles.nameText}>
-								arsalan {data.user_name} 
+								{data.friends_user_name} 
 					  		</Text>
 			  				<Text style={styles.activityText}>
-			  		  			created a post
+			  		  			{data.activity_type}
 			  		  		</Text>
 						</View>
 					  	

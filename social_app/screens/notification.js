@@ -33,13 +33,42 @@ class NotificationsScreen extends Component {
 		}	
 	}
 
-// COMPONENT DID MOUNT
-	componentDidMount() {
+	getNotifications(){
 
-// FETCHING DATA FOR COMPONENT
-		axios.get(utils.baseUrl + '/notifications/get-notifications',)
+		let backend_requests_made = this.state.backend_requests_made
+		let setNoMoreNotificationsCallback = () => this.setState(prev => ({...prev, no_more_notifications_from_backend: true }))
+		let set_fetched_notifications_callback = (response) => this.props.set_fetched_notifications(response.data)
+		let set_state_for_requests_made = () => {
+			this.setState(prev => ({...prev, 
+				backend_requests_made: prev.backend_requests_made + 1,
+			}));
+		}
+
+
+		axios.get(utils.baseUrl + '/socialposts/get-notifications-from-friends',
+		{
+		    params: {
+				request_number: backend_requests_made,
+		    }
+		})
 		.then((response) => {
-			this.props.set_fetched_notifications(response.data)
+			if(response.data.length === 0){
+
+				// console.log('no more notifications to show')
+				set_fetched_notifications_callback([])
+				set_fetched_notifications_callback({data:[{message:'no more notifications'}]})
+				setNoMoreNotificationsCallback()
+
+			} else {
+
+				// console.log('Notifications recieved')
+				// console.log(response.data.length)
+				set_fetched_notifications_callback(response)
+				// append_fetched_notifications_callback(response)
+				set_state_for_requests_made()
+
+			}
+
 		})
 		.catch((error) => {
 			console.log(error);
@@ -47,10 +76,14 @@ class NotificationsScreen extends Component {
 
 	}
 
+	componentDidMount() {
+		this.getNotifications()
+	}
+
 // RENDER METHOD
 	render() {
 			
-		const total_notifications = this.props.total_notifications
+		const total_notifications = this.props.notifications_list
 
 		return (
 
@@ -59,8 +92,8 @@ class NotificationsScreen extends Component {
 	  	  		<FlatList
 	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
 	  				numColumns={1}
-	  	  			// data={total_notifications}
-	  	  			data={[1,2,3,4,5,6,7,8,9,10]}
+	  	  			data={total_notifications}
+	  	  			// data={[1,2,3,4,5,6,7,8,9,10]}
 	  				renderItem={
 	  					({ item }) => (
 							<ConnectedComponentForShowingNotification
