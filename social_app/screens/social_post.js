@@ -92,7 +92,7 @@ class SocialPostScreen extends Component {
 		let append_socialposts_callback = (response) => this.props.async_append_fetched_socialposts(response.data)
 		let set_state_for_requests_made = () => {this.setState(prev => ({...prev, backend_requests_made: prev.backend_requests_made + 1,}));}
 
-		console.log('MAKING AXIOUS REQUEST')
+		console.log('MAKING AXIOUS REQUEST FOR OWN POSTS')
 		axios.get(utils.baseUrl + '/socialposts/get-socialposts-of-someone',
 		{
 		    params: {
@@ -133,6 +133,7 @@ class SocialPostScreen extends Component {
 			this.setState(prev => ({...prev, backend_requests_made: prev.backend_requests_made + 1,}));
 		}
 
+		console.log('MAKING REQUEST FOR FRIENDS POSTS')
 		axios.get(utils.baseUrl + '/socialposts/get-socialposts-from-friends',
 		{
 		    params: {
@@ -247,7 +248,14 @@ class SocialPostScreen extends Component {
 
 	setUpScreen(){
 
+		console.log('EXECUTING SETUP')
+
+		console.log('this.state.user_cover_image in beginning')
+		console.log(this.props.user_cover_image)
+
 		let payload_from_previous_screen = this.props.route.params
+		console.log('payload_from_previous_screen')
+		console.log(payload_from_previous_screen)
 
 		if (typeof payload_from_previous_screen !== 'undefined'){
 
@@ -255,13 +263,19 @@ class SocialPostScreen extends Component {
 
 
 			if (payload_from_previous_screen.showOwnWallInstead){
-				console.log('TRIGGERED1')
-				console.log('this.props.user_name_in_profile')
-				console.log(this.props.user_name_in_profile)
+				console.log('USING SCREEN FOR FETCHING OWN POSTS')
+				// console.log('this.props.user_name_in_profile')
+				// console.log(this.props.user_name_in_profile)
 				this.props.set_fetched_socialposts([])
 				this.setState(prev => ({...prev, showOwnWallInstead: true }) )
 				this.props.navigation.setOptions({title: this.props.user_name_in_profile,})
 				this.getOwnSocialposts()
+				this.setState(prev => ({
+					...prev, 
+					total_friends: this.props.user_total_friends,
+					user_cover_image: this.props.user_cover_image,
+					user_name_in_profile: this.props.user_name_in_profile,
+				}))
 				// dummy objects as fetched socialposts
 					// this.props.set_fetched_socialposts([
 					// 	{ type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
@@ -276,7 +290,8 @@ class SocialPostScreen extends Component {
 					// 	{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
 					// ]) // loading with empty since it was storing all objects reaching to 200
 			} else if (payload_from_previous_screen.showFriendsWallInstead){
-				console.log('TRIGGERED2')
+
+				console.log('USING SCREEN FOR FETCHING FRIENDS WALL')
 				this.props.set_fetched_socialposts([])
 				this.setState(prev => ({...prev, showFriendsWallInstead: true }) )
 				this.props.navigation.setOptions({title: `Friends Wall`,})
@@ -297,7 +312,8 @@ class SocialPostScreen extends Component {
 					// ]) // loading with empty since it was storing all objects reaching to 200
 
 			} else if (payload_from_previous_screen.showNonFriendsWallInstead){ 
-				console.log('TRIGGERED3')
+				// console.log('TRIGGERED3')
+				console.log('USING SCREEN FOR NON FRIEND WALL')
 				this.props.set_fetched_socialposts([])
 				this.setState(prev => ({...prev, showNonFriendsWallInstead: true }) )
 				this.props.navigation.setOptions({title: `Not A Friends Wall`,})
@@ -316,14 +332,39 @@ class SocialPostScreen extends Component {
 					// 	{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
 					// ]) // loading with empty since it was storing all objects reaching to 200
 			} else {
-				console.log('TRIGGERED4')
+				// console.log('TRIGGERED4')
+				// console.log('this.props.user_name_in_profile')
+				// console.log(this.props.user_name_in_profile)
+				console.log('USING SCREEN FOR FETCHING FRIENDS POSTS')
 				this.props.set_fetched_socialposts([])
-				console.log('this.props.user_name_in_profile')
-				console.log(this.props.user_name_in_profile)
 				this.setState(prev => ({...prev, showFriendsSocialposts: true }) )
 				this.props.navigation.setOptions({title: this.props.user_name_in_profile,})
 				this.getFriendsSocialposts()			
+				this.setState(prev => ({
+					...prev, 
+					total_friends: this.props.user_total_friends,
+					user_cover_image: this.props.user_cover_image,
+					user_name_in_profile: this.props.user_name_in_profile,
+				}))
 			}
+
+		} else {
+
+			// console.log('TRIGGERED4')
+			// console.log('this.props.user_name_in_profile')
+			// console.log(this.props.user_name_in_profile)
+			console.log('USING SCREEN FOR FETCHING FRIENDS POSTS')
+			this.props.set_fetched_socialposts([])
+			this.setState(prev => ({...prev, showFriendsSocialposts: true }) )
+			this.props.navigation.setOptions({title: this.props.user_name_in_profile,})				
+			this.getFriendsSocialposts()
+			this.setState(prev => ({
+				...prev, 
+				total_friends: this.props.user_total_friends,
+				user_cover_image: this.props.user_cover_image,
+				user_name_in_profile: this.props.user_name_in_profile,
+			}))
+
 		}
 
 	
@@ -346,24 +387,27 @@ class SocialPostScreen extends Component {
 		// console.log(payload_from_previous_screen)
 
 		var base64Image
-		
-		if (this.state.showOwnWallInstead){
+		base64Image = "data:image/jpeg;base64," + this.state.user_cover_image
+		console.log('base64Image')
+		console.log(base64Image)
 
-			base64Image = "data:image/jpeg;base64," + this.props.user_cover_image
+		// if (this.state.showOwnWallInstead){
 
-		} else if (this.state.showFriendsWallInstead || this.state.showNonFriendsWallInstead){
+		// 	base64Image = "data:image/jpeg;base64," + this.props.user_cover_image
 
-			base64Image = "data:image/jpeg;base64," + this.state.user_cover_image
+		// } else if (this.state.showFriendsWallInstead || this.state.showNonFriendsWallInstead){
 
-		} else {
+		// 	base64Image = "data:image/jpeg;base64," + this.state.user_cover_image
 
-			base64Image = "data:image/jpeg;base64," + this.props.user_cover_image
+		// } else {
 
-		}
+		// 	base64Image = "data:image/jpeg;base64," + this.props.user_cover_image
+
+		// }
 
 
-		console.log('total_socialposts.length')
-		console.log(total_socialposts.length)
+		// console.log('total_socialposts.length')
+		// console.log(total_socialposts.length)
 
 		return (
 
@@ -427,6 +471,9 @@ class SocialPostScreen extends Component {
 								{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
 							]) // loading with empty since it was storing all objects reaching to 200
 
+						} else {
+							console.log('getting more posts')
+							this.getFriendsSocialposts()			
 						}
 					}
 				}}>
@@ -444,7 +491,7 @@ class SocialPostScreen extends Component {
 								style={styles.bgImage}
 							>
 								<Text style={styles.headerText}>
-									{payload_from_previous_screen.user_name_in_profile}
+									{this.state.user_name_in_profile}
 								</Text>						
 							</ImageBackground>
 

@@ -18,6 +18,7 @@ import {
 	SignUpScreen,
 	FriendsScreen,
 	NotificationsScreen,
+	AboutMe
 } from "../screens";
 
 import AppNavigation from '../the_navigation'
@@ -77,6 +78,11 @@ import {
 	ComponentForShowingNotification,
 	ComponentForShowingFriend,
 } from "../components/"
+
+export const ConnectedAboutMe = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(AboutMe)
 
 export const ConnectedComponentForShowingFriend = connect(
 	mapStateToProps,

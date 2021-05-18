@@ -42,6 +42,7 @@ import {
 	ConnectedIndividualSport,
 	ConnectedFriendsScreen,
 	ConnectedNotificationsScreen,
+	ConnectedAboutMe,
 } from "./redux_stuff/connected_components";
 
 
@@ -362,7 +363,7 @@ function InnerDrawerComponent({navigation}) {
 						alignItems:'center',
 						justifyContent: 'space-between', 
 					}}>
-						{['SocialPost', 'Friendsection', 'Notifications',
+						{['SocialPost', 'Friendsection', 'Notifications', 'About_Me'
 						// 'Video'
 						].map((option) => {
 
@@ -371,6 +372,8 @@ function InnerDrawerComponent({navigation}) {
 								option = 'Friends'
 							} else if (screen_name === 'SocialPost'){
 								option = 'Wall'
+							} else if (screen_name === 'About_Me'){
+								option = 'About Me'
 							}
 							option = option.toLowerCase()
 							option = option.charAt(0).toUpperCase() + option.slice(1);
@@ -443,6 +446,23 @@ function InnerDrawerComponent({navigation}) {
 				}}
 			/>
 
+			<InnerDrawer.Screen name="About_Me" component={ ConnectedAboutMe }
+				options={{ 
+					headerShown:true,
+					title: 'About Me',
+					headerTitleAlign: 'center',
+					headerBackTitleVisible: false,
+					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+						marginTop:50,
+						marginBottom:50,
+					}}>
+						<Text>
+							Go Back
+						</Text>
+					</TouchableOpacity>	),
+					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+				}}
+			/>
 
 			<InnerDrawer.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
 				options={{ 

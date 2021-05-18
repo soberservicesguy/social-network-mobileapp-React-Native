@@ -14,3 +14,5 @@ export {default as SignUpScreen } from "./sign_up.js";
 
 export {default as NotificationsScreen} from "./notification"
 export {default as FriendsScreen} from "./friend"
+
+export {default as AboutMe} from "./about_me"
