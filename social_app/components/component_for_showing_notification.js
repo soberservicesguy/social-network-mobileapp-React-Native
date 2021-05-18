@@ -359,20 +359,8 @@ class ComponentForShowingNotification extends Component {
 
 				// console.log(base64Image)
 
-// friend_endpoint
-// endpoint
 
 				componentToShow = (
-
-					<TouchableOpacity 
-						style={styles.socialButtonAndStats}
-						activeOpacity={0.2} 
-						onPress={ () => { 
-							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
-						}}
-					>						
-
-
 					<View style={styles.innerContainer}>
 						<View style={styles.imageContainer}>
 							<Image 

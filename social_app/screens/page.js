@@ -41,6 +41,8 @@ class PageScreen extends Component {
 // FETCHING DATA FOR COMPONENT
 		axios.get(utils.baseUrl + '/pages/pages-list-with-children',)
 		.then((response) => {
+			console.log('response.data')
+			console.log(response.data)
 			this.props.set_fetched_pages(response.data)
 		})
 		.catch((error) => {
@@ -70,7 +72,9 @@ class PageScreen extends Component {
 			<View style={{backgroundColor: '#eee'}}>
 				
 				<View>
-		  			<ConnectedCreatePage/>
+		  			<ConnectedCreatePage
+		  				navigation={this.props.navigation}
+		  			/>
 		  		</View>
 
 	  	  		<FlatList

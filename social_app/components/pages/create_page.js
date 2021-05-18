@@ -26,7 +26,6 @@ class CreatePage extends Component {
 // STATE	
 		this.state = {
 			expanded:false,
-			switchScreen: false,
 			page_name: '',
 			page_image: '',
 			page_description: '',
@@ -42,135 +41,119 @@ class CreatePage extends Component {
 
 	render() {
 
-		// parameters being passed from previous route
+		return (
+		// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
+			<View style={styles.outerContainer}>
 
-		if ( this.state.switchScreen !== false ){
+				<Button 
+					title={'Upload Image'}
+					style={styles.buttonWithoutBG}
+					color={utils.mediumGrey}
+					onPress={async () => {
+						try {
+							let res = await DocumentPicker.pick({
+								type: [
+									DocumentPicker.types.images,
+								],
+							});
+							console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
+							// setState method with response as argument
+							this.setState(prev => ({...prev, page_image: res}))
 
-			// switching it back to false
-			this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
-
-			// redirecting
-			this.props.navigation.navigate('Individual-Page', {
-				itemId: 86,
-				otherParam: 'anything you want here',
-			})
-
-		} else {
-
-			return (
-			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
-				<View style={styles.outerContainer}>
-
-					<Button 
-						title={'Upload Image'}
-						style={styles.buttonWithoutBG}
-						color={utils.mediumGrey}
-						onPress={async () => {
-							try {
-								let res = await DocumentPicker.pick({
-									type: [
-										DocumentPicker.types.images,
-									],
-								});
-								console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
-								// setState method with response as argument
-								this.setState(prev => ({...prev, page_image: res}))
-
-							} catch (err) {
-								if (DocumentPicker.isCancel(err)) {
-									// User cancelled the picker, exit any dialogs or menus and move on
-								} else {
-									console.log(err)
-									// throw err;
-								}
+						} catch (err) {
+							if (DocumentPicker.isCancel(err)) {
+								// User cancelled the picker, exit any dialogs or menus and move on
+							} else {
+								console.log(err)
+								// throw err;
 							}
-						}}
-					/>
+						}
+					}}
+				/>
 
 
-					<View style={{
-						display: 'flex',
-						// flexDirection: 'row',
-					}}>
+				<View style={{
+					display: 'flex',
+					// flexDirection: 'row',
+				}}>
 
-					  	<View style={styles.textinputContainer}>
-							<TextInput
-								style={styles.textinput}
-								placeholder="Type your page_name"
-								placeholderTextColor = {utils.mediumGrey}
-								// maxLength=10
-								// caretHidden=true
-								// multiline=true
-								// numberOfLines=3
-								// onChangeText={ () => null }
-								// value='dummy'
-								// autoFocus=true
-								onChangeText={ (value) => this.setState( prev => ({...prev, page_name: value})) }
-							/>
-					  	</View>
-
-
-					  	<View style={styles.textinputContainer}>
-							<TextInput
-								style={styles.textinput}
-								placeholder="Type your page_description"
-								placeholderTextColor = {utils.mediumGrey}
-								// maxLength=10
-								// caretHidden=true
-								// multiline=true
-								// numberOfLines=3
-								// onChangeText={ () => null }
-								// value='dummy'
-								// autoFocus=true
-								onChangeText={ (value) => this.setState( prev => ({...prev, page_description: value})) }
-							/>
-					  	</View>
+				  	<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your page_name"
+							placeholderTextColor = {utils.mediumGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) => this.setState( prev => ({...prev, page_name: value})) }
+						/>
 				  	</View>
 
 
-					<TouchableOpacity
-						activeOpacity={0.2}
-						style={styles.createPageButton}
-						onPress={ () => {
+				  	<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your page_description"
+							placeholderTextColor = {utils.mediumGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) => this.setState( prev => ({...prev, page_description: value})) }
+						/>
+				  	</View>
+			  	</View>
 
-							let setResponseInCurrentPage = (arg) => this.props.set_current_page(arg)
-							let redirectToNewPage = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
 
-							const formData = new FormData()
-							if (this.state.page_description !== ''){
-								formData.append('page_description', this.state.page_description)
-							}
-							if (this.state.page_name !== ''){
-								formData.append('page_name', this.state.page_name)
-							}
-							if (this.state.page_image !== ''){
-								formData.append('page_image', {uri: this.state.page_image.uri, name: this.state.page_image.name, type: this.state.page_image.type})
-							}
+				<TouchableOpacity
+					activeOpacity={0.2}
+					style={styles.createPageButton}
+					onPress={ () => {
 
-							axios.post(utils.baseUrl + '/pages/create-page-with-user', formData)
-							.then(function (response) {
-								console.log(response.data) // current page screen data
-								
-								// set to current parent object
-								setResponseInCurrentPage(response.data)
+						let setResponseInCurrentPage = (arg) => this.props.set_current_page(arg)
+						let redirectToNewPage = () => this.props.navigation.navigate('Individual_Page', {itemId: 86, otherParam: 'anything you want here',})
 
-								// change route to current_page
-								redirectToNewPage()
+						const formData = new FormData()
+						if (this.state.page_description !== ''){
+							formData.append('page_description', this.state.page_description)
+						}
+						if (this.state.page_name !== ''){
+							formData.append('page_name', this.state.page_name)
+						}
+						if (this.state.page_image !== ''){
+							formData.append('page_image', {uri: this.state.page_image.uri, name: this.state.page_image.name, type: this.state.page_image.type})
+						}
 
-							})
-							.catch(function (error) {
-								console.log(error)
-							});						
+						axios.post(utils.baseUrl + '/pages/create-page-with-user', formData)
+						.then(function (response) {
+							console.log(response.data) // current page screen data
+							
+							// set to current parent object
+							setResponseInCurrentPage(response.data)
 
-						}}
-					>
-						<Text style={styles.innerText}>
-							Create Page
-						</Text>
-					</TouchableOpacity>
-				</View>
-			);
-		}			
+							// change route to current_page
+							redirectToNewPage()
+
+						})
+						.catch(function (error) {
+							console.log(error)
+						});						
+
+					}}
+				>
+					<Text style={styles.innerText}>
+						Create Page
+					</Text>
+				</TouchableOpacity>
+			</View>
+		);			
 	}
 }
 	

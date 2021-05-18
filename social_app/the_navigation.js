@@ -112,6 +112,7 @@ function FriendTabsComponent({navigation}) {
 		>
 
 
+		{/*one screen behaves differently by providing different props to navigation*/}
 		{/* this acts like a wall, for personal, for friend, for not a friend everyone */}
 			<FriendTabs.Screen name="FriendsScreen" component={ ConnectedFriendsScreen }
 				options={{ 
