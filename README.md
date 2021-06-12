@@ -1,3 +1,3 @@
 # React Native Social Network Mobile App
 
-Live_url: https://social-mern-stack.herokuapp.com
+Backend_repo: https://github.com/soberservicesguy/social-network-webapp-MERN-stack
