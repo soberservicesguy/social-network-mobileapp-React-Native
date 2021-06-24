@@ -54,6 +54,8 @@ class SocialPostScreen extends Component {
 
 			screen_payload:this.props.route.params,
 
+			get_individual_image:false,
+
 		}	
 	}
 
@@ -101,9 +103,6 @@ class SocialPostScreen extends Component {
 		})
 		.then((response) => {
 
-			console.log('response.data')
-			console.log(response.data.length)
-
 			if(response.data.length === 0){
 
 				console.log('no more posts to show')
@@ -115,6 +114,7 @@ class SocialPostScreen extends Component {
 				console.log(response.data.length)
 				append_socialposts_callback(response)
 				set_state_for_requests_made()
+		    	this.setState({ get_individual_image: true })
 
 			}
 			
@@ -156,6 +156,7 @@ class SocialPostScreen extends Component {
 				})
 				append_socialposts_callback(response)
 				set_state_for_requests_made()
+		    	this.setState({ get_individual_image: true })
 
 			}
 			
@@ -204,6 +205,7 @@ class SocialPostScreen extends Component {
 				})
 				append_socialposts_callback(response)
 				set_state_for_requests_made()
+		    	this.setState({ get_individual_image: true })
 
 			}
 			
@@ -604,6 +606,8 @@ class SocialPostScreen extends Component {
 					  						// console.log(Object.keys(item))
 					  						return(
 												<ConnectedSocialPostCard
+													getIndividualImage = {this.state.get_individual_image}
+
 													navigation={this.props.navigation}
 													dataPayloadFromParent = { item }
 

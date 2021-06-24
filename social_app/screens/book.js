@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	FlatList,
+	SafeAreaView,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -27,11 +28,15 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+
 class BookScreen extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
 		this.state = {
+			get_individual_image:false,
 		}	
 	}
 
@@ -42,6 +47,8 @@ class BookScreen extends Component {
 		axios.get(utils.baseUrl + '/books/books-list-with-children',)
 		.then((response) => {
 			this.props.set_fetched_books(response.data)
+	    	this.setState({ get_individual_image: true })
+
 		})
 		.catch((error) => {
 			console.log(error);
@@ -66,28 +73,31 @@ class BookScreen extends Component {
 
 		return (
 
-			<View style={{backgroundColor: '#eee'}} >
+			<KeyboardAwareScrollView>
+				<SafeAreaView>
 				
-				<View>
-		  			<ConnectedCreateBook/>
-		  		</View>
+		  	  		<FlatList
+		  				style={{flexDirection: 'column', flexWrap : "wrap", marginTop:10}}
+		  				numColumns={1}
+		  	  			data={total_books}
+		  				renderItem={
+		  					({ item }) => (
+								<ConnectedBookCard
+									getIndividualImage = {this.state.get_individual_image}
+									dataPayloadFromParent = { item }
+									likes_quantity = {item.total_likes}
+									likes = { item.likes || [] }						
+								/>
+		  					)}
+		  				keyExtractor={(item, index) => String(index)}
+		  			/>
 
-	  	  		<FlatList
-	  				style={{flexDirection: 'column', flexWrap : "wrap", marginTop:10}}
-	  				numColumns={1}
-	  	  			data={total_books}
-	  				renderItem={
-	  					({ item }) => (
-							<ConnectedBookCard
-								dataPayloadFromParent = { item }
-								likes = { item.likes || [] }						
-							/>
-	  					)}
-	  				keyExtractor={(item, index) => String(index)}
-	  			/>
+					<View>
+			  			<ConnectedCreateBook/>
+			  		</View>
 
-			</View>
-
+				</SafeAreaView>
+			</KeyboardAwareScrollView>
 		);
 	}
 }

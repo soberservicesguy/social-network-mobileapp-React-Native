@@ -127,7 +127,6 @@ class SignUpScreen extends Component {
 								  // raised
 								  name={utils.userIcon}
 								  type='font-awesome'
-								  iconStyle='Outlined'
 								  color={utils.mediumGrey}
 								  size={30}
 								  // onPress={() => console.log('hello')} 
@@ -153,9 +152,8 @@ class SignUpScreen extends Component {
 							<View style={styles.iconContainer}>
 								<Icon
 								  // raised
-								  name={utils.userIcon}
+								  name={utils.phoneNumber}
 								  type='font-awesome'
-								  iconStyle='Outlined'
 								  color={utils.mediumGrey}
 								  size={30}
 								  // onPress={() => console.log('hello')} 
@@ -182,9 +180,8 @@ class SignUpScreen extends Component {
 							<View style={styles.iconContainer}>
 								<Icon
 								  // raised
-								  name={utils.userIcon}
+								  name={utils.passwordIcon}
 								  type='font-awesome'
-								  iconStyle='Outlined'
 								  color={utils.mediumGrey}
 								  size={30}
 								  // onPress={() => console.log('hello')} 
@@ -222,13 +219,13 @@ class SignUpScreen extends Component {
 						</View>
 
 						<View style={{marginTop: 30,}}>
-							<Text style={{fontSize:20, textAlign:'center'}}>
+							<Text style={{fontSize:20, textAlign:'center', color:'white'}}>
 								Select Privileges To Use
 							</Text>
 
 							<Picker
 								selectedValue={this.state.privileges_selected}
-								style={{height: 50, width: windowWidth * 0.9}}
+								style={{height: 50, width: windowWidth * 0.9, color:'white'}}
 								onValueChange={(itemValue, itemIndex) => {
 
 									// console logging selected file from menu

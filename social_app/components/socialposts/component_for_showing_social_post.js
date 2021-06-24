@@ -27,13 +27,100 @@ class ComponentForShowingSocialPost extends Component {
 		super(props);
 // STATE	
 		this.state = {
+			friends_user_avatar_image_src: null,
+			image_for_post_src: null,
+			book_image_src: null,
+			page_image_src: null,
+			sport_image_src: null,
+			ad_image_src: null,
+		}
+
+	}
+
+	componentDidMount() {
+		this.getImage()
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+
+
+		if (prevProps.getIndividualImage === false && this.props.getIndividualImage === true){
+			console.log('getting image')
+			
+			let {
+
+				// friends_user_avatar_image,
+				// friends_user_avatar_image_host,
+				image_for_post,
+				image_for_post_host,
+				book_image, 
+				book_image_host,
+				sport_image,
+				sport_image_host,
+				ad_image,
+				ad_image_host,
+				page_image,
+				page_image_host,
+
+			} = this.props.dataPayloadFromParent
+
+
+			if (typeof friends_user_avatar_image !== 'undefined'  && typeof friends_user_avatar_image_host !== 'undefined'){				
+				this.getImage(friends_user_avatar_image, friends_user_avatar_image_host, 'friends_user_avatar_image_src')
+			}
+
+			if (typeof image_for_post  !== 'undefined' && typeof image_for_post_host !== 'undefined'){				
+				this.getImage(image_for_post, image_for_post_host, 'image_for_post_src')
+			}
+
+			if (typeof book_image  !== 'undefined' && typeof book_image_host !== 'undefined'){				
+				this.getImage(book_image, book_image_host, 'book_image_src')
+			}
+
+			if (typeof sport_image  !== 'undefined' && typeof sport_image_host !== 'undefined'){				
+				this.getImage(sport_image, sport_image_host, 'sport_image_src')
+			}
+
+			if (typeof ad_image  !== 'undefined' && typeof ad_image_host !== 'undefined'){				
+				this.getImage(ad_image, ad_image_host, 'ad_image_src')
+			}
+
+			if (typeof page_image  !== 'undefined' && typeof page_image_host !== 'undefined'){				
+				this.getImage(page_image, page_image_host, 'page_image_src')
+			}
+
 
 		}
 
 	}
 
-// COMPONENT DID MOUNT
-	componentDidMount() {
+	getImage(image_object_id, host, state_field_to_change){
+
+		// let image_object_id = this.props.dataPayloadFromParent.book_image
+		// let host = this.props.dataPayloadFromParent.book_image_host
+
+		axios.get(`${utils.baseUrl}/socialposts/get-image`, 
+			{
+				params: {
+					image_object_id: image_object_id,
+					host: host
+				}
+			}
+		)
+	    .then(async (response) => {
+	    	if (response.data.success){
+
+	    		let new_state = {}
+	    		new_state[ state_field_to_change ] = "data:image/jpeg;base64," + response.data.image
+	    		// console.log('new_state')
+	    		// console.log(new_state)
+	    		// console.log('response.data.image')
+	    		// console.log(response.data.image)
+				this.setState( prev => ({...prev, ...new_state}))
+
+	    	}
+
+		});
 
 	}
 
@@ -45,15 +132,20 @@ class ComponentForShowingSocialPost extends Component {
 
 		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
 		// const data = {type_of_post:'text_with_video_post'}
-		var base64ImageAvatar = "data:image/jpeg;base64," + data.friends_user_avatar_image
-		var base64Image = "data:image/jpeg;base64," + data.image_for_post
+		// var base64ImageAvatar = "data:image/jpeg;base64," + this.state.friends_user_avatar_image_src
+		var base64ImageAvatar = this.state.friends_user_avatar_image_src
+		// var base64Image = "data:image/jpeg;base64," + data.image_for_post
+		// var base64Image = "data:image/jpeg;base64," + this.state.image_for_post_src
+		var base64Image =  this.state.image_for_post_src
 
 		let username_avatar_in_created_post_type = (
 			<View style={{...styles.innerContainer, alignItems:'flex-end'}}>
 				<View style={styles.imageContainer}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + this.state.friends_user_avatar_image_src}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={{...styles.imageStyle, width:70, height:70}}
 					/>
 				</View>
@@ -71,16 +163,23 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={styles.imageContainer}>
 					<Image 
 						// source={utils.image}
-						source={{uri: base64ImageAvatar}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={{...styles.imageStyle, width:70, height:70}}
 					/>
+					{/*<Image 
+						// source={utils.image}
+						source={{uri: base64ImageAvatar}} 
+						style={{...styles.imageStyle, width:70, height:70}}
+					/>*/}
 				</View>
 				
 				<View style={styles.textContainer}>
 					<Text style={styles.nameText}>
-						{data.user_name}
+						{data.friends_user_name}
 					</Text>
 				</View>
+
 			</View>
 		)
 
@@ -89,7 +188,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -106,7 +206,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -123,7 +224,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -140,7 +242,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -157,7 +260,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -174,7 +278,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -187,16 +292,19 @@ class ComponentForShowingSocialPost extends Component {
 		)
 
 		let activity_header_for_page_created = (
+
+
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
 				<View style={{...styles.usernameContainer, flex:10}}>
-					<Text style={{...styles.usernameText, fontSize:15, marginLeft:20, fontWeight:'normal'}}>
+					<Text style={{...styles.usernameText, fontSize:15, marginLeft:40, fontWeight:'normal'}}>
 						{data.friends_user_name} created a<Text style={{fontWeight:'normal', color:utils.maroonColor}}> page!</Text>
 					</Text>
 				</View>
@@ -208,7 +316,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -225,12 +334,13 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
 				<View style={{...styles.usernameContainer, flex:10}}>
-					<Text style={{...styles.usernameText, fontSize:15, marginLeft:20, fontWeight:'normal'}}>
+					<Text style={{...styles.usernameText, fontSize:15, marginLeft:40, fontWeight:'normal'}}>
 						{data.friends_user_name} created a<Text style={{fontWeight:'normal', color:utils.maroonColor}}> sport!</Text>
 					</Text>
 				</View>
@@ -242,7 +352,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -259,12 +370,13 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
 				<View style={{...styles.usernameContainer, flex:10}}>
-					<Text style={{...styles.usernameText, fontSize:15, marginLeft:20, fontWeight:'normal'}}>
+					<Text style={{...styles.usernameText, fontSize:15, marginLeft:40, fontWeight:'normal'}}>
 						{data.friends_user_name} created an<Text style={{fontWeight:'normal', color:utils.maroonColor}}> ad!</Text>
 					</Text>
 				</View>
@@ -276,7 +388,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={{...styles.avatarContainer}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
+						source={{uri: this.state.friends_user_avatar_image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -338,10 +451,11 @@ class ComponentForShowingSocialPost extends Component {
 					</Text>
 				</View>
 
-				<View style={{...styles.postImageContainer, width:'30%',  margin:'auto'}}>
+				<View style={{...styles.postImageContainer, width:'30%',  alignSelf:'center'}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.book_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.book_image}} 
+						source={{uri: this.state.book_image_src}} 
 						style={styles.postImage}
 					/>
 				</View>
@@ -362,10 +476,11 @@ class ComponentForShowingSocialPost extends Component {
 					</Text>
 				</View>
 
-				<View style={{...styles.postImageContainer, width:'70%',  margin:'auto'}}>
+				<View style={{...styles.postImageContainer, width:'70%',  alignSelf:'center'}}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.page_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.page_image}} 
+						source={{uri: this.state.page_image_src}} 
 						style={styles.postImage}
 					/>
 				</View>
@@ -389,7 +504,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={styles.postImageContainer}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.sport_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.sport_image}} 
+						source={{uri: this.state.sport_image_src}} 
 						style={styles.postImage}
 					/>
 				</View>
@@ -404,7 +520,7 @@ class ComponentForShowingSocialPost extends Component {
 		
 		let ad_content = (
 			<View>
-				<View style={styles.postTextContainer}>
+				<View style={{...styles.postTextContainer}}>
 					<Text style={{...styles.postText, fontWeight:'bold'}}>
 						{ data.ad_name }
 					</Text>
@@ -413,7 +529,8 @@ class ComponentForShowingSocialPost extends Component {
 				<View style={styles.postImageContainer}>
 					<Image 
 						// source={utils.image}
-						source={{uri: "data:image/jpeg;base64," + data.ad_image}} 
+						// source={{uri: "data:image/jpeg;base64," + data.ad_image}} 
+						source={{uri: this.state.ad_image_src}} 
 						style={styles.postImage}
 					/>
 				</View>
@@ -513,8 +630,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'liked_post' && data.type_of_post === 'text_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_liked}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -525,8 +641,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'liked_post' && data.type_of_post === 'image_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_liked}
 							{username_and_avatar_in_rest}
 							{post_image_content}
@@ -537,8 +652,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'liked_post' && data.type_of_post === 'video_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_liked}
 							{username_and_avatar_in_rest}
 							{post_video_content}	
@@ -549,8 +663,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'liked_post' && data.type_of_post === 'text_with_image_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_liked}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -562,8 +675,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'liked_post' && data.type_of_post === 'text_with_video_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_liked}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -575,8 +687,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'shared_post' && data.type_of_post === 'text_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_shared}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -587,8 +698,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'shared_post' && data.type_of_post === 'image_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-
+						<View>
 							{activity_header_for_post_shared}
 							{username_and_avatar_in_rest}
 							{post_image_content}
@@ -599,8 +709,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'shared_post' && data.type_of_post === 'video_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_shared}
 							{username_and_avatar_in_rest}
 							{post_video_content}	
@@ -611,8 +720,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'shared_post' && data.type_of_post === 'text_with_image_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_shared}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -624,8 +732,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'shared_post' && data.type_of_post === 'text_with_video_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_shared}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -637,8 +744,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'commented_on_post' && data.type_of_post === 'text_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_commented}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -649,8 +755,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'commented_on_post' && data.type_of_post === 'image_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_commented}
 							{username_and_avatar_in_rest}
 							{post_image_content}
@@ -661,8 +766,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'commented_on_post' && data.type_of_post === 'video_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_commented}
 							{username_and_avatar_in_rest}
 							{post_video_content}	
@@ -673,8 +777,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'commented_on_post' && data.type_of_post === 'text_with_image_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_commented}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -686,8 +789,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'commented_on_post' && data.type_of_post === 'text_with_video_post'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_post_commented}
 							{username_and_avatar_in_rest}
 							{post_text_content}
@@ -699,8 +801,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'created_book'){
 
 					return (
-						<View style={styles.innerContainer}>
-
+						<View>
 							{activity_header_for_book_created}
 							{username_and_avatar_in_rest}
 							{book_content}
@@ -711,8 +812,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'got_interested_in_book'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_book_liked}
 							{username_and_avatar_in_rest}
 							{book_content}
@@ -723,8 +823,8 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'created_page'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
+
 							{activity_header_for_page_created}
 							{username_and_avatar_in_rest}
 							{page_content}
@@ -735,8 +835,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'got_interested_in_page'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_page_liked}
 							{username_and_avatar_in_rest}
 							{page_content}
@@ -747,8 +846,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'created_sport'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_sport_created}
 							{username_and_avatar_in_rest}
 							{sport_content}
@@ -759,8 +857,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'got_interested_in_sport'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
 							{activity_header_for_sport_liked}
 							{username_and_avatar_in_rest}
 							{sport_content}
@@ -771,7 +868,7 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'created_advertisement'){
 
 					return (
-						<View style={styles.innerContainer}>
+						<View>
 							
 							{activity_header_for_ad_created}
 							{username_and_avatar_in_rest}
@@ -783,8 +880,8 @@ class ComponentForShowingSocialPost extends Component {
 				} else if (data.notification_type === 'got_interested_in_advertisement'){
 
 					return (
-						<View style={styles.innerContainer}>
-							
+						<View>
+
 							{activity_header_for_ad_liked}
 							{username_and_avatar_in_rest}
 							{ad_content}
@@ -872,7 +969,7 @@ const styles = StyleSheet.create({
 
 	postTextContainer:{
 		paddingLeft:20,
-		flex:4,
+		// flex:4,
 		width:'80%',
 		margin:'auto',
 		// backgroundColor: '#000000'

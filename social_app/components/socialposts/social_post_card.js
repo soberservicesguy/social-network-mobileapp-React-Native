@@ -6,6 +6,7 @@ import {
 	TouchableHighlight,
 	TouchableOpacity,
 	Button,
+	FlatList,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -23,19 +24,17 @@ import {
 } from "."
 
 import {
-	ShowCommentsOfSocialPost,
+	ComponentForShowingComment,
 } from "../comments/"
+
 
 import {
 	ConnectedCreateCommentForSocialpost,
-	ConnectedSummarizeCommentsOfSocialPost,
-	ConnectedSummarizeLikesOfSocialPost,
-	ConnectedSummarizeSharesOfSocialPost,
 } from "../../redux_stuff/connected_components"
 
 
 import {
-	ShowLikesOfSocialPost,
+	ComponentForShowingLike,
 } from "../likes/"
 
 import {
@@ -51,6 +50,8 @@ import {
 	ConnectedCreateShareForSocialpost,
 } from "../../redux_stuff/connected_components"
 
+import { Icon } from 'react-native-elements';
+
 
 class SocialPostCard extends Component {
 	constructor(props) {
@@ -58,10 +59,19 @@ class SocialPostCard extends Component {
 // STATE	
 		this.state = {
 			expanded: false,
-			// comments: [],
-			// likes: [],
-			// shares: [],
-			users: [],
+
+			comments: [],
+			likes: [],
+			shares: [],
+
+			current_likes_quantity: this.props.likes_quantity,
+			current_comments_quantity: this.props.comments_quantity,
+			current_shares_quantity: this.props.shares_quantity,
+
+			show_all_likes: false,
+			show_all_comments: false,
+			show_all_shares: false,
+
 		}	
 
 	}
@@ -76,12 +86,7 @@ class SocialPostCard extends Component {
 			    }
 			})
 		.then((response) => {
-			// console.log(response.data);
-			// this.setState( prev => ({...prev, comments: ( prev.comments.length === 0 ) ? response.data : [] }) )
-			// console.log('response.data comments')
-			// console.log(response.data)
-			this.props.set_total_comments(response.data)
-			this.props.toggle_show_comments_for_socialpost()
+			this.setState( prev => ({...prev, comments: ( prev.comments.length === 0 ) ? response.data : [] }) )
 		})
 		.catch((error) => {
 			console.log(error);
@@ -101,15 +106,14 @@ class SocialPostCard extends Component {
 			})
 		.then((response) => {
 			// console.log(response.data);
-			this.props.set_total_likes(response.data)
-			// this.setState( prev => ({...prev, likes: ( prev.likes.length === 0 ) ? response.data : [] }) )
-			this.props.toggle_show_likes_for_socialpost()
+			// this.props.set_total_likes(response.data)
+			this.setState( prev => ({...prev, likes: ( prev.likes.length === 0 ) ? response.data : [] }) )
 		})
 		.catch((error) => {
 			console.log(error);
 		})
 
-		this.setState( prev => ({...prev, show_like_modal: true}) )		
+		// this.setState( prev => ({...prev, show_like_modal: true}) )		
 	}
 
 
@@ -124,10 +128,7 @@ class SocialPostCard extends Component {
 			})
 		.then((response) => {
 			// console.log(response.data);
-			// this.setState( prev => ({...prev, shares: ( prev.shares.length === 0 ) ? response.data : [] }) )
-			this.props.set_total_shares(response.data)
-			this.props.toggle_show_shares_for_socialpost()
-
+			this.setState( prev => ({...prev, shares: ( prev.shares.length === 0 ) ? response.data : [] }) )
 		})
 		.catch((error) => {
 			console.log(error);
@@ -150,88 +151,264 @@ class SocialPostCard extends Component {
 
 	render() {
 
-		return (
-		  	<View style={styles.outerContainer}>
 
-		  		<View>
-					{/* first the parent / card component */}
-					<ComponentForShowingSocialPost
-						navigation={this.props.navigation}
-						dataPayloadFromParent = {this.props.dataPayloadFromParent}
-					/>
-		  		</View>
+	  	if (this.state.show_all_likes){
 
-				<View style={styles.socialButtonsAndStatsContainer}>
-					{/* 2nd show individual summary of childs */}
-
-					<TouchableOpacity 
-						style={styles.socialButtonAndStats}
-						activeOpacity={0.2} 
-						onPress={ () => { 
-							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
-						}}
-					>						
-						<ConnectedSummarizeLikesOfSocialPost
-							likes={this.state.likes}
-							navigation={this.props.navigation}
-							showOnlyQuantity = { this.props.show_socialpost_likes }
-							child_quantity = { this.props.likes_quantity }
-							dataPayloadFromParent = { this.props.likes }
-						/>
-					</TouchableOpacity>
-
-
+	  		return (
+  				<View style={{
+  					height:windowHeight, 
+  				}}>
 					<TouchableOpacity
 						style={styles.socialButtonAndStats}
 						activeOpacity={0.2} 
 						onPress={ () => {
-							this.fetchAllComment( this.props.dataPayloadFromParent.endpoint ) 
+
+							this.setState(prev => ({...prev, 
+								show_all_likes: false,
+								show_all_comments: false,
+								show_all_shares: false,
+							}))
+							
 						}}
 					>
-						<ConnectedSummarizeCommentsOfSocialPost
-							navigation={this.props.navigation}
-							showOnlyQuantity = { this.props.show_socialpost_comments }
-							child_quantity = { this.props.comments_quantity }
-							dataPayloadFromParent = { this.props.comments }
-						/>
+						<Text style={{textAlign:'center', fontSize:20, fontWeight:'bold'}}>
+							Close Likes
+						</Text>
 					</TouchableOpacity>
 
 
-					<TouchableOpacity 
+  			  		<FlatList
+  						style={{flexDirection: 'column', flexWrap : "wrap"}}
+  						numColumns={1}
+  			  			data={this.state.likes}
+  						renderItem={
+  							({ item }) => (
+  								<ComponentForShowingLike
+  									componentData = { item }
+  								/>
+  							)}
+  						keyExtractor={(item, index) => String(index)}
+  					/>
+
+  				</View>
+  			)
+
+
+	  	} else if (this.state.show_all_comments){
+
+			return(
+				<View style={{
+					height:windowHeight, 
+				}}>
+					<TouchableOpacity
 						style={styles.socialButtonAndStats}
 						activeOpacity={0.2} 
-						onPress={ () => { 
-							this.fetchAllShare( this.props.dataPayloadFromParent.endpoint ) 
-						}}
-					>						
-						<ConnectedSummarizeSharesOfSocialPost
-							navigation={this.props.navigation}
-							showOnlyQuantity = { this.props.show_socialpost_shares }
-							child_quantity = { this.props.shares_quantity }
-							dataPayloadFromParent = { this.props.shares }
-						/>
-					</TouchableOpacity>
-				</View>
+						onPress={ () => {
 
-				<View style={styles.createLikeAndShareContainer}>
-					{/* 4th create individual child options like comment / like */}					
-					<ConnectedCreateLikeForSocialpost
+							this.setState(prev => ({...prev, 
+								show_all_likes: false,
+								show_all_comments: false,
+								show_all_shares: false,
+							}))
+							
+						}}
+					>
+						<Text style={{textAlign:'center', fontSize:20, fontWeight:'bold'}}>
+							Close Comments
+						</Text>
+					</TouchableOpacity>
+
+			  		<FlatList
+						style={{flexDirection: 'column', flexWrap : "wrap"}}
+						numColumns={1}
+			  			data={this.state.comments}
+						renderItem={
+							({ item }) => (
+								<ComponentForShowingComment
+									componentData = { item }
+								/>
+							)}
+						keyExtractor={(item, index) => String(index)}
+					/>
+
+				</View>
+			)
+
+	  	} else if (this.state.show_all_shares){
+
+			return(
+				<View style={{
+					height:windowHeight, 
+				}}>
+					<TouchableOpacity
+						style={styles.socialButtonAndStats}
+						activeOpacity={0.2} 
+						onPress={ () => {
+
+							this.setState(prev => ({...prev, 
+								show_all_likes: false,
+								show_all_comments: false,
+								show_all_shares: false,
+							}))
+							
+						}}
+					>
+						<Text style={{textAlign:'center', fontSize:20, fontWeight:'bold'}}>
+							Close Shares
+						</Text>
+					</TouchableOpacity>
+
+			  		<FlatList
+						style={{flexDirection: 'column', flexWrap : "wrap"}}
+						numColumns={1}
+			  			data={this.state.shares}
+						renderItem={
+							({ item }) => (
+								<ComponentForShowingShare
+									componentData = { item }
+								/>
+							)}
+						keyExtractor={(item, index) => String(index)}
+					/>
+
+				</View>
+			)
+
+
+	  	} else {
+
+			return (
+			  	<View style={styles.outerContainer}>
+
+			  		<View>
+						<ComponentForShowingSocialPost
+				  			getIndividualImage = {this.props.getIndividualImage}
+							navigation={this.props.navigation}
+							dataPayloadFromParent = {this.props.dataPayloadFromParent}
+						/>
+			  		</View>
+
+					<View style={styles.socialButtonsAndStatsContainer}>
+
+						<TouchableOpacity 
+							style={styles.socialButtonAndStats}
+							activeOpacity={0.2} 
+							onPress={ () => { 
+								this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
+
+	  							this.setState(prev => ({...prev, 
+									show_all_shares: false,
+									show_all_comments: false,
+									show_all_likes: true,
+	  							}))
+
+							}}
+						>
+							<View style={styles.iconContainer}>
+								<Icon
+									// raised
+									name={utils.commentIcon}
+									type='font-awesome'
+									iconStyle='Outlined'
+									color='#f50'
+									size={30}
+									// onPress={() => console.log('hello')} 
+									// reverse={true}
+								/>
+								<Text style={styles.commentQuantityText}>
+									{this.state.current_likes_quantity} likes 
+								</Text>
+							</View>
+
+						</TouchableOpacity>
+
+
+						<TouchableOpacity
+							style={styles.socialButtonAndStats}
+							activeOpacity={0.2} 
+							onPress={ () => {
+								this.fetchAllComment( this.props.dataPayloadFromParent.endpoint ) 
+
+	  							this.setState(prev => ({...prev, 
+									show_all_shares: false,
+									show_all_likes: false,
+									show_all_comments: true,
+	  							}))
+
+							}}
+						>
+	  						<View style={styles.iconContainer}>
+	  							<Icon
+	  								// raised
+	  								name={utils.likeIcon}
+	  								type='font-awesome'
+	  								// iconStyle='Outlined'
+	  								color='#f50'
+	  								size={30}
+	  								// onPress={() => console.log('hello')} 
+	  								// reverse={true}
+	  							/>
+	  							<Text style={styles.commentQuantityText}>
+	  								{this.state.current_comments_quantity} comments
+	  							</Text>
+	  						</View>
+
+						</TouchableOpacity>
+
+
+						<TouchableOpacity 
+							style={styles.socialButtonAndStats}
+							activeOpacity={0.2} 
+							onPress={ () => { 
+								this.fetchAllShare( this.props.dataPayloadFromParent.endpoint ) 
+
+	  							this.setState(prev => ({...prev, 
+									show_all_likes: false,
+									show_all_comments: false,
+									show_all_shares: true,
+	  							}))
+
+							}}
+						>						
+	  						<View style={styles.iconContainer}>
+	  							<Icon
+	  								// raised
+	  								name={utils.likeIcon}
+	  								type='font-awesome'
+	  								// iconStyle='Outlined'
+	  								color='#f50'
+	  								size={30}
+	  								// onPress={() => console.log('hello')} 
+	  								// reverse={true}
+	  							/>
+	  							<Text style={styles.commentQuantityText}>
+	  								{this.state.current_shares_quantity} shares
+	  							</Text>
+	  						</View>
+
+						</TouchableOpacity>
+					</View>
+
+					<View style={styles.createLikeAndShareContainer}>
+						{/* 4th create individual child options like comment / like */}					
+						<ConnectedCreateLikeForSocialpost
+							navigation={this.props.navigation}
+							parentDetailsPayload = { this.props.dataPayloadFromParent }
+						/>					
+						<ConnectedCreateShareForSocialpost
+							navigation={this.props.navigation}
+							parentDetailsPayload = { this.props.dataPayloadFromParent }
+						/>
+					</View>
+
+					<ConnectedCreateCommentForSocialpost
 						navigation={this.props.navigation}
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
 					/>					
-					<ConnectedCreateShareForSocialpost
-						navigation={this.props.navigation}
-						parentDetailsPayload = { this.props.dataPayloadFromParent }
-					/>
-				</View>
 
-				<ConnectedCreateCommentForSocialpost
-					navigation={this.props.navigation}
-					parentDetailsPayload = { this.props.dataPayloadFromParent }
-				/>					
-
-		  	</View>
-		);
+			  	</View>
+			);
+		}
 	}
 }
 	
@@ -273,6 +450,17 @@ const styles = StyleSheet.create({
 		// paddingBottom:10,
 
 	},
+
+	commentQuantityText:{
+		marginLeft:5,
+		fontSize:20,
+	},
+
+	iconContainer:{
+		flexDirection: 'row',
+
+	}
+
 });
 
 export default SocialPostCard

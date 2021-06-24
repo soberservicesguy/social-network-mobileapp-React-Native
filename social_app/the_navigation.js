@@ -46,7 +46,7 @@ import {
 } from "./redux_stuff/connected_components";
 
 
-
+import utils from "./utilities"
 
 
 const FriendTabs = createBottomTabNavigator();
@@ -61,22 +61,23 @@ function FriendTabsComponent({navigation}) {
 					display:'flex',
 					flexDirection: 'row',
 					alignItems:'center',
-					justifyContent: 'space-between',
+					justifyContent: 'center',
 					height:50,
+					backgroundColor: utils.maroonColor
 
 				}}>
 					{[
 						{option_name:'Friends', screen_payload:"showFriends"}, 
 						{option_name:'Suggestions',  screen_payload:"showFriendsSuggestionsInstead"}, 
 						{option_name:'Requests',  screen_payload:"showFriendsRequestInstead"}, 
-					].map((item) => {
+					].map((item, index) => {
 
 						return (
-							<TouchableOpacity activeOpacity={0.2} onPress={ () => {
+							<TouchableOpacity activeOpacity={0.2} style={{flex:1, alignItems:'center', alignSelf: 'center', justifyContent:'center',height:50, borderRightWidth:(index !== 2) ? 1 : 0, borderRightColor:'white', paddingHorizontal: 10}} onPress={ () => {
 								navigation.navigate('Friendsection', {screen: 'FriendsScreen', params:{payload: item.screen_payload}} )
 								console.log(item.screen_payload)
 							}}>
-								<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+								<Text style={{color:'white', fontWeight:'bold', fontSize:20, textAlign:'center'}}>
 									{item.option_name}
 								</Text>
 							</TouchableOpacity>
@@ -150,21 +151,22 @@ function ContentTabsComponent({navigation}) {
 					display:'flex',
 					flexDirection: 'row',
 					alignItems:'center',
-					justifyContent: 'space-between',
+					justifyContent: 'center',
 					height:50,
+					backgroundColor: utils.maroonColor,
 
 				}}>
 					{['SocialPost', 'Pages', 'Sports', 'Books',
 					// 'Video'
-					].map((option) => {
+					].map((option, index) => {
 
 						let screen_name = option
 						option = option.toLowerCase()
 						option = option.charAt(0).toUpperCase() + option.slice(1);
 
 						return (
-							<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(option) }>
-								<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+							<TouchableOpacity activeOpacity={0.2} style={{flex:1, alignItems:'center', alignSelf: 'center', justifyContent:'center',height:50, borderRightWidth:(index !== 3) ? 1 : 0, borderRightColor:'white', paddingHorizontal: 10}} onPress={ () => navigation.navigate(option) }>
+								<Text style={{color:'white', fontWeight:'bold', fontSize:15}}>
 									{screen_name}
 								</Text>
 							</TouchableOpacity>
@@ -353,7 +355,7 @@ function InnerDrawerComponent({navigation}) {
 			hideStatusBar={false}
 			drawerStyle={{ // style object for drawer
 				// backgroundColor: '#eee',
-				backgroundColor: 'black',
+				backgroundColor: utils.maroonColor,
 				width: 150
 			}}
 
@@ -381,7 +383,7 @@ function InnerDrawerComponent({navigation}) {
 
 							return (
 								<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) } style={{marginTop:50, marginBottom:50,}}>
-									<Text style={{color:'blue', fontWeight:'bold', fontSize:20}}>
+									<Text style={{color:'white', fontWeight:'bold', fontSize:20}}>
 										{option}
 									</Text>
 								</TouchableOpacity>

@@ -34,6 +34,7 @@ class AdvertisementScreen extends Component {
 		super(props);
 // STATE	
 		this.state = {
+			getIndividualImage: false,
 		}	
 	}
 
@@ -44,6 +45,8 @@ class AdvertisementScreen extends Component {
 		axios.get(utils.baseUrl + '/advertisements/advertisements-list-with-children',)
 		.then((response) => {
 			this.props.set_fetched_advertisements(response.data)
+	    	this.setState({ get_individual_image: true })
+
 		})
 		.catch((error) => {
 			console.log(error);
@@ -70,24 +73,24 @@ class AdvertisementScreen extends Component {
 
 			<SafeAreaView>
 				<ScrollView contentContainerStyle={styles.screenContainer}>
-					<View>
-			  			<ConnectedCreateAdvertisement/>
-			  		</View>
 
 		  	  		<FlatList
 		  				style={{flexDirection: 'column', flexWrap : "wrap", marginTop:10,}}
 		  				numColumns={1}
 		  	  			data={total_advertisements}
-		  	  			data={[1,2,3,4,5,6,7,8,9,10]}
 		  				renderItem={
 		  					({ item }) => (
 								<ConnectedAdvertisementCard
 									dataPayloadFromParent = { item }
-								
+									getIndividualImage = {this.state.get_individual_image}								
 								/>
 		  					)}
 		  				keyExtractor={(item, index) => String(index)}
 		  			/>
+
+					<View>
+			  			<ConnectedCreateAdvertisement/>
+			  		</View>
 
 				</ScrollView>
 			</SafeAreaView>

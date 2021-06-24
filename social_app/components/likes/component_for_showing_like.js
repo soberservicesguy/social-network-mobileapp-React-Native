@@ -43,62 +43,31 @@ class ComponentForShowingLike extends Component {
 		const data = this.props.componentData // data being plugged from parent flatlist
 		var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 
-
-		console.log('data')
-		console.log(Object.keys(data))
-
-		console.log('somehtin')
-
-		// console.log('data.user_name')
-		// console.log(data.user_name)
-
-
-		// return (
-		// 	<div style={styles.outerContainer}>
-		// 		<div style={styles.imageContainer}>
-		// 			<img src={base64Image} alt="" 
-		// 				style={{
-		// 					width:100, 
-		// 					height:100, 
-		// 					resizeMode: "contain",
-		// 					borderRadius: 100/2,
-		// 				}}
-		// 			/>
-		// 		</div>
-			
-			
-		// 		<div style={styles.usernameContainer}>
-		// 			<p style={styles.usernameText}>
-		// 				{data.user_name}
-		// 			</p>					
-		// 		</div>
-			
-		// 	</div>
-
-		// );
-
 		return (
-			<View style={styles.outerContainer}>
 
-				<View style={styles.imageContainer}>
-					<Image 
-						source={{uri: base64Image}} 
-						style={{
-							width:100, 
-							height:100, 
-							resizeMode: "stretch",
-							borderRadius: 1000,
-						}}
-					/>
+			<View style={{width: windowWidth}}>
+				<View style={styles.outerContainer}>
+
+					<View style={styles.imageContainer}>
+						<Image 
+							source={{uri: base64Image}} 
+							style={{
+								width:100, 
+								height:100, 
+								resizeMode: "stretch",
+								borderRadius: 1000,
+							}}
+						/>
+					</View>
+				
+				
+					<View style={styles.usernameContainer}>
+						<Text style={styles.usernameText}>
+							{data.user_name}
+						</Text>					
+					</View>
+				
 				</View>
-			
-			
-				<View style={styles.usernameContainer}>
-					<Text style={styles.usernameText}>
-						ssss{data.user_name}
-					</Text>					
-				</View>
-			
 			</View>
 		);
 	}
@@ -111,9 +80,8 @@ ComponentForShowingLike.defaultProps = {
 
 const styles = StyleSheet.create({
 	outerContainer:{
-		width:'80%',
-		alignSelf: 'center',
-
+		alignSelf: 'center', 
+		width:windowWidth * 0.8,
 		display:'flex',
 		flexDirection:'row',
 		alignItems:'center',

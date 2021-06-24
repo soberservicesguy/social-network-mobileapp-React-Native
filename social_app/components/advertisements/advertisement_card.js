@@ -27,6 +27,7 @@ class AdvertisementCard extends Component {
 // STATE	
 		this.state = {
 			expanded: false,
+
 		}	
 
 	}
@@ -44,7 +45,10 @@ class AdvertisementCard extends Component {
 		  	<View>
 
 		  		<View>
-					<ComponentForShowingAdvertisement/>
+					<ComponentForShowingAdvertisement
+			  			getIndividualImage = {this.props.getIndividualImage}
+			  			dataPayloadFromParent = { this.props.dataPayloadFromParent }
+					/>
 		  		</View>
 
 		  	</View>

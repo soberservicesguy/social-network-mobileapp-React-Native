@@ -23,41 +23,79 @@ class ComponentForShowingBook extends Component {
 		super(props);
 // STATE	
 		this.state = {
+			image_src: null,
+		}
+
+	}
+
+	componentDidMount() {
+		this.getImage()
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+
+
+		if (prevProps.getIndividualImage === false && this.props.getIndividualImage === true){
+			console.log('getting image')
+			this.getImage()
 
 		}
 
 	}
 
-// COMPONENT DID MOUNT
-	componentDidMount() {
+	getImage(){
+
+		let image_object_id = this.props.dataPayloadFromParent.book_image
+		let host = this.props.dataPayloadFromParent.book_image_host
+
+		axios.get(`${utils.baseUrl}/socialposts/get-image`, 
+			{
+				params: {
+					image_object_id: image_object_id,
+					host: host
+				}
+			}
+		)
+	    .then(async (response) => {
+	    	if (response.data.success){
+		    	this.setState({ image_src: "data:image/jpeg;base64," + response.data.image})
+	    	}
+
+		});
 
 	}
 
+
 	render() {
 
-		// const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
-		let data = {}
+		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
+		// let data = {}
+		
+		console.log('Object.keys(data)')
+		console.log(Object.keys(data))
+
 		var base64Image = "data:image/jpeg;base64," + data.book_image
 
 		return (
 			<View style={styles.outerContainer}>
 				<View style={styles.bookTitleContainer}>
 					<Text style={styles.bookTitleText}>
-						Book name { data.book_name }
+						Book name: { data.book_name }
 					</Text>
 				</View>
 
 				<View style={styles.imageContainer}>
 					<Image 
-						source={utils.image}
+						// source={utils.image}
 						// source={{uri: base64Image}} 
+						source={{uri: this.state.image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
 
 				<View style={styles.bookDescriptionContainer}>
 					<Text style={styles.bookDescriptionText}>
-						Book description { data.book_description }
+						Book description: { data.book_description }
 					</Text>
 				</View>
 			</View>

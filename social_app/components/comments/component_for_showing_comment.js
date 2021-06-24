@@ -35,38 +35,38 @@ class ComponentForShowingComment extends Component {
 
 		const data = this.props.componentData // data being plugged from parent flatlist
 
-		console.log('data')
-		console.log(Object.keys(data))
-
 		var base64Image = "data:image/jpeg;base64," + data.user_avatar_image
 		
 		return (
 		
-			<View style={styles.outerContainer}>
-		
-				<View style={styles.imageContainer}>
-					<Image 
-						source={{uri: base64Image}} 
-						style={{
-							width:80, 
-							height:80, 
-							resizeMode: "stretch",
-							borderRadius: 1000,
-						}}
-					/>
-				</View>
-			
-			
-				<View style={styles.commentContainer}>
-					<Text style={styles.usernameText}>
-						ss{data.user_name}
-					</Text>					
+			<View style={{width: windowWidth}}>
+				<View style={styles.outerContainer}>
 
-					<Text style={styles.commentText}>
-						{data.comment_text}
-					</Text>
-				</View>
+					<View style={styles.imageContainer}>
+						<Image 
+							source={{uri: base64Image}} 
+							style={{
+								width:100, 
+								height:100, 
+								resizeMode: "stretch",
+								borderRadius: 1000,
+							}}
+						/>
+					</View>
+				
 			
+				
+					<View style={styles.commentContainer}>
+						<Text style={styles.usernameText}>
+							{data.user_name}
+						</Text>					
+
+						<Text style={styles.commentText}>
+							{data.comment_text}
+						</Text>
+					</View>
+			
+				</View>
 			</View>
 		);
 	}
@@ -79,8 +79,8 @@ ComponentForShowingComment.defaultProps = {
 
 const styles = StyleSheet.create({
 	outerContainer:{
+		alignSelf: 'center', 
 		width:windowWidth * 0.8,
-		alignSelf: 'center',
 
 		justifyContent: 'center',
 		height:100,
@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
 		flex:1
 	},
 	commentContainer:{
-		flex:3
+		flex:2,
+		marginLeft:20
 	},
 });
 

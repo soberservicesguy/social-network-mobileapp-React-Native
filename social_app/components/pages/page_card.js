@@ -21,7 +21,7 @@ import {
 } from "."
 
 import {
-	ShowLikesOfPage,
+	ComponentForShowingLike,
 } from "../likes"
 
 import {
@@ -31,6 +31,8 @@ import {
 
 import utils from "../../utilities";
 
+import { Icon } from 'react-native-elements';
+
 
 class PageCard extends Component {
 	constructor(props) {
@@ -39,6 +41,8 @@ class PageCard extends Component {
 		this.state = {
 			expanded: false,
 			likes: [],
+			current_likes_quantity: this.props.likes_quantity,
+			show_all_likes: false,
 		}	
 
 	}
@@ -75,39 +79,95 @@ class PageCard extends Component {
 
 	render() {
 
-		return (
-		  	<View>
+		if (this.state.show_all_likes){
 
-		  		<View>
-					{/* first the parent / card component */}
-					<ComponentForShowingPage/>
-		  		</View>
+			<View style={{
+				height:windowHeight, 
+			}}>
+				<TouchableOpacity
+					style={styles.socialButtonAndStats}
+					activeOpacity={0.2} 
+					onPress={ () => {
+
+						this.setState(prev => ({...prev, 
+							show_all_likes: false,
+						}))
+						
+					}}
+				>
+					<Text style={{textAlign:'center', fontSize:20, fontWeight:'bold'}}>
+						Close Likes
+					</Text>
+				</TouchableOpacity>
 
 
-				<View style={styles.socialButtonsAndStatsContainer}>
-					<TouchableOpacity 
-						style={styles.socialButtonAndStats}
-						activeOpacity={0.2} 
-						onPress={ () => { 
-							this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
-							this.props.toggle_show_likes_for_page()
-						}}
-					>						
-						<ConnectedSummarizeLikesOfPage
-							showOnlyQuantity = { this.props.show_page_likes }
-							child_quantity = { this.props.likes_quantity }
-							dataPayloadFromParent = { this.props.likes }
+		  		<FlatList
+					style={{flexDirection: 'column', flexWrap : "wrap"}}
+					numColumns={1}
+		  			data={this.state.likes}
+					renderItem={
+						({ item }) => (
+							<ComponentForShowingLike
+								componentData = { item }
+							/>
+						)}
+					keyExtractor={(item, index) => String(index)}
+				/>
+
+			</View>
+
+
+		} else {
+
+			return (
+			  	<View>
+
+			  		<View>
+						<ComponentForShowingPage
+				  			getIndividualImage = {this.props.getIndividualImage}
+				  			dataPayloadFromParent = { this.props.dataPayloadFromParent }
 						/>
-					</TouchableOpacity>
-
-					<ConnectedCreateLikeForPage
-						parentDetailsPayload = { this.props.dataPayloadFromParent }
-					/>
-				</View>
+			  		</View>
 
 
-		  	</View>
-		);
+					<View style={styles.socialButtonsAndStatsContainer}>
+						<TouchableOpacity 
+							style={styles.socialButtonAndStats}
+							activeOpacity={0.2} 
+							onPress={ () => { 
+								this.fetchAllLike( this.props.dataPayloadFromParent.endpoint ) 
+	  							this.setState(prev => ({...prev, 
+									show_all_likes: true,
+	  							}))
+							}}
+						>						
+							<View style={styles.iconContainer}>
+								<Icon
+									// raised
+									name={utils.likeIcon}
+									type='font-awesome'
+									iconStyle='Outlined'
+									color='#f50'
+									size={30}
+									// onPress={() => console.log('hello')} 
+									// reverse={true}
+								/>
+								<Text style={styles.commentQuantityText}>
+									{this.state.current_likes_quantity} likes 
+								</Text>
+							</View>
+						</TouchableOpacity>
+
+						<ConnectedCreateLikeForPage
+							parentDetailsPayload = { this.props.dataPayloadFromParent }
+						/>
+					</View>
+
+
+			  	</View>
+			);
+
+		}
 	}
 }
 	
@@ -138,6 +198,28 @@ const styles = StyleSheet.create({
 	socialButtonAndStats:{
 		height:windowHeight * 0.05
 	},
+
+// create comment and like
+	createLikeAndShareContainer:{
+		marginTop: windowHeight * 0.001,
+		flexDirection:'row',
+		justifyContent:'space-between',
+		width:'90%',
+		alignSelf:'center',
+		// marginBottom:10,
+		// paddingBottom:10,
+
+	},
+
+	commentQuantityText:{
+		marginLeft:5,
+		fontSize:20,
+	},
+
+	iconContainer:{
+		flexDirection: 'row',
+
+	}
 
 });
 

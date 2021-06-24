@@ -1,42 +1,42 @@
 const utils = {
 	// baseUrl:'https://hot-sheep-95.loca.lt',
 	// baseUrl:'http://localhost:3001',
-	baseUrl:'https://social-app-dot-portfolio-apps-311617.uc.r.appspot.com',
+	baseUrl:'https://social-mern-stack.herokuapp.com',
 
-	// create_share_for_socialpost
-	shareIcon:'heartbeat',
+    maroonColor:'#dc4734',
+
 
 	// component_for_showing_notification
-	createPostIcon:'heartbeat',
-	likedPostIcon:'heartbeat',
-	sharedPostIcon:'heartbeat',
-	commentedOnPostIcon:'heartbeat',
-	becameFriendsIcon:'heartbeat',
-	createdBookIcon:'heartbeat',
-	likesBookIcon:'heartbeat',
-	createdPageIcon:'heartbeat',
-	likesPageIcon:'heartbeat',
-	createdSportIcon:'heartbeat',
-	likesSportPostIcon:'heartbeat',
-	createdAdIcon:'heartbeat',
+	createPostIcon:'plus',
+	likedPostIcon:'thumbs-up',
+	sharedPostIcon:'share',
+	commentedOnPostIcon:'comment',
+	becameFriendsIcon:'heart',
+	createdBookIcon:'plus',
+	likesBookIcon:'thumbs-up',
+	createdPageIcon:'plus',
+	likesPageIcon:'thumbs-up',
+	createdSportIcon:'plus',
+	likesSportPostIcon:'thumbs-up',
+	createdAdIcon:'plus',
 
 
 	// component for showing friend
 	darkGreen:'#5a9f28',
-	followingIcon: 'heartbeat',
-	sendFriendRequestIcon: 'heartbeat',
+	followingIcon: 'user-check',
+	sendFriendRequestIcon: 'user-plus',
 	lightBlue:'#4ea4a1',
 
 	// socialposts screen
-	unfriendIcon:'heartbeat',
+	unfriendIcon:'user-minus',
 
 
 	// component for showing social post
-	playIcon:'heartbeat',
+	playIcon:'play',
 
 
 	// inidividual sport screen
-	unLikeIcon: 'heartbeat',
+	unLikeIcon: 'thumbs-down',
 
 
 
@@ -44,38 +44,44 @@ const utils = {
 
 // login screen
 	// BG Image
-	firstScreenBG: require('./images/samosa.jpg'),
+	firstScreenBG: require('./images/first_screen.jpg'),
 	// COLORS
 	dimWhite:'#d6d6d6',
 	darkGrey: '#4e5252',
 	mediumGrey: '#7d807f',
 	orange: '#e96d3e',
 	// ICON
-	userIcon: 'heartbeat',
+	userIcon: 'user',
+	passwordIcon: 'lock',
+	phoneNumber: 'phone',
+
 
 // sign up screen
 	// BG Image
-	secondScreenBG: require('./images/samosa.jpg'),
+	secondScreenBG: require('./images/second_screen.jpg'),
 	// COLORS
 	black:"black",
 
 // component for showing blogpost
-	categoryIcon:'heartbeat',
+	categoryIcon:'archive',
 
 // component for showing video
-	timestampIcon: 'heartbeat',
-	playButtonIcon:'heartbeat',
+	timestampIcon: 'arrow-up',
+	playButtonIcon:'play',
 
 // summarize_comments_of_image
-	commentIcon: 'heartbeat', 
+	commentIcon: 'comment', 
 // summarize_likes_of_image
-	likeIcon: 'heartbeat',
+	likeIcon: 'thumbs-up',
 
 	lightGrey: "#bbbdc0",
 	darkBlue: '#1e5186',
 	lightGreen: '#acce4c',
 	// ICON
-	righAeroIcon:'heartbeat',
+	righAeroIcon:'arrow-right',
+
+	shareIcon: 'share',
+
 
 }
 

@@ -169,7 +169,7 @@ class LoginScreen extends Component {
 							<View style={styles.iconContainer}>
 								<Icon
 								  // raised
-								  name={utils.userIcon}
+								  name={utils.passwordIcon}
 								  type='font-awesome'
 								  // iconStyle='Outlined'
 								  color={utils.mediumGrey}

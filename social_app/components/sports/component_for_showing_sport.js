@@ -36,8 +36,8 @@ class ComponentForShowingSport extends Component {
 
 	render() {
 
-		// const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
-		let data = {}
+		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
+		// let data = {}
 		var base64Image = "data:image/jpeg;base64," + data.sport_image
 
 
@@ -45,21 +45,21 @@ class ComponentForShowingSport extends Component {
 			<View style={styles.outerContainer}>
 				<View style={styles.sportNameContainer}>
 					<Text style={styles.sportNameText}>
-						Sport name { data.sport_name }
+						Sport name: { data.sport_name }
 					</Text>
 				</View>
 
 				<View style={styles.imageContainer}>
 					<Image 
-						source={utils.image}
-						// source={{uri: base64Image}} 
+						// source={utils.image}
+						source={{uri: base64Image}} 
 						style={styles.imageStyle}
 					/>
 				</View>
 
 				<View style={styles.sportDescriptionContainer}>
 					<Text style={styles.sportDescriptionText}>
-						Sport description { data.sport_description }
+						Sport description: { data.sport_description }
 					</Text>
 				</View>
 			</View>

@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	FlatList,
+	SafeAreaView,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -26,6 +27,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class SportScreen extends Component {
 	constructor(props) {
@@ -66,27 +68,31 @@ class SportScreen extends Component {
 
 		return (
 
-			<View style={{backgroundColor: '#eee'}} >
+			<KeyboardAwareScrollView>
+				<SafeAreaView>
 				
-				<View>
-		  			<ConnectedCreateSport/>
-		  		</View>
+		  	  		<FlatList
+		  				style={{flexDirection: 'column', flexWrap : "wrap"}}
+		  				numColumns={1}
+		  	  			data={total_sports}
+		  				renderItem={
+		  					({ item }) => (
+								<ConnectedSportCard
+									dataPayloadFromParent = { item }
+									likes_quantity = {item.total_likes}
+									likes = { item.likes || [] }						
+								/>
+		  					)}
+		  				keyExtractor={(item, index) => String(index)}
+		  			/>
 
-	  	  		<FlatList
-	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
-	  				numColumns={1}
-	  	  			data={total_sports}
-	  				renderItem={
-	  					({ item }) => (
-							<ConnectedSportCard
-								dataPayloadFromParent = { item }
-								likes = { item.likes || [] }						
-							/>
-	  					)}
-	  				keyExtractor={(item, index) => String(index)}
-	  			/>
 
-			</View>
+					<View>
+			  			<ConnectedCreateSport/>
+			  		</View>
+
+				</SafeAreaView>
+			</KeyboardAwareScrollView>
 
 		);
 	}

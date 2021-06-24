@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableHighlight,
 	FlatList,
+	SafeAreaView,
 } from "react-native";
 import PropTypes from 'prop-types';
 
@@ -26,12 +27,15 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 class PageScreen extends Component {
 	constructor(props) {
 		super(props);
 // STATE	
 		this.state = {
+			get_individual_image:false,
 		}	
 	}
 
@@ -41,9 +45,8 @@ class PageScreen extends Component {
 // FETCHING DATA FOR COMPONENT
 		axios.get(utils.baseUrl + '/pages/pages-list-with-children',)
 		.then((response) => {
-			console.log('response.data')
-			console.log(response.data)
 			this.props.set_fetched_pages(response.data)
+	    	this.setState({ get_individual_image: true })
 		})
 		.catch((error) => {
 			console.log(error);
@@ -69,29 +72,33 @@ class PageScreen extends Component {
 
 		return (
 
-			<View style={{backgroundColor: '#eee'}}>
+			<KeyboardAwareScrollView>
+				<SafeAreaView>
 				
-				<View>
-		  			<ConnectedCreatePage
-		  				navigation={this.props.navigation}
+		  	  		<FlatList
+		  				style={{flexDirection: 'column',  marginTop:10,}}
+		  				numColumns={1}
+		  	  			data={total_pages}
+		  				renderItem={
+		  					({ item }) => (
+								<ConnectedPageCard
+									getIndividualImage = {this.state.get_individual_image}
+									dataPayloadFromParent = { item }
+									likes = { item.likes || [] }
+									likes_quantity = {item.total_likes}
+								/>
+		  					)}
+		  				keyExtractor={(item, index) => String(index)}
 		  			/>
-		  		</View>
 
-	  	  		<FlatList
-	  				style={{flexDirection: 'column', flexWrap : "wrap", marginTop:10,}}
-	  				numColumns={1}
-	  	  			data={total_pages}
-	  				renderItem={
-	  					({ item }) => (
-							<ConnectedPageCard
-								dataPayloadFromParent = { item }
-								likes = { item.likes || [] }
-							/>
-	  					)}
-	  				keyExtractor={(item, index) => String(index)}
-	  			/>
+					<View>
+			  			<ConnectedCreatePage
+			  				navigation={this.props.navigation}
+			  			/>
+			  		</View>
 
-			</View>
+				</SafeAreaView>
+			</KeyboardAwareScrollView>
 
 		);
 	}

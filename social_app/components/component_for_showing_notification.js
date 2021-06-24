@@ -384,7 +384,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.createPostIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -426,7 +425,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.likedPostIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -468,7 +466,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.sharedPostIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -510,7 +507,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.commentedOnPostIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -564,7 +560,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.becameFriendsIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -615,7 +610,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.createdBookIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -666,7 +660,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.likesBookIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -717,7 +710,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.createdPageIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -768,7 +760,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.likesPageIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -819,7 +810,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.createdSportIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -870,7 +860,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.likesSportPostIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -922,7 +911,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.createdAdIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
@@ -964,7 +952,6 @@ class ComponentForShowingNotification extends Component {
 								// raised
 								name={utils.createPostIcon}
 								type='font-awesome'
-								iconStyle='Outlined'
 								color='#f50'
 								size={30}
 								// onPress={() => console.log('hello')} 
