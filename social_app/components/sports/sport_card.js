@@ -156,6 +156,8 @@ class SportCard extends Component {
 
 						<ConnectedCreateLikeForSport
 							parentDetailsPayload = { this.props.dataPayloadFromParent }
+							navigation={this.props.navigation}
+							add_likes_quantity = {() => this.setState(prev => ({...prev, current_likes_quantity: prev.current_likes_quantity + 1}))}
 						/>
 					</View>
 

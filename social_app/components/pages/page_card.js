@@ -124,6 +124,7 @@ class PageCard extends Component {
 
 			  		<View>
 						<ComponentForShowingPage
+							useOwnData = {true}
 				  			getIndividualImage = {this.props.getIndividualImage}
 				  			dataPayloadFromParent = { this.props.dataPayloadFromParent }
 						/>
@@ -160,6 +161,8 @@ class PageCard extends Component {
 
 						<ConnectedCreateLikeForPage
 							parentDetailsPayload = { this.props.dataPayloadFromParent }
+							navigation={this.props.navigation}
+							add_likes_quantity = {() => this.setState(prev => ({...prev, current_likes_quantity: prev.current_likes_quantity + 1}))}
 						/>
 					</View>
 

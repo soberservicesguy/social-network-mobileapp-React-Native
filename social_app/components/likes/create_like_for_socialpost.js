@@ -48,6 +48,7 @@ class CreateLikeForSocialpost extends Component {
 
 						let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
 						let redirectToNewSocialpost = () => this.props.navigation.navigate('Individual_SocialPost', {itemId: 86, otherParam: 'anything you want here',})
+						let increase_like_quantity = () => this.props.add_likes_quantity()
 
 
 						axios.post(utils.baseUrl + '/socialposts/create-like-for-socialpost', 
@@ -59,9 +60,10 @@ class CreateLikeForSocialpost extends Component {
 							
 							// set to current parent object
 							setResponseInCurrentSocialpost(response.data)
+							increase_like_quantity()
 
 							// change route to current_blogpost	
-							redirectToNewSocialpost()							
+							// redirectToNewSocialpost()							
 
 						})
 						.catch(function (error) {

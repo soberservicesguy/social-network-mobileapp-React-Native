@@ -89,7 +89,7 @@ const reducerForSocialPost = (state = initialState, action) => {
 
 		case "SET_CURRENT_SOCIALPOST":
 
-			return {...state, currentSocialPost: action.current_socialpost}
+			return {...state, currentSocialPost: action.post}
 			break;
 
 

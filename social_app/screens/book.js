@@ -93,7 +93,9 @@ class BookScreen extends Component {
 		  			/>
 
 					<View>
-			  			<ConnectedCreateBook/>
+			  			<ConnectedCreateBook
+			  				navigation = {this.props.navigation}
+			  			/>
 			  		</View>
 
 				</SafeAreaView>

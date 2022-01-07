@@ -63,10 +63,12 @@ class CreateShareForSocialpost extends Component {
 						onPress={ () => {
 							let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
 							let redirectToNewSocialpost = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
+							let increase_share_quantity = () => this.props.add_shares_quantity()
+
 
 							axios.post(utils.baseUrl + '/socialposts/create-share-for-socialpost', 
 								{
-									sport_endpoint: this.props.parentDetailsPayload.endpoint,
+									socialpost_endpoint: this.props.parentDetailsPayload.endpoint,
 								})
 							.then(function (response) {
 								console.log(response.data) // current socialpost screen data
@@ -74,8 +76,9 @@ class CreateShareForSocialpost extends Component {
 								// set to current parent object
 								setResponseInCurrentSocialpost(response.data)
 
+								increase_share_quantity()
 								// change route to current_socialpost	
-								redirectToNewSocialpost()							
+								// redirectToNewSocialpost()							
 
 							})
 							.catch(function (error) {

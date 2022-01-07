@@ -107,7 +107,7 @@ class ComponentForShowingFriend extends Component {
 												// raised
 												name={utils.sendFriendRequestIcon}
 												type='font-awesome'
-												color={utils.lightBlue}
+												color={'#eee'}
 												size={25}
 												// onPress={() => console.log('hello')} 
 												// reverse={true}
@@ -153,7 +153,7 @@ class ComponentForShowingFriend extends Component {
 											// raised
 											name={utils.sendFriendRequestIcon}
 											type='font-awesome'
-											color={utils.lightBlue}
+											color={'#eee'}
 											size={25}
 											// onPress={() => console.log('hello')} 
 											// reverse={true}
@@ -195,7 +195,7 @@ class ComponentForShowingFriend extends Component {
 											// raised
 											name={utils.followingIcon}
 											type='font-awesome'
-											color={utils.lightBlue}
+											color={'#eee'}
 											size={25}
 											// onPress={() => console.log('hello')} 
 											// reverse={true}
@@ -286,11 +286,12 @@ const styles = StyleSheet.create({
 		flexDirection:'row',
 		justifyContent: 'center',
 		alignItems:'center',
-		backgroundColor: utils.darkGreen,
+		backgroundColor: utils.maroonColor,
 		borderRadius: 10,
 		height: '40%',
 	},
 	followingText:{
+		paddingLeft:5,
 		fontSize:15,
 		color:utils.dimWhite,
 		fontWeight:'bold',

@@ -87,8 +87,10 @@ class SportScreen extends Component {
 		  			/>
 
 
-					<View>
-			  			<ConnectedCreateSport/>
+					<View style={{marginTop: 10}}>
+			  			<ConnectedCreateSport
+			  				navigation = {this.props.navigation}
+			  			/>
 			  		</View>
 
 				</SafeAreaView>

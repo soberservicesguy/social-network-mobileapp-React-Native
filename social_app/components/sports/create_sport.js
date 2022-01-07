@@ -26,7 +26,6 @@ class CreateSport extends Component {
 // STATE	
 		this.state = {
 			expanded:false,
-			switchScreen: false,
 
 			sport_name: '',
 			sport_image: '',
@@ -43,134 +42,118 @@ class CreateSport extends Component {
 
 	render() {
 
-		// parameters being passed from previous route
+		return (
+		// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
+			<View style={styles.outerContainer}>
 
-		if ( this.state.switchScreen !== false ){
+				<Button 
+					title={'Upload Image'}
+					style={styles.buttonWithoutBG}
+					color={utils.mediumGrey}
+					onPress={async () => {
+						try {
+							let res = await DocumentPicker.pick({
+								type: [
+									DocumentPicker.types.images,
+								],
+							});
+							console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
+							// setState method with response as argument
+							this.setState(prev => ({...prev, sport_image: res}))
 
-			// switching it back to false
-			this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))
-
-			// redirecting
-			this.props.navigation.navigate('Individual-Sport', {
-				itemId: 86,
-				otherParam: 'anything you want here',
-			})
-
-		} else {
-
-			return (
-			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
-				<View style={styles.outerContainer}>
-
-					<Button 
-						title={'Upload Image'}
-						style={styles.buttonWithoutBG}
-						color={utils.mediumGrey}
-						onPress={async () => {
-							try {
-								let res = await DocumentPicker.pick({
-									type: [
-										DocumentPicker.types.images,
-									],
-								});
-								console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
-								// setState method with response as argument
-								this.setState(prev => ({...prev, sport_image: res}))
-
-							} catch (err) {
-								if (DocumentPicker.isCancel(err)) {
-									// User cancelled the picker, exit any dialogs or menus and move on
-								} else {
-									console.log(err)
-									// throw err;
-								}
+						} catch (err) {
+							if (DocumentPicker.isCancel(err)) {
+								// User cancelled the picker, exit any dialogs or menus and move on
+							} else {
+								console.log(err)
+								// throw err;
 							}
-						}}
-					/>
+						}
+					}}
+				/>
 
-					<View style={{
-						display: 'flex',
-						// flexDirection: 'row',
-					}}>
+				<View style={{
+					display: 'flex',
+					// flexDirection: 'row',
+				}}>
 
-					  	<View style={styles.textinputContainer}>
-							<TextInput
-								style={styles.textinput}
-								placeholder="Type your sport_name"
-								placeholderTextColor = {utils.mediumGrey}
-								// maxLength=10
-								// caretHidden=true
-								// multiline=true
-								// numberOfLines=3
-								// onChangeText={ () => null }
-								// value='dummy'
-								// autoFocus=true
-								onChangeText={ (value) => this.setState( prev => ({...prev, sport_name: value})) }
-							/>
-					  	</View>
-
-
-					  	<View style={styles.textinputContainer}>
-							<TextInput
-								style={styles.textinput}
-								placeholder="Type your sport_description"
-								placeholderTextColor = {utils.mediumGrey}
-								// maxLength=10
-								// caretHidden=true
-								// multiline=true
-								// numberOfLines=3
-								// onChangeText={ () => null }
-								// value='dummy'
-								// autoFocus=true
-								onChangeText={ (value) => this.setState( prev => ({...prev, sport_description: value})) }
-							/>
-					  	</View>
+				  	<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your sport_name"
+							placeholderTextColor = {utils.mediumGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) => this.setState( prev => ({...prev, sport_name: value})) }
+						/>
 				  	</View>
 
 
-					<TouchableOpacity
-						activeOpacity={0.2}
-						style={styles.createSportButton}
-						onPress={ () => {
+				  	<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your sport_description"
+							placeholderTextColor = {utils.mediumGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) => this.setState( prev => ({...prev, sport_description: value})) }
+						/>
+				  	</View>
+			  	</View>
 
-							let setResponseInCurrentSport = (arg) => this.props.set_current_sport(arg)
-							let redirectToNewSport = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
 
-							const formData = new FormData()
-							if (this.state.sport_name !== ''){
-								formData.append('sport_name', this.state.sport_name)
-							}
-							if (this.state.sport_description !== ''){
-								formData.append('sport_description', this.state.sport_description)
-							}
-							if (this.state.sport_image !== ''){
-								formData.append('sport_image', {uri: this.state.sport_image.uri, name: this.state.sport_image.name, type: this.state.sport_image.type})
-							}
+				<TouchableOpacity
+					activeOpacity={0.2}
+					style={styles.createSportButton}
+					onPress={ () => {
 
-							axios.post(utils.baseUrl + '/sports/create-sport-with-user', formData)
-							.then(function (response) {
-								console.log(response.data) // current sport screen data
-								
-								// set to current parent object
-								setResponseInCurrentSport(response.data)
+						let setResponseInCurrentSport = (arg) => this.props.set_current_sport(arg)
+						let redirectToNewSport = () => this.props.navigation.navigate('Individual_Sport')
 
-								// change route to current_sport
-								redirectToNewSport()
+						const formData = new FormData()
+						if (this.state.sport_name !== ''){
+							formData.append('sport_name', this.state.sport_name)
+						}
+						if (this.state.sport_description !== ''){
+							formData.append('sport_description', this.state.sport_description)
+						}
+						if (this.state.sport_image !== ''){
+							formData.append('sport_image', {uri: this.state.sport_image.uri, name: this.state.sport_image.name, type: this.state.sport_image.type})
+						}
 
-							})
-							.catch(function (error) {
-								console.log(error)
-							});						
+						axios.post(utils.baseUrl + '/sports/create-sport-with-user', formData)
+						.then(function (response) {
+							console.log(response.data) // current sport screen data
+							
+							// set to current parent object
+							setResponseInCurrentSport(response.data.new_sport)
 
-						}}
-					>
-						<Text style={styles.innerText}>
-							Create Sport
-						</Text>
-					</TouchableOpacity>
-				</View>
-			);
-		}			
+							// change route to current_sport
+							redirectToNewSport()
+
+						})
+						.catch(function (error) {
+							console.log(error)
+						});						
+
+					}}
+				>
+					<Text style={styles.innerText}>
+						Create Sport
+					</Text>
+				</TouchableOpacity>
+			</View>
+		);			
 	}
 }
 	

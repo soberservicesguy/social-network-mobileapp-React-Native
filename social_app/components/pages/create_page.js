@@ -136,7 +136,7 @@ class CreatePage extends Component {
 							console.log(response.data) // current page screen data
 							
 							// set to current parent object
-							setResponseInCurrentPage(response.data)
+							setResponseInCurrentPage(response.data.new_page)
 
 							// change route to current_page
 							redirectToNewPage()

@@ -26,7 +26,6 @@ class CreateBook extends Component {
 // STATE	
 		this.state = {
 			expanded:false,
-			redirectToRoute: false,
 			book_name: '',
 			book_image: '',
 			book_description: '',
@@ -41,135 +40,118 @@ class CreateBook extends Component {
 	}
 
 	render() {
+		return (
+		// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
+			<View style={styles.outerContainer}>
 
-		// parameters being passed from previous route
+				<Button 
+					title={'Upload Image'}
+					style={styles.buttonWithoutBG}
+					color={utils.mediumGrey}
+					onPress={async () => {
+						try {
+							let res = await DocumentPicker.pick({
+								type: [
+									DocumentPicker.types.images,
+								],
+							});
+							console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
+							// setState method with response as argument
+							this.setState(prev => ({...prev, book_image: res}))
 
-		if ( this.state.redirectToRoute !== false ){
-
-			// switching it back to false
-			this.setState(prev => ({...prev, redirectToRoute: (prev.redirectToRoute === false) ? true : false }))
-
-			// redirecting
-			this.props.navigation.navigate('Individual-Book', {
-				itemId: 86,
-				otherParam: 'anything you want here',
-			})
-
-		} else {
-
-			return (
-			// e.g a social post, textinput which lets user to enter text, takes persons id as assigned object
-				<View style={styles.outerContainer}>
-
-					<Button 
-						title={'Upload Image'}
-						style={styles.buttonWithoutBG}
-						color={utils.mediumGrey}
-						onPress={async () => {
-							try {
-								let res = await DocumentPicker.pick({
-									type: [
-										DocumentPicker.types.images,
-									],
-								});
-								console.log(res.uri, res.type, res.name, res.size); // res.type is mimeType
-								// setState method with response as argument
-								this.setState(prev => ({...prev, book_image: res}))
-
-							} catch (err) {
-								if (DocumentPicker.isCancel(err)) {
-									// User cancelled the picker, exit any dialogs or menus and move on
-								} else {
-									console.log(err)
-									// throw err;
-								}
+						} catch (err) {
+							if (DocumentPicker.isCancel(err)) {
+								// User cancelled the picker, exit any dialogs or menus and move on
+							} else {
+								console.log(err)
+								// throw err;
 							}
-						}}
-					/>
+						}
+					}}
+				/>
 
-					<View style={{
-						display: 'flex',
-						// flexDirection: 'row',
-					}}>
+				<View style={{
+					display: 'flex',
+					// flexDirection: 'row',
+				}}>
 
-					  	<View style={styles.textinputContainer}>
-							<TextInput
-								style={styles.textinput}
-								placeholder="Type your book_name"
-								placeholderTextColor = {utils.mediumGrey}
-								// maxLength=10
-								// caretHidden=true
-								// multiline=true
-								// numberOfLines=3
-								// onChangeText={ () => null }
-								// value='dummy'
-								// autoFocus=true
-								onChangeText={ (value) => this.setState( prev => ({...prev, book_name: value})) }
-							/>
-					  	</View>
-
-
-
-					  	<View style={styles.textinputContainer}>
-							<TextInput
-								style={styles.textinput}
-								placeholder="Type your book_description"
-								placeholderTextColor = {utils.mediumGrey}
-								// maxLength=10
-								// caretHidden=true
-								// multiline=true
-								// numberOfLines=3
-								// onChangeText={ () => null }
-								// value='dummy'
-								// autoFocus=true
-								onChangeText={ (value) => this.setState( prev => ({...prev, book_description: value})) }
-							/>
-					  	</View>
+				  	<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your book_name"
+							placeholderTextColor = {utils.mediumGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) => this.setState( prev => ({...prev, book_name: value})) }
+						/>
 				  	</View>
 
 
-					<TouchableOpacity
-						activeOpacity={0.2}
-						style={styles.createBookButton}
-						onPress={ () => {
-							let setResponseInCurrentBook = (arg) => this.props.set_current_book(arg)
-							let redirectToNewBook = () => this.setState(prev => ({...prev, redirectToRoute: (prev.redirectToRoute === false) ? true : false }))	
 
-							const formData = new FormData()
-							if (this.state.book_name !== ''){
-								formData.append('book_name', this.state.book_name)
-							}
-							if (this.state.book_description){
-								formData.append('book_description', this.state.book_description)
-							}
-							if (this.state.book_image){
-								formData.append('book_image', {uri: this.state.book_image.uri, type: this.state.book_image.type, name: this.state.book_image.name})
-							}
+				  	<View style={styles.textinputContainer}>
+						<TextInput
+							style={styles.textinput}
+							placeholder="Type your book_description"
+							placeholderTextColor = {utils.mediumGrey}
+							// maxLength=10
+							// caretHidden=true
+							// multiline=true
+							// numberOfLines=3
+							// onChangeText={ () => null }
+							// value='dummy'
+							// autoFocus=true
+							onChangeText={ (value) => this.setState( prev => ({...prev, book_description: value})) }
+						/>
+				  	</View>
+			  	</View>
 
-							axios.post(utils.baseUrl + '/books/create-book-with-user', formData)
-							.then(function (response) {
-								console.log(response.data) // current book screen data
-								
-								// set to current parent object
-								setResponseInCurrentBook(response.data)
 
-								// change route to current_book
-								redirectToNewBook()
+				<TouchableOpacity
+					activeOpacity={0.2}
+					style={styles.createBookButton}
+					onPress={ () => {
+						let setResponseInCurrentBook = (arg) => this.props.set_current_book(arg)
+						let redirectToNewBook = () => this.props.navigation.navigate('Individual_Book')
 
-							})
-							.catch(function (error) {
-								console.log(error)
-							});						
+						const formData = new FormData()
+						if (this.state.book_name !== ''){
+							formData.append('book_name', this.state.book_name)
+						}
+						if (this.state.book_description){
+							formData.append('book_description', this.state.book_description)
+						}
+						if (this.state.book_image){
+							formData.append('book_image', {uri: this.state.book_image.uri, type: this.state.book_image.type, name: this.state.book_image.name})
+						}
 
-						}}
-					>
-						<Text style={styles.innerText}>
-							Create Book
-						</Text>
-					</TouchableOpacity>
-				</View>
-			);
-		}			
+						axios.post(utils.baseUrl + '/books/create-book-with-user', formData)
+						.then(function (response) {
+							console.log(response.data) // current book screen data
+							
+							// set to current parent object
+							setResponseInCurrentBook(response.data.new_book)
+
+							// change route to current_book
+							redirectToNewBook()
+
+						})
+						.catch(function (error) {
+							console.log(error)
+						});						
+
+					}}
+				>
+					<Text style={styles.innerText}>
+						Create Book
+					</Text>
+				</TouchableOpacity>
+			</View>
+		);			
 	}
 }
 	

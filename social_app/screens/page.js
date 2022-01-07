@@ -45,6 +45,7 @@ class PageScreen extends Component {
 // FETCHING DATA FOR COMPONENT
 		axios.get(utils.baseUrl + '/pages/pages-list-with-children',)
 		.then((response) => {
+			console.log({pages: Object.keys(response.data)})
 			this.props.set_fetched_pages(response.data)
 	    	this.setState({ get_individual_image: true })
 		})

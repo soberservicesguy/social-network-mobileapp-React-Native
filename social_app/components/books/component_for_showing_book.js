@@ -86,9 +86,7 @@ class ComponentForShowingBook extends Component {
 
 				<View style={styles.imageContainer}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: base64Image}} 
-						source={{uri: this.state.image_src}} 
+						source={{uri: this.props.useOwnData ? base64Image : this.state.image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>

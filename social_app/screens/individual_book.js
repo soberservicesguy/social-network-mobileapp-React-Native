@@ -47,10 +47,7 @@ class IndividualBook extends Component {
 // RENDER METHOD
 	render() {
 
-		const payload_from_previous_screen = this.props.navigation
-		console.log(payload_from_previous_screen)
-		
-		var base64Image = "data:image/jpeg;base64," + payload_from_previous_screen.user_cover_image
+		const data = this.props.current_book
 
 	  	return (
 	  		<View style={{backgroundColor: '#eee'}}>
@@ -58,29 +55,23 @@ class IndividualBook extends Component {
 				<View style={styles.headerContainer}>
 					<ImageBackground 
 						// source={{uri: base64Image}} 
-						source={utils.image}
+						source={{uri: "data:image/jpeg;base64," + data.book_image}}
 
 						style={styles.bgImage}
 					>
 						<Text style={styles.headerText}>
-							Arsalan{payload_from_previous_screen.user_name_in_profile}
+							{data.book_name}
+						</Text>
+						<Text style={styles.headerText}>
+							{data.book_description}
 						</Text>						
 					</ImageBackground>
 
 				{/*social stats*/}
 					<View style={styles.socialStatsContainer}>
-						<View style={styles.friendsContainer}>
-							<Text style={styles.statsCountText}>
-								232
-							</Text>
-							<Text style={styles.statsNameText}>
-								friends
-							</Text>
-						</View>
-
 						<View style={styles.followersContainer}>
 							<Text style={styles.statsCountText}>
-								232
+								0
 							</Text>
 							<Text style={styles.statsNameText}>
 								followers
@@ -166,6 +157,7 @@ const styles = StyleSheet.create({
 		position:'absolute',
 		top:windowHeight * 0.64,
 		left:windowWidth * 0.05,
+		color: utils.maroonColor
 	},
 	bgImage:{
 		resizeMode: "stretch",
@@ -193,7 +185,7 @@ const styles = StyleSheet.create({
 	likeContainer:{
 		flex:1,
 		flexDirection: 'row',
-		backgroundColor: utils.darkGreen,
+		backgroundColor: utils.maroonColor,
 		height:windowHeight * 0.07,
 		borderRadius:10,
 		justifyContent: 'center',

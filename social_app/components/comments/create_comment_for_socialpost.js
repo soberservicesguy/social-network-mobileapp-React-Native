@@ -62,6 +62,7 @@ class CreateCommentForSocialpost extends Component {
 					onPress={ () => {
 						let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
 						let redirectToNewSocialpost = () => this.props.navigation.navigate('Individual_SocialPost', {itemId: 86, otherParam: 'anything you want here',})
+						let increase_comment_quantity = () => this.props.add_comments_quantity()
 
 
 						// first create child object
@@ -76,8 +77,10 @@ class CreateCommentForSocialpost extends Component {
 							// set to current parent object
 							setResponseInCurrentSocialpost(response.data)
 
+							increase_comment_quantity()
+							
 							// change route to current_image	
-							redirectToNewSocialpost()							
+							// redirectToNewSocialpost()							
 
 						})
 						.catch(function (error) {

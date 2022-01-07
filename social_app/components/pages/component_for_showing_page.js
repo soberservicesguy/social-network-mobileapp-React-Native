@@ -83,9 +83,7 @@ class ComponentForShowingPage extends Component {
 
 				<View style={styles.imageContainer}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: base64Image}} 
-						source={{uri: this.state.image_src}} 
+						source={{uri: this.props.useOwnData ? "data:image/jpeg;base64," + this.props.dataPayloadFromParent.page_image :  this.state.image_src}} 
 						style={styles.imageStyle}
 					/>
 				</View>
@@ -144,6 +142,7 @@ const styles = StyleSheet.create({
 		width: windowWidth,
 	},
 	pageDescriptionText:{
+		marginLeft: 20,
 		fontSize:15,
 		textAlign:'left'
 	},

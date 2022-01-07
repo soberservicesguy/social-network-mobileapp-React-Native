@@ -74,7 +74,7 @@ export const mapStateToProps = state => {
 		current_socialpost: state.socialposts.currentSocialPost,
 
 		userToken: state.all_users.userToken,
-		isSignedIn: state.all_users.isSignedIn,
+		isSignedIn: state.all_users.isSignedIn, /*false,*/
 
 		user_avatar_image: state.all_users.user_avatar_image,
 		user_name_in_profile: state.all_users.user_name_in_profile,
@@ -194,7 +194,7 @@ export const mapDispatchToProps = dispatch => {
 		revoke_sports_creation_privilege: () => dispatch( { type:"REVOKE_SPORTS_CREATION" } ),
 
 // social posts
-		set_current_socialpost: (current_socialpost) => dispatch( { type: "SET_CURRENT_SOCIALPOST", current_socialpost:current_socialpost } ),
+		set_current_socialpost: (post) => dispatch( { type: "SET_CURRENT_SOCIALPOST", post: post } ),
 		set_fetched_socialposts: (socialpost_list) => dispatch( { type: "SET_FETCHED_SOCIALPOST", socialpost_list: socialpost_list } ),
 		set_fetched_10_more_socialpost: (socialpost_list) => dispatch( { type: "SET_FETCHED_10_MORE_SOCIALPOST", socialpost_list: socialpost_list } ),
 

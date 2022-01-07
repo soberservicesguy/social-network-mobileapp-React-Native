@@ -64,6 +64,7 @@ class CreateLikeForPage extends Component {
 
 							let setResponseInCurrentPage = (arg) => this.props.set_current_page(arg)
 							let redirectToNewPage = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
+							let increase_like_quantity = () => this.props.add_likes_quantity()
 
 							axios.post(utils.baseUrl + '/pages/create-interest-for-page', 
 								{
@@ -75,8 +76,10 @@ class CreateLikeForPage extends Component {
 								// set to current parent object
 								setResponseInCurrentPage(response.data)
 
+								increase_like_quantity()
+
 								// change route to current_blogpost	
-								redirectToNewPage()							
+								// redirectToNewPage()							
 
 							})
 							.catch(function (error) {

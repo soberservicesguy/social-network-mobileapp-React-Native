@@ -23,7 +23,7 @@ const utils = {
 
 	// component for showing friend
 	darkGreen:'#5a9f28',
-	followingIcon: 'user-check',
+	followingIcon: 'check-circle',
 	sendFriendRequestIcon: 'user-plus',
 	lightBlue:'#4ea4a1',
 

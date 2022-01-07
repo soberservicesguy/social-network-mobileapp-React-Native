@@ -21,7 +21,7 @@ import {
 	AboutMe
 } from "../screens";
 
-import AppNavigation from '../the_navigation'
+import AppNavigation, { InnerDrawerComponent } from '../the_navigation'
 
 import {
 	CreateSocialPost,
@@ -78,6 +78,11 @@ import {
 	ComponentForShowingNotification,
 	ComponentForShowingFriend,
 } from "../components/"
+
+export const ConnectedInnerDrawerComponent = connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(InnerDrawerComponent)
 
 export const ConnectedAboutMe = connect(
 	mapStateToProps,

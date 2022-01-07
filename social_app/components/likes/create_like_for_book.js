@@ -64,6 +64,7 @@ class CreateLikeForBook extends Component {
 
 							let setResponseInCurrentBook = (arg) => this.props.set_current_book(arg)
 							let redirectToNewBook = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
+							let increase_like_quantity = () => this.props.add_likes_quantity()
 
 							axios.post(utils.baseUrl + '/books/create-interest-for-book', 
 								{
@@ -75,8 +76,9 @@ class CreateLikeForBook extends Component {
 								// set to current parent object
 								setResponseInCurrentBook(response.data)
 
+								increase_like_quantity()
 								// change route to current_blogpost	
-								redirectToNewBook()							
+								// redirectToNewBook()							
 
 							})
 							.catch(function (error) {

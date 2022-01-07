@@ -64,6 +64,8 @@ class CreateLikeForSport extends Component {
 
 							let setResponseInCurrentSport = (arg) => this.props.set_current_sport(arg)
 							let redirectToNewSport = () => this.setState(prev => ({...prev, switchScreen: (prev.switchScreen === false) ? true : false }))	
+							let increase_like_quantity = () => this.props.add_likes_quantity()
+
 
 							axios.post(utils.baseUrl + '/sports/create-interest-for-sport', 
 								{
@@ -75,8 +77,10 @@ class CreateLikeForSport extends Component {
 								// set to current parent object
 								setResponseInCurrentSport(response.data)
 
+								increase_like_quantity()
+							
 								// change route to current_blogpost	
-								redirectToNewSport()							
+								// redirectToNewSport()							
 
 							})
 							.catch(function (error) {

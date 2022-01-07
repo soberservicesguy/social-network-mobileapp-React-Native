@@ -89,6 +89,7 @@ class LoginScreen extends Component {
 		)
 		.then(function (response) {
 			if (response.data.success === true){
+				console.log(response.data)
 				axios.defaults.headers.common['Authorization'] = response.data.token				
 				// verify_privilege_callack(response)
 				set_phone_number_callback()
@@ -311,11 +312,11 @@ const styles = StyleSheet.create({
 
 	},
 	createAccountText:{
-		color:utils.mediumGrey,
+		color: 'white',
 	},
 	needHelpText:{
 		textAlign:'right',
-		color:utils.mediumGrey,
+		color: 'white',
 	},
 	forGotPasswordText:{
 		color: utils.lightGrey,

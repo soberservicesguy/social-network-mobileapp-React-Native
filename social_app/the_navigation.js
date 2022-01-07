@@ -13,20 +13,6 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 
-// IMPORT created components
-// import {
-//	ButtonTouchableHighlight,
-//	ImageAtLeftTextsAtRight,
-//	Gap
-// } from './components/ready_made_components';
-
-// import NetInfo from "@react-native-community/netinfo";
-
-// import {
-// 	request_multiple_permissions,
-// } from "./handy_functions/permissions_functions"
-
-// IMPORT connected screens
 import {
 	ConnectedLoginScreen,
 	ConnectedSignUpScreen,
@@ -43,6 +29,7 @@ import {
 	ConnectedFriendsScreen,
 	ConnectedNotificationsScreen,
 	ConnectedAboutMe,
+	ConnectedInnerDrawerComponent,
 } from "./redux_stuff/connected_components";
 
 
@@ -77,7 +64,7 @@ function FriendTabsComponent({navigation}) {
 								navigation.navigate('Friendsection', {screen: 'FriendsScreen', params:{payload: item.screen_payload}} )
 								console.log(item.screen_payload)
 							}}>
-								<Text style={{color:'white', fontWeight:'bold', fontSize:20, textAlign:'center'}}>
+								<Text style={{color:'white', fontWeight:'bold', fontSize:18, textAlign:'center'}}>
 									{item.option_name}
 								</Text>
 							</TouchableOpacity>
@@ -121,15 +108,15 @@ function FriendTabsComponent({navigation}) {
 					title: 'Friends na',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
@@ -165,7 +152,14 @@ function ContentTabsComponent({navigation}) {
 						option = option.charAt(0).toUpperCase() + option.slice(1);
 
 						return (
-							<TouchableOpacity activeOpacity={0.2} style={{flex:1, alignItems:'center', alignSelf: 'center', justifyContent:'center',height:50, borderRightWidth:(index !== 3) ? 1 : 0, borderRightColor:'white', paddingHorizontal: 10}} onPress={ () => navigation.navigate(option) }>
+							<TouchableOpacity activeOpacity={0.2} style={{flex:1, alignItems:'center', alignSelf: 'center', justifyContent:'center',height:50, borderRightWidth:(index !== 3) ? 1 : 0, borderRightColor:'white', paddingHorizontal: 10}}
+								onPress={ () => {
+									if (index == 0){
+										navigation.navigate(option, {screen: option, showOwnWallInstead:true})
+									} else {
+										navigation.navigate(option) 
+									}
+								}}>
 								<Text style={{color:'white', fontWeight:'bold', fontSize:15}}>
 									{screen_name}
 								</Text>
@@ -246,8 +240,6 @@ function ContentTabsComponent({navigation}) {
 					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
-
-
 
 			<ContentTabs.Screen name="Sports" component={ ConnectedSportScreen }
 				options={{ 
@@ -344,7 +336,7 @@ function SignInStackComponent({navigation}) {
 
 const InnerDrawer = createDrawerNavigator();
 
-function InnerDrawerComponent({navigation}) {
+export function InnerDrawerComponent({ navigation, set_is_signed_in }) {
 	return (
 		<InnerDrawer.Navigator
 			headerMode='none'
@@ -366,7 +358,7 @@ function InnerDrawerComponent({navigation}) {
 						alignItems:'center',
 						justifyContent: 'space-between', 
 					}}>
-						{['SocialPost', 'Friendsection', 'Notifications', 'About_Me'
+						{['SocialPost', 'Friendsection', 'Notifications', 'About_Me', 'Logout'
 						// 'Video'
 						].map((option) => {
 
@@ -381,52 +373,73 @@ function InnerDrawerComponent({navigation}) {
 							option = option.toLowerCase()
 							option = option.charAt(0).toUpperCase() + option.slice(1);
 
-							return (
-								<TouchableOpacity activeOpacity={0.2} onPress={ () => navigation.navigate(screen_name) } style={{marginTop:50, marginBottom:50,}}>
-									<Text style={{color:'white', fontWeight:'bold', fontSize:20}}>
-										{option}
-									</Text>
-								</TouchableOpacity>
-							)
+							if (option == 'Logout'){
+								return (
+									<TouchableOpacity activeOpacity={0.2} onPress={ () => set_is_signed_in(false) } style={{marginTop:50, marginBottom:50,}}>
+										<Text style={{color:'black', fontWeight:'bold', fontSize:20}}>
+											Logout
+										</Text>
+									</TouchableOpacity>
+								)
+							} else {
+
+								return (
+									<TouchableOpacity activeOpacity={0.2}
+										style={{marginTop:50, marginBottom:50,}}
+										onPress={() => {
+											if (option == 'Wall'){
+												navigation.navigate(screen_name, {screen: screen_name, showOwnWallInstead:true})
+												console.log('SENT')
+											} else {
+												navigation.navigate(screen_name)
+											}
+										}} 
+									>
+										<Text style={{color:'white', fontWeight:'bold', fontSize:20}}>
+											{option}
+										</Text>
+									</TouchableOpacity>
+								)
+							}
 						})}
 					</ScrollView>
 				)
 			}}
 		>
+
 			<InnerDrawer.Screen name="Friendsection" component={ FriendTabsComponent }
 				options={{ 
 					headerShown:true,
 					title: 'Friends naaaa',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
-
 			<InnerDrawer.Screen name="SocialPost" component={ ContentTabsComponent }
 				options={{ 
-					headerShown:false,
+					headerShown:true,
 					title: 'Wall',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
@@ -437,15 +450,15 @@ function InnerDrawerComponent({navigation}) {
 					title: 'Notifications',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
@@ -455,33 +468,33 @@ function InnerDrawerComponent({navigation}) {
 					title: 'About Me',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
 			<InnerDrawer.Screen name="Individual_SocialPost" component={ ConnectedIndividualSocialPost }
 				options={{ 
 					headerShown:true,
-					title: 'SocialPost',
+					title: 'Post',
 					headerTitleAlign: 'center',
-					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					headerBackTitleVisible: true,
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
@@ -491,15 +504,15 @@ function InnerDrawerComponent({navigation}) {
 					title: 'Individual Page',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
@@ -509,15 +522,15 @@ function InnerDrawerComponent({navigation}) {
 					title: 'Individual Sport',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
@@ -527,15 +540,15 @@ function InnerDrawerComponent({navigation}) {
 					title: 'Individual Book',
 					headerTitleAlign: 'center',
 					headerBackTitleVisible: false,
-					headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
-						marginTop:50,
-						marginBottom:50,
-					}}>
-						<Text>
-							Go Back
-						</Text>
-					</TouchableOpacity>	),
-					headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
+					// headerLeft: () => (	<TouchableOpacity activeOpacity={0.2} onPress={() => this.props.navigation.goBack()} style={{
+					// 	marginTop:50,
+					// 	marginBottom:50,
+					// }}>
+					// 	<Text>
+					// 		Go Back
+					// 	</Text>
+					// </TouchableOpacity>	),
+					// headerRight: () => (<Image source={require('./images/samosa.jpg')} style={{resizeMode: "center", height: 40, width: 40,paddingLeft: 50,}}/>),
 				}}
 			/>
 
@@ -600,7 +613,7 @@ class AppNavigation extends Component {
 						? 
 							( <RootStack.Screen name="SignInStack" component={SignInStackComponent}/> )
 						: 
-							( <RootStack.Screen name="InnerStack" component={InnerDrawerComponent} /> )
+							( <RootStack.Screen name="InnerStack" component={ConnectedInnerDrawerComponent} /> )
 					}		
 
 				</RootStack.Navigator>

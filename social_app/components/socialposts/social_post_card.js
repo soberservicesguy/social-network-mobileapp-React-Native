@@ -282,6 +282,8 @@ class SocialPostCard extends Component {
 
 			  		<View>
 						<ComponentForShowingSocialPost
+							useAvatarDirect = {this.props.useAvatarDirect}
+							friends_user_avatar_image = {this.props.dataPayloadFromParent.friends_user_avatar_image}
 				  			getIndividualImage = {this.props.getIndividualImage}
 							navigation={this.props.navigation}
 							dataPayloadFromParent = {this.props.dataPayloadFromParent}
@@ -307,7 +309,7 @@ class SocialPostCard extends Component {
 							<View style={styles.iconContainer}>
 								<Icon
 									// raised
-									name={utils.commentIcon}
+									name={utils.likeIcon}
 									type='font-awesome'
 									iconStyle='Outlined'
 									color='#f50'
@@ -340,7 +342,7 @@ class SocialPostCard extends Component {
 	  						<View style={styles.iconContainer}>
 	  							<Icon
 	  								// raised
-	  								name={utils.likeIcon}
+	  								name={utils.commentIcon}
 	  								type='font-awesome'
 	  								// iconStyle='Outlined'
 	  								color='#f50'
@@ -373,7 +375,7 @@ class SocialPostCard extends Component {
 	  						<View style={styles.iconContainer}>
 	  							<Icon
 	  								// raised
-	  								name={utils.likeIcon}
+	  								name={utils.shareIcon}
 	  								type='font-awesome'
 	  								// iconStyle='Outlined'
 	  								color='#f50'
@@ -390,20 +392,22 @@ class SocialPostCard extends Component {
 					</View>
 
 					<View style={styles.createLikeAndShareContainer}>
-						{/* 4th create individual child options like comment / like */}					
 						<ConnectedCreateLikeForSocialpost
 							navigation={this.props.navigation}
 							parentDetailsPayload = { this.props.dataPayloadFromParent }
+							add_likes_quantity = {() => this.setState(prev => ({...prev, current_likes_quantity: prev.current_likes_quantity + 1}))}
 						/>					
 						<ConnectedCreateShareForSocialpost
 							navigation={this.props.navigation}
 							parentDetailsPayload = { this.props.dataPayloadFromParent }
+							add_shares_quantity = {() => this.setState(prev => ({...prev, current_shares_quantity: prev.current_shares_quantity + 1}))}
 						/>
 					</View>
 
 					<ConnectedCreateCommentForSocialpost
 						navigation={this.props.navigation}
 						parentDetailsPayload = { this.props.dataPayloadFromParent }
+						add_comments_quantity = {() => this.setState(prev => ({...prev, current_comments_quantity: prev.current_comments_quantity + 1}))}
 					/>					
 
 			  	</View>

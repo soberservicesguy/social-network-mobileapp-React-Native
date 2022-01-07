@@ -87,6 +87,8 @@ class CreateSocialPost extends Component {
 									type: [
 										'video/3gpp',
 										'video/mpeg',
+										'video/mpeg-4',
+										'video/mp4',
 										'video/x-msvideo', // go to for all mimetypes https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
 									],
 								});
@@ -131,11 +133,11 @@ class CreateSocialPost extends Component {
 					onPress={ () => {
 
 						let setResponseInCurrentSocialPost = (arg) => this.props.set_current_socialpost(arg)
-						let redirectToNewSocialPost = () => this.props.navigation.navigate('Individual_SocialPost', {itemId: 86, otherParam: 'anything you want here',})
-
+						let redirectToNewSocialPost = () => this.props.navigation.navigate('Individual_SocialPost'/*, {itemId: 86, otherParam: 'anything you want here',}*/)
+						let user_name_in_profile = this.props.user_name_in_profile
 						let formData = new FormData()
 
-
+						// let currentSocialPost = this.props.current_socialpost
 						if (this.state.post_text !== ''){
 							formData.append('post_text', this.state.post_text)
 						}
@@ -148,11 +150,12 @@ class CreateSocialPost extends Component {
 
 						axios.post(utils.baseUrl + '/socialposts/create-socialpost-with-user', formData)
 						.then(function (response) {
-							console.log(response.data) // current socialpost screen data
+							console.log({response: response.data}) // current socialpost screen data
 							
 							// set to current parent object
-							setResponseInCurrentSocialPost(response.data)
-
+							setResponseInCurrentSocialPost({...response.data.new_socialpost, friends_user_name: user_name_in_profile, notification_type: 'created_post'})
+							// setResponseInCurrentSocialPost(response.data.new_socialpost)
+							// console.log({current_socialpost})
 							// change route to current_socialpost
 							redirectToNewSocialPost()
 
@@ -212,14 +215,14 @@ const styles = StyleSheet.create({
 	createPostButton:{
 		// flex:1,
 		position:'absolute',
-		top:windowHeight * 0.073,
+		top:windowHeight * 0.071,
 		right: windowWidth * 0.06,
 		width: windowWidth * 0.21,
 		height: windowHeight * 0.055,
 		// alignItems: 'center',
 		// justifyContent: 'center',
 		// alignSelf:'center',
-		backgroundColor: 'black',
+		backgroundColor: utils.maroonColor,
 		borderRadius: windowWidth * 1/2
 	},
 	innerText:{
