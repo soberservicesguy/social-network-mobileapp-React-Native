@@ -89,6 +89,7 @@ class CreatePage extends Component {
 							// onChangeText={ () => null }
 							// value='dummy'
 							// autoFocus=true
+							value={this.state.page_name}
 							onChangeText={ (value) => this.setState( prev => ({...prev, page_name: value})) }
 						/>
 				  	</View>
@@ -106,6 +107,7 @@ class CreatePage extends Component {
 							// onChangeText={ () => null }
 							// value='dummy'
 							// autoFocus=true
+							value={this.state.page_description}
 							onChangeText={ (value) => this.setState( prev => ({...prev, page_description: value})) }
 						/>
 				  	</View>
@@ -119,6 +121,7 @@ class CreatePage extends Component {
 
 						let setResponseInCurrentPage = (arg) => this.props.set_current_page(arg)
 						let redirectToNewPage = () => this.props.navigation.navigate('Individual_Page', {itemId: 86, otherParam: 'anything you want here',})
+						let clearInput = () => this.setState({page_image: '', page_name: '', page_description:''})
 
 						const formData = new FormData()
 						if (this.state.page_description !== ''){
@@ -133,8 +136,7 @@ class CreatePage extends Component {
 
 						axios.post(utils.baseUrl + '/pages/create-page-with-user', formData)
 						.then(function (response) {
-							console.log(response.data) // current page screen data
-							
+							clearInput()					
 							// set to current parent object
 							setResponseInCurrentPage(response.data.new_page)
 
@@ -203,7 +205,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		// alignSelf:'center',
-		backgroundColor: 'black',
+		backgroundColor: utils.maroonColor,
 		// borderRadius: windowWidth * 1/2
 	},
 	innerText:{

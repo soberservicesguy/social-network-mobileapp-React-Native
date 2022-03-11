@@ -26,6 +26,7 @@ class ComponentForShowingFriend extends Component {
 		super(props);
 // STATE	
 		this.state = {
+			buttonText: 'Send Friend Request',
 		}	
 
 	}
@@ -41,7 +42,6 @@ class ComponentForShowingFriend extends Component {
 		axios.post(utils.baseUrl + '/users/accept-friend-request', {endpoint: endpoint})
 		.then((response) => {
 			if(response.data.success){
-				console.log('FRIEND REQUEST SENT')
 				this.setState(prev => ({...prev, accepted_request: true }));
 			}
 		})
@@ -56,8 +56,7 @@ class ComponentForShowingFriend extends Component {
 		axios.post(utils.baseUrl + '/users/send-friend-request', {endpoint: endpoint})
 		.then((response) => {
 			if(response.data.success){
-				console.log('FRIEND REQUEST SENT')
-				this.setState(prev => ({...prev, request_sent: true }));
+				this.setState(prev => ({...prev, request_sent: true, buttonText: 'Request Sent' }));
 			}
 		})
 		.catch((error) => {
@@ -115,7 +114,7 @@ class ComponentForShowingFriend extends Component {
 										</View>
 										<View style={{flex:3}}>
 											<Text style={{...styles.followingText, textAlign:'center'}}>
-												Send Friend Request
+												{this.state.buttonText}
 											</Text>
 										</View>
 									</View>
@@ -258,7 +257,7 @@ const styles = StyleSheet.create({
 		flex:1,
 	},
 	imageStyle:{
-		resizeMode: "stretch",
+		resizeMode: "cover",
 		height: windowHeight * 0.1,
 		width: windowWidth * 0.2,
 		borderRadius: 500,

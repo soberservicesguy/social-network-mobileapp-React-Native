@@ -51,6 +51,7 @@ class CreateCommentForSocialpost extends Component {
 						// onChangeText={ () => null }
 						// value='dummy'
 						// autoFocus=true
+						value={this.state.post_text}
 						onChangeText={ (value) => this.setState( prev => ({...prev, text: value})) }
 					/>
 			  	</View>
@@ -63,7 +64,7 @@ class CreateCommentForSocialpost extends Component {
 						let setResponseInCurrentSocialpost = (arg) => this.props.set_current_socialpost(arg)
 						let redirectToNewSocialpost = () => this.props.navigation.navigate('Individual_SocialPost', {itemId: 86, otherParam: 'anything you want here',})
 						let increase_comment_quantity = () => this.props.add_comments_quantity()
-
+						let clearTextInput = () => this.setState( prev => ({...prev, text: null}))
 
 						// first create child object
 						axios.post(utils.baseUrl + '/socialposts/create-comment-for-socialpost', 
@@ -72,12 +73,12 @@ class CreateCommentForSocialpost extends Component {
 								socialpost_endpoint: this.props.parentDetailsPayload.endpoint,
 							})
 						.then(function (response) {
-							console.log(response.data) // current image screen data
 							
 							// set to current parent object
 							setResponseInCurrentSocialpost(response.data)
 
 							increase_comment_quantity()
+							clearTextInput()
 							
 							// change route to current_image	
 							// redirectToNewSocialpost()							
@@ -90,7 +91,7 @@ class CreateCommentForSocialpost extends Component {
 					}}
 		  		>
 			  		<Text style={styles.innerText}>
-						Create Comment
+						Post It
 			  		</Text>
 				</TouchableOpacity>
 			</View>
@@ -156,12 +157,13 @@ const styles = StyleSheet.create({
 		// alignItems: 'center',
 		// justifyContent: 'center',
 		// alignSelf:'center',
-		backgroundColor: utils.dimWhite,
+		backgroundColor: utils.maroonColor,
 		borderRadius: windowWidth * 1/2
 	},
 	innerText:{
+		paddingTop: 10,
 		textAlign:'center',
-		// color:'white',
+		color:'white',
 	},
 });
 

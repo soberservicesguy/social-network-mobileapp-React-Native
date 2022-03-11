@@ -76,12 +76,7 @@ class FriendsScreen extends Component {
 			axios.get(utils.baseUrl + '/users/friend-requests',)
 			.then((response) => {
 				if (response.data.success){
-					// console.log('GOT FRIEND REQUESTS')
-					// console.log(response.data.friends_requests)
 					set_friends_requests_callback(response)
-
-					// console.log('this.props.list_of_friend_requests')
-					// console.log(this.props.list_of_friend_requests)
 				}
 			})
 			.catch((error) => {
@@ -95,7 +90,6 @@ class FriendsScreen extends Component {
 
 			if (payload_from_previous_screen === 'showFriendsSuggestionsInstead'){
 
-				console.log('TRIGGERED 1')
 				this.setState(prev => ({...prev, showFriendsSuggestionsInstead: true, showFriendsRequestInstead:false, showFriends:false }) )
 
 				if (parentNavigator) {
@@ -112,18 +106,10 @@ class FriendsScreen extends Component {
 
 	            }
 				
-
-				console.log('MAKING REQUEST')
 				axios.get(utils.baseUrl + '/users/friend-suggestions',)
 				.then((response) => {
 					if (response.data.success){
-						console.log('GOT FRIEND SUGGESTIONS')
-						// console.log(response.data.friend_suggestions)
 						set_friends_suggestions_callback(response)
-
-						// console.log('this.props.list_of_friend_suggestions')
-						// console.log(this.props.list_of_friend_suggestions)
-
 					}
 				})
 				.catch((error) => {
@@ -152,13 +138,7 @@ class FriendsScreen extends Component {
 				axios.get(utils.baseUrl + '/users/friend-requests',)
 				.then((response) => {
 					if (response.data.success){
-						// console.log('GOT FRIEND REQUESTS')
-						// console.log(response.data.friends_requests)
 						set_friends_requests_callback(response)
-
-						// console.log('this.props.list_of_friend_requests')
-						// console.log(this.props.list_of_friend_requests)
-
 					}
 				})
 				.catch((error) => {
@@ -186,13 +166,7 @@ class FriendsScreen extends Component {
 				axios.get(utils.baseUrl + '/users/friends-list',)
 				.then((response) => {
 					if (response.data.success){				
-						// console.log('GOT FRIEND LIST')
-						// console.log(response.data.friends_list)
 						set_friends_list_callback(response)
-
-						// console.log('this.props.list_of_friends')
-						// console.log(this.props.list_of_friends)
-
 					}
 				})
 				.catch((error) => {
@@ -208,12 +182,10 @@ class FriendsScreen extends Component {
 
 
 
-// COMPONENT DID MOUNT
 	componentDidMount() {
 		this.setUpScreen()
 	}
 
-// RENDER METHOD
 	render() {
 
 		let data_to_use = []
@@ -221,9 +193,6 @@ class FriendsScreen extends Component {
 		if (typeof this.props.route.params === 'undefined'){
 
 			data_to_use = this.props.list_of_friend_requests
-			// console.log('data_to_use list_of_friend_requests')
-			// console.log(data_to_use)
-
 
 		} else if (this.props.route.params.payload === 'showFriendsSuggestionsInstead'){
 
@@ -236,8 +205,6 @@ class FriendsScreen extends Component {
 		} else if (this.props.route.params.payload === 'showFriends'){
 
 			data_to_use = this.props.total_friends
-			console.log('this.state.showFriends')
-			console.log(this.state.showFriends)
 
 		} else {
 
@@ -251,7 +218,6 @@ class FriendsScreen extends Component {
 	  	  		<FlatList
 	  				style={{flexDirection: 'column', flexWrap : "wrap"}}
 	  				numColumns={1}
-	  	  			// data={(this.state.showFriendsSuggestionsInstead) ? friend_suggestions : friends}
 	  	  			data={data_to_use}
 	  				renderItem={
 	  					({ item }) => {
@@ -276,7 +242,6 @@ class FriendsScreen extends Component {
 }
 
 FriendsScreen.defaultProps = {
-	// : ,
 };
 
 

@@ -45,7 +45,6 @@ class ComponentForShowingSocialPost extends Component {
 
 
 		if (prevProps.getIndividualImage === false && this.props.getIndividualImage === true){
-			console.log('getting image')
 			
 			let {
 
@@ -66,9 +65,6 @@ class ComponentForShowingSocialPost extends Component {
 
 
 			if (typeof friends_user_avatar_image !== 'undefined'  && typeof friends_user_avatar_image_host !== 'undefined'){				
-				console.log('Getting profile picture')
-				// console.log(friends_user_avatar_image)
-				// console.log(friends_user_avatar_image_host)
 				this.getImage(friends_user_avatar_image, friends_user_avatar_image_host, 'friends_user_avatar_image_src')
 			}
 
@@ -99,9 +95,6 @@ class ComponentForShowingSocialPost extends Component {
 
 	getImage(image_object_id, host, state_field_to_change){
 
-		// let image_object_id = this.props.dataPayloadFromParent.book_image
-		// let host = this.props.dataPayloadFromParent.book_image_host
-
 		axios.get(`${utils.baseUrl}/socialposts/get-image`, 
 			{
 				params: {
@@ -127,25 +120,17 @@ class ComponentForShowingSocialPost extends Component {
 
 	}
 
-	render() {
-		// console.log({user_avatar_image: this.props.user_avatar_image})
-		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
-		// const data = {type_of_post:'text_with_video_post'}
-		// var base64ImageAvatar = "data:image/jpeg;base64," + this.state.friends_user_avatar_image_src
-		var base64ImageAvatar = this.state.friends_user_avatar_image_src
-		// var base64Image = "data:image/jpeg;base64," + data.image_for_post
-		// var base64Image = "data:image/jpeg;base64," + this.state.image_for_post_src
-		var base64Image =  this.state.image_for_post_src
 
-		console.log({image_for_post:data.image_for_post})
+	render() {
+
+		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
+		var base64ImageAvatar = this.state.friends_user_avatar_image_src
+		var base64Image =  this.state.image_for_post_src
 
 		let username_avatar_in_created_post_type = (
 			<View style={{...styles.innerContainer, alignItems:'flex-end'}}>
 				<View style={styles.imageContainer}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
-						// source={{uri: "data:image/jpeg;base64," + this.state.friends_user_avatar_image_src}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={{...styles.imageStyle, width:70, height:70}}
 					/>
@@ -163,16 +148,9 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.innerContainer, alignItems:'flex-end'}}>
 				<View style={styles.imageContainer}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={{...styles.imageStyle, width:70, height:70}}
 					/>
-					{/*<Image 
-						// source={utils.image}
-						source={{uri: base64ImageAvatar}} 
-						style={{...styles.imageStyle, width:70, height:70}}
-					/>*/}
 				</View>
 				
 				<View style={styles.textContainer}>
@@ -188,8 +166,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -206,8 +182,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -224,8 +198,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -242,8 +214,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -260,8 +230,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -278,8 +246,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -298,8 +264,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -316,8 +280,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -334,8 +296,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -352,8 +312,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -370,8 +328,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -388,8 +344,6 @@ class ComponentForShowingSocialPost extends Component {
 			<View style={{...styles.avatarAndUsernameContainer, alignItems:'center', marginBottom:30, width:'40%', margin:'auto', marginLeft:windowWidth/2 - 100,}}>
 				<View style={{...styles.avatarContainer}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.friends_user_avatar_image}} 
 						source={{uri: this.props.useOwnAvatar ? "data:image/jpeg;base64," + this.props.user_avatar_image : (this.props.useAvatarDirect ? "data:image/jpeg;base64," + this.props.friends_user_avatar_image : this.state.friends_user_avatar_image_src)}} 
 						style={styles.imageStyle}
 					/>
@@ -414,7 +368,6 @@ class ComponentForShowingSocialPost extends Component {
 		let post_image_content = (
 			<View>							
 				<Image 
-					// source={utils.image}
 					source={{uri: "data:image/jpeg;base64," + data.image_for_post}} 
 					style={styles.imagePostStyle}
 				/>
@@ -472,8 +425,6 @@ class ComponentForShowingSocialPost extends Component {
 
 				<View style={{...styles.postImageContainer, width:'30%',  alignSelf:'center'}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.book_image}} 
 						source={{uri: this.state.book_image_src}} 
 						style={styles.postImage}
 					/>
@@ -497,8 +448,6 @@ class ComponentForShowingSocialPost extends Component {
 
 				<View style={{...styles.postImageContainer, width:'70%',  alignSelf:'center'}}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.page_image}} 
 						source={{uri: this.state.page_image_src}} 
 						style={styles.postImage}
 					/>
@@ -522,8 +471,6 @@ class ComponentForShowingSocialPost extends Component {
 
 				<View style={styles.postImageContainer}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.sport_image}} 
 						source={{uri: this.state.sport_image_src}} 
 						style={styles.postImage}
 					/>
@@ -547,8 +494,6 @@ class ComponentForShowingSocialPost extends Component {
 
 				<View style={styles.postImageContainer}>
 					<Image 
-						// source={utils.image}
-						// source={{uri: "data:image/jpeg;base64," + data.ad_image}} 
 						source={{uri: this.state.ad_image_src}} 
 						style={styles.postImage}
 					/>
@@ -915,22 +860,7 @@ class ComponentForShowingSocialPost extends Component {
 				}
 
 			})()}
-{/*				
-				<Text>
-					{ data.video_thumbnail_image }
-				</Text>
-				<Text>
-					{ data.total_likes }
-				</Text>
-				<Text>
-					{ data.total_shares }
-				</Text>
-				<Text>
-					{ data.endpoint }
-				</Text>
-				<Text>
-					{ data.date_of_publishing }
-				</Text>*/}
+
 			</View>
 		);
 	}
@@ -989,7 +919,7 @@ const styles = StyleSheet.create({
 	postTextContainer:{
 		paddingLeft:20,
 		// flex:4,
-		width:'80%',
+		width:'95%',
 		margin:'auto',
 		// backgroundColor: '#000000'
 	},

@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
 		borderColor:utils.mediumGrey,
 		// backgroundColor: utils.darkGrey,
 		borderWidth:2,
-		paddingLeft:windowWidth * 0.17,
+		paddingLeft:windowWidth * 0.1,
 		fontWeight: 'bold',
 		opacity: 0.5,
 	},
@@ -351,6 +351,7 @@ const styles = StyleSheet.create({
 		// position:'absolute',
 		// top:windowHeight * 0.073,
 		// right: windowWidth * 0.06,
+		backgroundColor: utils.maroonColor,
 		marginTop:50,
 		alignSelf: 'center',
 		justifyContent: 'center',
@@ -359,7 +360,6 @@ const styles = StyleSheet.create({
 		// alignItems: 'center',
 		// justifyContent: 'center',
 		// alignSelf:'center',
-		backgroundColor: 'black',
 		borderRadius: windowWidth * 1/2
 	},
 	innerText:{

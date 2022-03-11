@@ -75,6 +75,20 @@ class SocialPostCard extends Component {
 		}	
 
 	}
+	removeDuplicateComments(comments) {
+		let all_comments = []
+		let current_comments = comments
+		current_comments.map((comment, index) => {
+			let { user_name, comment_text } = comment
+			if (!all_comments.includes(`${user_name}${comment_text}`)){
+				all_comments.push(`${user_name}${comment_text}`)
+			} else {
+				current_comments.splice(index)
+			}
+		})
+		return comments
+		
+	}
 
 	fetchAllComment(endpoint) {
 
@@ -86,7 +100,7 @@ class SocialPostCard extends Component {
 			    }
 			})
 		.then((response) => {
-			this.setState( prev => ({...prev, comments: ( prev.comments.length === 0 ) ? response.data : [] }) )
+			this.setState( prev => ({...prev, comments: ( prev.comments.length === 0 ) ? this.removeDuplicateComments(response.data) : [] }) )
 		})
 		.catch((error) => {
 			console.log(error);

@@ -89,6 +89,7 @@ class CreateSport extends Component {
 							// onChangeText={ () => null }
 							// value='dummy'
 							// autoFocus=true
+							value={this.state.sport_name}
 							onChangeText={ (value) => this.setState( prev => ({...prev, sport_name: value})) }
 						/>
 				  	</View>
@@ -106,6 +107,7 @@ class CreateSport extends Component {
 							// onChangeText={ () => null }
 							// value='dummy'
 							// autoFocus=true
+							value={this.state.sport_description}
 							onChangeText={ (value) => this.setState( prev => ({...prev, sport_description: value})) }
 						/>
 				  	</View>
@@ -119,6 +121,7 @@ class CreateSport extends Component {
 
 						let setResponseInCurrentSport = (arg) => this.props.set_current_sport(arg)
 						let redirectToNewSport = () => this.props.navigation.navigate('Individual_Sport')
+						let clearInput = () => this.setState({sport_name: '', sport_description: '', sport_image: ''})
 
 						const formData = new FormData()
 						if (this.state.sport_name !== ''){
@@ -133,8 +136,7 @@ class CreateSport extends Component {
 
 						axios.post(utils.baseUrl + '/sports/create-sport-with-user', formData)
 						.then(function (response) {
-							console.log(response.data) // current sport screen data
-							
+							clearInput()					
 							// set to current parent object
 							setResponseInCurrentSport(response.data.new_sport)
 
@@ -203,7 +205,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		// alignSelf:'center',
-		backgroundColor: 'black',
+		backgroundColor: utils.maroonColor,
 		// borderRadius: windowWidth * 1/2
 	},
 	innerText:{
