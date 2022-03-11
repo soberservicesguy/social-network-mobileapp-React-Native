@@ -36,8 +36,7 @@ class ComponentForShowingSport extends Component {
 
 	render() {
 
-		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
-		// let data = {}
+		const data = this.props.dataPayloadFromParent
 		var base64Image = "data:image/jpeg;base64," + data.sport_image
 
 
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
 
 	imageStyle:{
 		alignSelf:'center',
-		resizeMode: "stretch",
+		resizeMode: "cover",
 		height: windowHeight * 0.25,
 		width: windowWidth * 0.5,
 		borderRadius: windowWidth * 0.5

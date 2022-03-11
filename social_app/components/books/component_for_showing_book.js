@@ -36,7 +36,6 @@ class ComponentForShowingBook extends Component {
 
 
 		if (prevProps.getIndividualImage === false && this.props.getIndividualImage === true){
-			console.log('getting image')
 			this.getImage()
 
 		}
@@ -68,12 +67,8 @@ class ComponentForShowingBook extends Component {
 
 	render() {
 
-		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
-		// let data = {}
+		const data = this.props.dataPayloadFromParent
 		
-		console.log('Object.keys(data)')
-		console.log(Object.keys(data))
-
 		var base64Image = "data:image/jpeg;base64," + data.book_image
 
 		return (

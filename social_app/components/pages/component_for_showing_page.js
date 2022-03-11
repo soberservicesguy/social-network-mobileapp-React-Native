@@ -37,7 +37,6 @@ class ComponentForShowingPage extends Component {
 
 
 		if (prevProps.getIndividualImage === false && this.props.getIndividualImage === true){
-			console.log('getting image')
 			this.getImage()
 
 		}
@@ -69,8 +68,7 @@ class ComponentForShowingPage extends Component {
 
 	render() {
 
-		const data = this.props.dataPayloadFromParent // data being plugged from parent flatlist
-		// let data = {}
+		const data = this.props.dataPayloadFromParent
 		var base64Image = "data:image/jpeg;base64," + data.page_image
 
 		return (

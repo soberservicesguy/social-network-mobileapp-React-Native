@@ -119,8 +119,7 @@ class CreateSocialPost extends Component {
 						// caretHidden=true
 						// multiline=true
 						// numberOfLines=3
-						// onChangeText={ () => null }
-						// value='dummy'
+						value={this.state.post_text}
 						// autoFocus=true
 						onChangeText={ (value) => this.setState( prev => ({...prev, post_text: value})) }
 					/>
@@ -134,6 +133,7 @@ class CreateSocialPost extends Component {
 
 						let setResponseInCurrentSocialPost = (arg) => this.props.set_current_socialpost(arg)
 						let redirectToNewSocialPost = () => this.props.navigation.navigate('Individual_SocialPost'/*, {itemId: 86, otherParam: 'anything you want here',}*/)
+						let clearInput = () => this.setState( prev => ({...prev, post_text: '', image_upload: '', video_upload: ''}))
 						let user_name_in_profile = this.props.user_name_in_profile
 						let formData = new FormData()
 
@@ -150,7 +150,7 @@ class CreateSocialPost extends Component {
 
 						axios.post(utils.baseUrl + '/socialposts/create-socialpost-with-user', formData)
 						.then(function (response) {
-							console.log({response: response.data}) // current socialpost screen data
+							clearInput()
 							
 							// set to current parent object
 							setResponseInCurrentSocialPost({...response.data.new_socialpost, friends_user_name: user_name_in_profile, notification_type: 'created_post'})
@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
 		// marginBottom: windowHeight * 0.005,
 	},
 	textinput:{
+		// width: '90%',
 		// backgroundColor: '#000000',
 		// marginTop:10,
 		textAlign:'left',
@@ -204,10 +205,11 @@ const styles = StyleSheet.create({
 		// paddingBottom:17,
 		fontSize:18,
 		borderRadius:50,
-		borderColor:utils.mediumGrey,
+		borderColor:utils.maroonColor,
 		// backgroundColor: utils.darkGrey,
 		borderWidth:2,
-		paddingLeft:windowWidth * 0.17,
+		paddingLeft:windowWidth * 0.1,
+		paddingRight:windowWidth * 0.25,
 		fontWeight: 'bold',
 		opacity: 0.5,
 	},
@@ -215,7 +217,7 @@ const styles = StyleSheet.create({
 	createPostButton:{
 		// flex:1,
 		position:'absolute',
-		top:windowHeight * 0.071,
+		top:windowHeight * 0.064,
 		right: windowWidth * 0.06,
 		width: windowWidth * 0.21,
 		height: windowHeight * 0.055,

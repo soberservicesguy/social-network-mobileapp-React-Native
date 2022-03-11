@@ -87,6 +87,7 @@ class CreateBook extends Component {
 							// onChangeText={ () => null }
 							// value='dummy'
 							// autoFocus=true
+							value={this.state.book_name}
 							onChangeText={ (value) => this.setState( prev => ({...prev, book_name: value})) }
 						/>
 				  	</View>
@@ -105,6 +106,7 @@ class CreateBook extends Component {
 							// onChangeText={ () => null }
 							// value='dummy'
 							// autoFocus=true
+							value={this.state.book_description}
 							onChangeText={ (value) => this.setState( prev => ({...prev, book_description: value})) }
 						/>
 				  	</View>
@@ -117,6 +119,7 @@ class CreateBook extends Component {
 					onPress={ () => {
 						let setResponseInCurrentBook = (arg) => this.props.set_current_book(arg)
 						let redirectToNewBook = () => this.props.navigation.navigate('Individual_Book')
+						let clearInput = () => this.setState({book_name: '',book_description: '', book_image: ''})
 
 						const formData = new FormData()
 						if (this.state.book_name !== ''){
@@ -131,8 +134,7 @@ class CreateBook extends Component {
 
 						axios.post(utils.baseUrl + '/books/create-book-with-user', formData)
 						.then(function (response) {
-							console.log(response.data) // current book screen data
-							
+							clearInput()
 							// set to current parent object
 							setResponseInCurrentBook(response.data.new_book)
 
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		// alignSelf:'center',
-		backgroundColor: 'black',
+		backgroundColor: utils.maroonColor,
 		// borderRadius: windowWidth * 1/2
 	},
 	innerText:{

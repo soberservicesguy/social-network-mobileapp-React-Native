@@ -45,24 +45,6 @@ class LoginScreen extends Component {
 
 	}
 
-	make_request_to_protected_route(){
-
-		axios.get(utils.baseUrl + '/users/protected')
-		.then(function (response) {
-			if (response.data.success === true){
-
-				console.log(response.data)
-
-			} else {
-				console.log(response.data)
-				console.log('not authorized')
-			}
-
-		})
-		.catch(function (error) {
-			// console.log(error);
-		});	
-	}
 
 	login_and_get_jwt_token_and_privileges(){
 
@@ -75,11 +57,6 @@ class LoginScreen extends Component {
 		let set_user_name_in_profile_callback = (response) => this.props.set_user_name_in_profile( response.data.user_details.user_name_in_profile )
 		let set_user_avatar_image_callback = (response) => this.props.set_user_avatar_image( response.data.user_details.user_avatar_image )
 		let set_user_cover_image_callback = (response) => this.props.set_user_cover_image( response.data.user_details.user_cover_image )
-		// let set_user_brief_intro_callback = (response) => this.props.set_user_brief_intro( response.data.user_details.user_brief_intro )
-		// let set_user_about_me_callback = (response) => this.props.set_user_about_me( response.data.user_details.user_about_me )
-		// let set_user_working_zone_callback = (response) => this.props.set_user_working_zone( response.data.user_details.user_working_zone )
-		// let set_user_education_callback = (response) => this.props.set_user_education( response.data.user_details.user_education )
-		// let set_user_contact_details_callback = (response) => this.props.set_user_contact_details( response.data.user_details.user_contact_details )
 
 		axios.post(utils.baseUrl + '/users/login', 
 			{
@@ -89,21 +66,13 @@ class LoginScreen extends Component {
 		)
 		.then(function (response) {
 			if (response.data.success === true){
-				console.log(response.data)
 				axios.defaults.headers.common['Authorization'] = response.data.token				
-				// verify_privilege_callack(response)
 				set_phone_number_callback()
 				set_user_name_in_profile_callback(response)
 				set_user_avatar_image_callback(response)
 				set_user_cover_image_callback(response)
 				set_total_friends_callback(response)
 				set_signed_in_callback()
-				// set_user_brief_intro_callback(response)
-				// set_user_about_me_callback(response)
-				// set_user_working_zone_callback(response)
-				// set_user_education_callback(response)
-				// set_user_contact_details_callback(response)
-				
 			} else {
 				console.log('couldnt login')
 			}
@@ -208,12 +177,6 @@ class LoginScreen extends Component {
 
 						</View>
 
-		{/*				<Button 
-							title={'LOGOUT'}
-							style={styles.lowerButton} activeOpacity={0.2}
-							onPress={ () => this.logout_and_remove_jwt_token() }
-						/>
-		*/}
 					</View>
 				</ImageBackground>
 			</KeyboardAwareScrollView>

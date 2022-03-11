@@ -56,28 +56,22 @@ class SocialPostScreen extends Component {
 
 			get_individual_image:false,
 
+			no_more_posts: 0,
+			make_requests: true,
+
 		}	
 	}
 
 	componentDidMount() {
 		this._unsubscribeFocus = this.props.navigation.addListener('focus', () => {
-			// below will be executed when user enters this screen
-			console.log('screen_payload')
-			console.log(this.state.screen_payload)
-
 			this.setUpScreen()
-			// const payload_from_previous_screen = this.props.navigation
-			// let { id } = payload_from_previous_screen
 		});
 
 		this._unsubscribeBlur = this.props.navigation.addListener('blur', () => {
-			// below will be executed when user leaves this screen
-			console.log('I AM UNMOUNTED')
-			console.log('I AM UNMOUNTED')
-			console.log('I AM UNMOUNTED')
-
-			// const payload_from_previous_screen = this.props.navigation
-			// let { id } = payload_from_previous_screen
+			this.setState({
+				no_more_posts: 0,
+				make_requests: true,
+			})
 		});
 
 	}
@@ -94,34 +88,42 @@ class SocialPostScreen extends Component {
 		let append_socialposts_callback = (response) => this.props.async_append_fetched_socialposts(response.data)
 		let set_state_for_requests_made = () => {this.setState(prev => ({...prev, backend_requests_made: prev.backend_requests_made + 1,}));}
 
-		console.log('MAKING AXIOUS REQUEST FOR OWN POSTS')
-		axios.get(utils.baseUrl + '/socialposts/get-socialposts-of-someone',
-		{
-		    params: {
-				request_number: backend_requests_made,
-		    }
-		})
-		.then((response) => {
+		if (this.state.make_requests){
+			axios.get(utils.baseUrl + '/socialposts/get-socialposts-of-someone',
+			{
+			    params: {
+					request_number: backend_requests_made,
+			    }
+			})
+			.then((response) => {
 
-			if(response.data.length === 0){
+				if(response.data.length === 0){
 
-				console.log('no more posts to show')
-				append_socialposts_callback({data: [{message:'no more posts to show'}]})
+					this.setState(prev => {
+						return ({...prev, no_more_posts: prev.no_more_posts + 1})
+					},
+						() => {
+							if (this.state.no_more_posts > 1){
+								this.setState({make_requests: false})
+							} else {
+								append_socialposts_callback({data: [{message:'no more posts to show'}]})
+							}
+						}
+					)
 
-			} else {
+				} else {
 
-				console.log('posts recieved')
-				console.log(response.data.length)
-				append_socialposts_callback(response)
-				set_state_for_requests_made()
-		    	this.setState({ get_individual_image: true })
+					append_socialposts_callback(response)
+					set_state_for_requests_made()
+			    	this.setState({ get_individual_image: true })
 
-			}
-			
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+				}
+				
+			})
+			.catch((error) => {
+				console.log(error);
+			})			
+		}
 
 	}
 
@@ -133,48 +135,50 @@ class SocialPostScreen extends Component {
 			this.setState(prev => ({...prev, backend_requests_made: prev.backend_requests_made + 1,}));
 		}
 
-		console.log('MAKING REQUEST FOR FRIENDS POSTS')
-		axios.get(utils.baseUrl + '/socialposts/get-socialposts-from-friends',
-		{
-		    params: {
-				request_number: backend_requests_made,
-		    }
-		})
-		.then((response) => {
+		if (this.state.make_requests){
+			axios.get(utils.baseUrl + '/socialposts/get-socialposts-from-friends',
+			{
+			    params: {
+					request_number: backend_requests_made,
+			    }
+			})
+			.then((response) => {
 
-			if(response.data.length === 0){
+				if(response.data.length === 0){
 
-				console.log('no more posts to show')
-				append_socialposts_callback({data: [{message:'no more posts to show'}]})
+					this.setState(prev => {
+						return ({...prev, no_more_posts: prev.no_more_posts + 1})
+					},
+						() => {
+							if (this.state.no_more_posts > 1){
+								this.setState({make_requests: false})
+							} else {
+								append_socialposts_callback({data: [{message:'no more posts to show'}]})
+							}
+						}
+					)
 
-			} else {
 
-				console.log('posts recieved')
-				// console.log(response.data)
-				response.data.map((post) => {
-					console.log(Object.keys(post))
-				})
-				append_socialposts_callback(response)
-				set_state_for_requests_made()
-		    	this.setState({ get_individual_image: true })
+				} else {
 
-			}
-			
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+					append_socialposts_callback(response)
+					set_state_for_requests_made()
+			    	this.setState({ get_individual_image: true })
+
+				}
+				
+			})
+			.catch((error) => {
+				console.log(error);
+			})			
+		}
 
 
 	}
 
 	getSocialpostsOfSomeone(){
 
-		// let { id } = this.props.navigation
-
 		let id = this.props.route.params.friends_endpoint
-
-		console.log({friend_id_is: id})
 
 		let backend_requests_made = this.state.backend_requests_made
 		let append_socialposts_callback = (response) => this.props.async_append_fetched_socialposts(response.data)
@@ -182,46 +186,48 @@ class SocialPostScreen extends Component {
 			this.setState(prev => ({...prev, backend_requests_made: prev.backend_requests_made + 1,}));
 		}
 
-		axios.get(utils.baseUrl + '/socialposts/get-socialposts-of-someone',
-		{
-		    params: {
-				request_number: backend_requests_made,
-				user_id: id,
-		    }
-		})
-		.then((response) => {
+		if (this.state.make_requests){
+			axios.get(utils.baseUrl + '/socialposts/get-socialposts-of-someone',
+			{
+			    params: {
+					request_number: backend_requests_made,
+					user_id: id,
+			    }
+			})
+			.then((response) => {
 
-			if(response.data.length === 0){
+				if(response.data.length === 0){
+					this.setState(prev => {
+						return ({...prev, no_more_posts: prev.no_more_posts + 1})
+					},
+						() => {
+							if (this.state.no_more_posts > 1){
+								this.setState({make_requests: false})
+							} else {
+								append_socialposts_callback({data: [{message:'no more posts to show'}]})
+							}
+						}
+					)
 
-				console.log('no more posts to show')
-				append_socialposts_callback({data: [{message:'no more posts to show'}]})
+				} else {
 
-			} else {
+					append_socialposts_callback(response)
+					set_state_for_requests_made()
+			    	this.setState({ get_individual_image: true })
 
-				console.log('posts recieved')
-				// console.log(response.data)
-				response.data.map((post) => {
-					console.log(Object.keys(post))
-				})
-				append_socialposts_callback(response)
-				set_state_for_requests_made()
-		    	this.setState({ get_individual_image: true })
-
-			}
-			
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+				}
+				
+			})
+			.catch((error) => {
+				console.log(error);
+			})			
+		}
 
 	}
 
 
 	getUserDetails(id){
 	
-		console.log('GETTING USER DETAILS')
-
-		// let { id } = this.props.navigation
 		let set_state_callback = (response) => {
 			this.setState(prev => ({...prev, 
 				user_cover_image: response.data.user_cover_image,
@@ -250,14 +256,7 @@ class SocialPostScreen extends Component {
 
 	setUpScreen(){
 
-		console.log('EXECUTING SETUP')
-
-		console.log('this.state.user_cover_image in beginning')
-		console.log(this.props.user_cover_image)
-
 		let payload_from_previous_screen = this.props.route.params
-		console.log('payload_from_previous_screen')
-		console.log(payload_from_previous_screen)
 
 		if (typeof payload_from_previous_screen !== 'undefined'){
 
@@ -265,9 +264,6 @@ class SocialPostScreen extends Component {
 
 
 			if (payload_from_previous_screen.showOwnWallInstead){
-				console.log('USING SCREEN FOR FETCHING OWN POSTS')
-				// console.log('this.props.user_name_in_profile')
-				// console.log(this.props.user_name_in_profile)
 				this.props.set_fetched_socialposts([])
 				this.setState(prev => ({...prev, showOwnWallInstead: true }) )
 				this.props.navigation.setOptions({title: this.props.user_name_in_profile,})
@@ -278,66 +274,21 @@ class SocialPostScreen extends Component {
 					user_cover_image: this.props.user_cover_image,
 					user_name_in_profile: this.props.user_name_in_profile,
 				}))
-				// dummy objects as fetched socialposts
-					// this.props.set_fetched_socialposts([
-					// 	{ type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
-					// 	{ type_of_post:'dummy2', post_text:'dummy2', image_for_post:'dummy2', video_for_post:'dummy2', video_thumbnail_image:'dummy2', total_likes:'dummy2', total_shares:'dummy2', endpoint:'dummy2', date_of_publishing:'dummy2',},
-					// 	{ type_of_post:'dummy3', post_text:'dummy3', image_for_post:'dummy3', video_for_post:'dummy3', video_thumbnail_image:'dummy3', total_likes:'dummy3', total_shares:'dummy3', endpoint:'dummy3', date_of_publishing:'dummy3',},
-					// 	{ type_of_post:'dummy4', post_text:'dummy4', image_for_post:'dummy4', video_for_post:'dummy4', video_thumbnail_image:'dummy4', total_likes:'dummy4', total_shares:'dummy4', endpoint:'dummy4', date_of_publishing:'dummy4',},
-					// 	{ type_of_post:'dummy5', post_text:'dummy5', image_for_post:'dummy5', video_for_post:'dummy5', video_thumbnail_image:'dummy5', total_likes:'dummy5', total_shares:'dummy5', endpoint:'dummy5', date_of_publishing:'dummy5',},
-					// 	{ type_of_post:'dummy6', post_text:'dummy6', image_for_post:'dummy6', video_for_post:'dummy6', video_thumbnail_image:'dummy6', total_likes:'dummy6', total_shares:'dummy6', endpoint:'dummy6', date_of_publishing:'dummy6',},
-					// 	{ type_of_post:'dummy7', post_text:'dummy7', image_for_post:'dummy7', video_for_post:'dummy7', video_thumbnail_image:'dummy7', total_likes:'dummy7', total_shares:'dummy7', endpoint:'dummy7', date_of_publishing:'dummy7',},
-					// 	{ type_of_post:'dummy8', post_text:'dummy8', image_for_post:'dummy8', video_for_post:'dummy8', video_thumbnail_image:'dummy8', total_likes:'dummy8', total_shares:'dummy8', endpoint:'dummy8', date_of_publishing:'dummy8',},
-					// 	{ type_of_post:'dummy9', post_text:'dummy9', image_for_post:'dummy9', video_for_post:'dummy9', video_thumbnail_image:'dummy9', total_likes:'dummy9', total_shares:'dummy9', endpoint:'dummy9', date_of_publishing:'dummy9',},
-					// 	{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
-					// ]) // loading with empty since it was storing all objects reaching to 200
+
 			} else if (payload_from_previous_screen.showFriendsWallInstead){
 
-				console.log('USING SCREEN FOR FETCHING FRIENDS WALL')
 				this.props.set_fetched_socialposts([])
 				this.setState(prev => ({...prev, showFriendsWallInstead: true }) )
 				this.props.navigation.setOptions({title: `Friends Wall`,})
 				this.getUserDetails(id)
 				this.getSocialpostsOfSomeone()
-				// dummy objects as fetched socialposts
-					// this.props.set_fetched_socialposts([
-					// 	{ type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
-					// 	{ type_of_post:'dummy2', post_text:'dummy2', image_for_post:'dummy2', video_for_post:'dummy2', video_thumbnail_image:'dummy2', total_likes:'dummy2', total_shares:'dummy2', endpoint:'dummy2', date_of_publishing:'dummy2',},
-					// 	{ type_of_post:'dummy3', post_text:'dummy3', image_for_post:'dummy3', video_for_post:'dummy3', video_thumbnail_image:'dummy3', total_likes:'dummy3', total_shares:'dummy3', endpoint:'dummy3', date_of_publishing:'dummy3',},
-					// 	{ type_of_post:'dummy4', post_text:'dummy4', image_for_post:'dummy4', video_for_post:'dummy4', video_thumbnail_image:'dummy4', total_likes:'dummy4', total_shares:'dummy4', endpoint:'dummy4', date_of_publishing:'dummy4',},
-					// 	{ type_of_post:'dummy5', post_text:'dummy5', image_for_post:'dummy5', video_for_post:'dummy5', video_thumbnail_image:'dummy5', total_likes:'dummy5', total_shares:'dummy5', endpoint:'dummy5', date_of_publishing:'dummy5',},
-					// 	{ type_of_post:'dummy6', post_text:'dummy6', image_for_post:'dummy6', video_for_post:'dummy6', video_thumbnail_image:'dummy6', total_likes:'dummy6', total_shares:'dummy6', endpoint:'dummy6', date_of_publishing:'dummy6',},
-					// 	{ type_of_post:'dummy7', post_text:'dummy7', image_for_post:'dummy7', video_for_post:'dummy7', video_thumbnail_image:'dummy7', total_likes:'dummy7', total_shares:'dummy7', endpoint:'dummy7', date_of_publishing:'dummy7',},
-					// 	{ type_of_post:'dummy8', post_text:'dummy8', image_for_post:'dummy8', video_for_post:'dummy8', video_thumbnail_image:'dummy8', total_likes:'dummy8', total_shares:'dummy8', endpoint:'dummy8', date_of_publishing:'dummy8',},
-					// 	{ type_of_post:'dummy9', post_text:'dummy9', image_for_post:'dummy9', video_for_post:'dummy9', video_thumbnail_image:'dummy9', total_likes:'dummy9', total_shares:'dummy9', endpoint:'dummy9', date_of_publishing:'dummy9',},
-					// 	{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
-					// ]) // loading with empty since it was storing all objects reaching to 200
 
 			} else if (payload_from_previous_screen.showNonFriendsWallInstead){ 
-				// console.log('TRIGGERED3')
-				console.log('USING SCREEN FOR NON FRIEND WALL')
 				this.props.set_fetched_socialposts([])
 				this.setState(prev => ({...prev, showNonFriendsWallInstead: true }) )
 				this.props.navigation.setOptions({title: `Not A Friends Wall`,})
 				this.getUserDetails(id)
-				// dummy objects as fetched socialposts
-					// this.props.set_fetched_socialposts([
-					// 	{ type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
-					// 	{ type_of_post:'dummy2', post_text:'dummy2', image_for_post:'dummy2', video_for_post:'dummy2', video_thumbnail_image:'dummy2', total_likes:'dummy2', total_shares:'dummy2', endpoint:'dummy2', date_of_publishing:'dummy2',},
-					// 	{ type_of_post:'dummy3', post_text:'dummy3', image_for_post:'dummy3', video_for_post:'dummy3', video_thumbnail_image:'dummy3', total_likes:'dummy3', total_shares:'dummy3', endpoint:'dummy3', date_of_publishing:'dummy3',},
-					// 	{ type_of_post:'dummy4', post_text:'dummy4', image_for_post:'dummy4', video_for_post:'dummy4', video_thumbnail_image:'dummy4', total_likes:'dummy4', total_shares:'dummy4', endpoint:'dummy4', date_of_publishing:'dummy4',},
-					// 	{ type_of_post:'dummy5', post_text:'dummy5', image_for_post:'dummy5', video_for_post:'dummy5', video_thumbnail_image:'dummy5', total_likes:'dummy5', total_shares:'dummy5', endpoint:'dummy5', date_of_publishing:'dummy5',},
-					// 	{ type_of_post:'dummy6', post_text:'dummy6', image_for_post:'dummy6', video_for_post:'dummy6', video_thumbnail_image:'dummy6', total_likes:'dummy6', total_shares:'dummy6', endpoint:'dummy6', date_of_publishing:'dummy6',},
-					// 	{ type_of_post:'dummy7', post_text:'dummy7', image_for_post:'dummy7', video_for_post:'dummy7', video_thumbnail_image:'dummy7', total_likes:'dummy7', total_shares:'dummy7', endpoint:'dummy7', date_of_publishing:'dummy7',},
-					// 	{ type_of_post:'dummy8', post_text:'dummy8', image_for_post:'dummy8', video_for_post:'dummy8', video_thumbnail_image:'dummy8', total_likes:'dummy8', total_shares:'dummy8', endpoint:'dummy8', date_of_publishing:'dummy8',},
-					// 	{ type_of_post:'dummy9', post_text:'dummy9', image_for_post:'dummy9', video_for_post:'dummy9', video_thumbnail_image:'dummy9', total_likes:'dummy9', total_shares:'dummy9', endpoint:'dummy9', date_of_publishing:'dummy9',},
-					// 	{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
-					// ]) // loading with empty since it was storing all objects reaching to 200
 			} else {
-				// console.log('TRIGGERED4')
-				// console.log('this.props.user_name_in_profile')
-				// console.log(this.props.user_name_in_profile)
-				console.log('USING SCREEN FOR FETCHING FRIENDS POSTS')
 				this.props.set_fetched_socialposts([])
 				this.setState(prev => ({...prev, showFriendsSocialposts: true }) )
 				this.props.navigation.setOptions({title: this.props.user_name_in_profile,})
@@ -352,10 +303,6 @@ class SocialPostScreen extends Component {
 
 		} else {
 
-			// console.log('TRIGGERED4')
-			// console.log('this.props.user_name_in_profile')
-			// console.log(this.props.user_name_in_profile)
-			console.log('USING SCREEN FOR FETCHING FRIENDS POSTS')
 			this.props.set_fetched_socialposts([])
 			this.setState(prev => ({...prev, showFriendsSocialposts: true }) )
 			this.props.navigation.setOptions({title: this.props.user_name_in_profile,})				
@@ -386,32 +333,10 @@ class SocialPostScreen extends Component {
 		const total_socialposts = this.props.total_socialposts
 
 		const payload_from_previous_screen = this.props.navigation		
-		// console.log(payload_from_previous_screen)
 
 		var base64Image
 		base64Image = "data:image/jpeg;base64," + this.state.user_cover_image
-		// console.log('base64Image')
-		// console.log(base64Image)
 
-		// if (this.state.showOwnWallInstead){
-
-		// 	base64Image = "data:image/jpeg;base64," + this.props.user_cover_image
-
-		// } else if (this.state.showFriendsWallInstead || this.state.showNonFriendsWallInstead){
-
-		// 	base64Image = "data:image/jpeg;base64," + this.state.user_cover_image
-
-		// } else {
-
-		// 	base64Image = "data:image/jpeg;base64," + this.props.user_cover_image
-
-		// }
-
-
-		// console.log('total_socialposts.length')
-		// console.log(total_socialposts.length)
-
-		// console.log({showOwnWallInstead: this.state.showOwnWallInstead})
 		return (
 
 			<SafeAreaView>
@@ -419,63 +344,19 @@ class SocialPostScreen extends Component {
 
 					if ( this.isScrollingCloseToBottom(nativeEvent) ){
 						
-						console.log('end reached')
-						
 						if (this.state.showOwnWallInstead){
-							console.log('getting more posts')
 							this.getOwnSocialposts()
-							// this.getOwnSocialposts()
-						// dummy
-							// this.props.async_append_fetched_socialposts([
-							// 	{ type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
-							// 	{ type_of_post:'dummy2', post_text:'dummy2', image_for_post:'dummy2', video_for_post:'dummy2', video_thumbnail_image:'dummy2', total_likes:'dummy2', total_shares:'dummy2', endpoint:'dummy2', date_of_publishing:'dummy2',},
-							// 	{ type_of_post:'dummy3', post_text:'dummy3', image_for_post:'dummy3', video_for_post:'dummy3', video_thumbnail_image:'dummy3', total_likes:'dummy3', total_shares:'dummy3', endpoint:'dummy3', date_of_publishing:'dummy3',},
-							// 	{ type_of_post:'dummy4', post_text:'dummy4', image_for_post:'dummy4', video_for_post:'dummy4', video_thumbnail_image:'dummy4', total_likes:'dummy4', total_shares:'dummy4', endpoint:'dummy4', date_of_publishing:'dummy4',},
-							// 	{ type_of_post:'dummy5', post_text:'dummy5', image_for_post:'dummy5', video_for_post:'dummy5', video_thumbnail_image:'dummy5', total_likes:'dummy5', total_shares:'dummy5', endpoint:'dummy5', date_of_publishing:'dummy5',},
-							// 	{ type_of_post:'dummy6', post_text:'dummy6', image_for_post:'dummy6', video_for_post:'dummy6', video_thumbnail_image:'dummy6', total_likes:'dummy6', total_shares:'dummy6', endpoint:'dummy6', date_of_publishing:'dummy6',},
-							// 	{ type_of_post:'dummy7', post_text:'dummy7', image_for_post:'dummy7', video_for_post:'dummy7', video_thumbnail_image:'dummy7', total_likes:'dummy7', total_shares:'dummy7', endpoint:'dummy7', date_of_publishing:'dummy7',},
-							// 	{ type_of_post:'dummy8', post_text:'dummy8', image_for_post:'dummy8', video_for_post:'dummy8', video_thumbnail_image:'dummy8', total_likes:'dummy8', total_shares:'dummy8', endpoint:'dummy8', date_of_publishing:'dummy8',},
-							// 	{ type_of_post:'dummy9', post_text:'dummy9', image_for_post:'dummy9', video_for_post:'dummy9', video_thumbnail_image:'dummy9', total_likes:'dummy9', total_shares:'dummy9', endpoint:'dummy9', date_of_publishing:'dummy9',},
-							// 	{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
-							// ]) // loading with empty since it was storing all objects reaching to 200
 
 						} else if (this.state.showFriendsWallInstead){
-							console.log('getting more posts')
+
 							this.getSocialpostsOfSomeone()
-							// this.getSocialpostsOfSomeone()
-						// dummy
-							// this.props.async_append_fetched_socialposts([
-							// 	{ type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
-							// 	{ type_of_post:'dummy2', post_text:'dummy2', image_for_post:'dummy2', video_for_post:'dummy2', video_thumbnail_image:'dummy2', total_likes:'dummy2', total_shares:'dummy2', endpoint:'dummy2', date_of_publishing:'dummy2',},
-							// 	{ type_of_post:'dummy3', post_text:'dummy3', image_for_post:'dummy3', video_for_post:'dummy3', video_thumbnail_image:'dummy3', total_likes:'dummy3', total_shares:'dummy3', endpoint:'dummy3', date_of_publishing:'dummy3',},
-							// 	{ type_of_post:'dummy4', post_text:'dummy4', image_for_post:'dummy4', video_for_post:'dummy4', video_thumbnail_image:'dummy4', total_likes:'dummy4', total_shares:'dummy4', endpoint:'dummy4', date_of_publishing:'dummy4',},
-							// 	{ type_of_post:'dummy5', post_text:'dummy5', image_for_post:'dummy5', video_for_post:'dummy5', video_thumbnail_image:'dummy5', total_likes:'dummy5', total_shares:'dummy5', endpoint:'dummy5', date_of_publishing:'dummy5',},
-							// 	{ type_of_post:'dummy6', post_text:'dummy6', image_for_post:'dummy6', video_for_post:'dummy6', video_thumbnail_image:'dummy6', total_likes:'dummy6', total_shares:'dummy6', endpoint:'dummy6', date_of_publishing:'dummy6',},
-							// 	{ type_of_post:'dummy7', post_text:'dummy7', image_for_post:'dummy7', video_for_post:'dummy7', video_thumbnail_image:'dummy7', total_likes:'dummy7', total_shares:'dummy7', endpoint:'dummy7', date_of_publishing:'dummy7',},
-							// 	{ type_of_post:'dummy8', post_text:'dummy8', image_for_post:'dummy8', video_for_post:'dummy8', video_thumbnail_image:'dummy8', total_likes:'dummy8', total_shares:'dummy8', endpoint:'dummy8', date_of_publishing:'dummy8',},
-							// 	{ type_of_post:'dummy9', post_text:'dummy9', image_for_post:'dummy9', video_for_post:'dummy9', video_thumbnail_image:'dummy9', total_likes:'dummy9', total_shares:'dummy9', endpoint:'dummy9', date_of_publishing:'dummy9',},
-							// 	{  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
-							// ]) // loading with empty since it was storing all objects reaching to 200
+
 						} else if (this.state.showFriendsSocialposts){
-							console.log('getting more posts')
+
 							this.getFriendsSocialposts()
-							// this.getSocialpostsOfSomeone()
-						// dummy
-							this.props.async_append_fetched_socialposts([
-								// { type_of_post:'dummy1', post_text:'dummy1', image_for_post:'dummy1', video_for_post:'dummy1', video_thumbnail_image:'dummy1', total_likes:'dummy1', total_shares:'dummy1', endpoint:'dummy1', date_of_publishing:'dummy1',},
-								// { type_of_post:'dummy2', post_text:'dummy2', image_for_post:'dummy2', video_for_post:'dummy2', video_thumbnail_image:'dummy2', total_likes:'dummy2', total_shares:'dummy2', endpoint:'dummy2', date_of_publishing:'dummy2',},
-								// { type_of_post:'dummy3', post_text:'dummy3', image_for_post:'dummy3', video_for_post:'dummy3', video_thumbnail_image:'dummy3', total_likes:'dummy3', total_shares:'dummy3', endpoint:'dummy3', date_of_publishing:'dummy3',},
-								// { type_of_post:'dummy4', post_text:'dummy4', image_for_post:'dummy4', video_for_post:'dummy4', video_thumbnail_image:'dummy4', total_likes:'dummy4', total_shares:'dummy4', endpoint:'dummy4', date_of_publishing:'dummy4',},
-								// { type_of_post:'dummy5', post_text:'dummy5', image_for_post:'dummy5', video_for_post:'dummy5', video_thumbnail_image:'dummy5', total_likes:'dummy5', total_shares:'dummy5', endpoint:'dummy5', date_of_publishing:'dummy5',},
-								// { type_of_post:'dummy6', post_text:'dummy6', image_for_post:'dummy6', video_for_post:'dummy6', video_thumbnail_image:'dummy6', total_likes:'dummy6', total_shares:'dummy6', endpoint:'dummy6', date_of_publishing:'dummy6',},
-								// { type_of_post:'dummy7', post_text:'dummy7', image_for_post:'dummy7', video_for_post:'dummy7', video_thumbnail_image:'dummy7', total_likes:'dummy7', total_shares:'dummy7', endpoint:'dummy7', date_of_publishing:'dummy7',},
-								// { type_of_post:'dummy8', post_text:'dummy8', image_for_post:'dummy8', video_for_post:'dummy8', video_thumbnail_image:'dummy8', total_likes:'dummy8', total_shares:'dummy8', endpoint:'dummy8', date_of_publishing:'dummy8',},
-								// { type_of_post:'dummy9', post_text:'dummy9', image_for_post:'dummy9', video_for_post:'dummy9', video_thumbnail_image:'dummy9', total_likes:'dummy9', total_shares:'dummy9', endpoint:'dummy9', date_of_publishing:'dummy9',},
-								// {  type_of_post:'dummy10', post_text:'dummy10', image_for_post:'dummy10', video_for_post:'dummy10', video_thumbnail_image:'dummy10', total_likes:'dummy10', total_shares:'dummy10', endpoint:'dummy10', date_of_publishing:'dummy10',},
-							]) // loading with empty since it was storing all objects reaching to 200
+							this.props.async_append_fetched_socialposts([])
 
 						} else {
-							console.log('getting more posts')
 							this.getFriendsSocialposts()			
 						}
 					}
@@ -489,8 +370,6 @@ class SocialPostScreen extends Component {
 						<View style={styles.headerContainer}>
 							<ImageBackground 
 								source={{uri: base64Image}} 
-								// source={utils.image}
-
 								style={styles.bgImage}
 							>
 								<Text style={styles.headerText}>
@@ -525,13 +404,10 @@ class SocialPostScreen extends Component {
 										return (<View style={styles.sendFriendRequestContainer}>
 											
 											<Icon
-												// raised
 												name={utils.becameFriendsIcon}
 												type='font-awesome'
 												color='#f50'
 												size={20}
-												// onPress={() => console.log('hello')} 
-												// reverse={true}
 											/>
 											
 											<View style={{width:windowWidth*0.2}}>
@@ -545,13 +421,10 @@ class SocialPostScreen extends Component {
 
 										return (<View style={styles.unFriendRequestContainer}>
 											<Icon
-												// raised
 												name={utils.unfriendIcon}
 												type='font-awesome'
 												color='#f50'
 												size={20}
-												// onPress={() => console.log('hello')} 
-												// reverse={true}
 											/>
 											<View style={{width:windowWidth*0.2}}>
 												<Text style={styles.unFriendText}>
@@ -603,8 +476,6 @@ class SocialPostScreen extends Component {
 					  	  			data={total_socialposts}
 					  				renderItem={
 					  					({ item }) => {
-					  						// console.log({friends_user_avatar_image: item.friends_user_avatar_image})
-					  						// console.log(Object.keys(item))
 					  						return(
 												<ConnectedSocialPostCard
 													useAvatarDirect = {true}
@@ -621,11 +492,6 @@ class SocialPostScreen extends Component {
 
 													shares_quantity = { item.total_shares }
 													shares = { item.shares || [] }
-
-												 // not needed
-													// showOwnWallInstead = {this.state.showOwnWallInstead}
-													// showFriendsWallInstead = {this.state.showFriendsWallInstead}
-													// showNonFriendsWallInstead = {this.state.showNonFriendsWallInstead}
 												
 												/>
 											)
@@ -653,22 +519,6 @@ SocialPostScreen.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-	// screenContainer:{
-	// 	// flex:1,
-	// 	// display:'flex',
-	// 	alignItems: 'center', // horizontally centered
-	// 	justifyContent: 'space-between', 
-	// },
-	// somethingContainer:{
-	// 	marginTop: windowHeight * 0.05, // or 30  gap
-	// 	height: windowHeight * 0.1, // or 100
-	// 	width: '80%',
-	// 	justifyContent: 'center', // vertically centered
-	// 	alignSelf: 'center', // horizontally centered
-	// 	// backgroundColor: utils.lightGreen,
-	// },
-
-
 	headerContainer:{
 		alignItems: 'center',
 		height: windowHeight * 0.5,
@@ -678,6 +528,7 @@ const styles = StyleSheet.create({
 
 	},
 	headerText:{
+		color: utils.maroonColor,
 		fontWeight:'bold',
 		fontSize:20,
 		position:'absolute',

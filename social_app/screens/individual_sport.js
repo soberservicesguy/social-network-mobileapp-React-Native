@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
 		// left:windowWidth * 0.05,
 	},
 	bgImage:{
-		resizeMode: "stretch",
+		resizeMode: "cover",
 		height: windowWidth * 0.9,
 		width: windowWidth * 0.9,
 		borderRadius: windowWidth * 1/2
